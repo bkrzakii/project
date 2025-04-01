@@ -9,7 +9,12 @@ body {
     text-decoration: none;
     list-style: none;
 }
-
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
 .background {
     background-image: url(/pics/homePics1.jpg);
     background-size: cover;

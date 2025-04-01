@@ -52,12 +52,13 @@ h2 {
     background: #C2C3E2ff;
     padding: 30px;
     border-radius: 15px;
-    width: 250px;
+    width: 300px;
     height: 200px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    user-select: none;
 }
 
 /* Image */
