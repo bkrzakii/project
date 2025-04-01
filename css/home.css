@@ -1,0 +1,150 @@
+
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+.background {
+    background-image: url(/pics/homePics1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment:local; 
+    background-repeat: no-repeat; 
+    height: 100vh;
+    padding: 5;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    align-items: center;
+    background: transparent;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
+    padding: 0px 30px;
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #4753C4ff;
+    font-weight: bold;
+    padding: 5px 15px;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    transform: scale(1.1);
+    background: #6a5acd;
+    color: white;
+    border-radius: 50px;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 70px;
+    margin-right: 60%;
+    background: none;
+}
+
+.content h1 {
+    font-size: 70px;
+    font-weight: bold;
+    color: #6a5acd;
+    margin-bottom: 0;
+}
+
+.content h3 {
+    color: #231740ff;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.content p {
+    max-width: 400px;
+    line-height: 1.6;
+    margin-right: 40px;
+    color: #231740ff;
+}
+
+button {
+    width: 50%;
+    height: 48px;
+    background: #3E40AEff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #FCFCFAff;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #2E3092;
+}
+
+.image img {
+    max-width: 400px;
+}
+
+/* 🔹 Tablet Screens (Width: 768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .hero {
+        flex-direction: column; /* Stack items vertically */
+        text-align: center;
+        padding: 50px;
+    }
+
+    .content h1 {
+        font-size: 50px; /* Reduce heading size */
+    }
+
+    .content p {
+        max-width: 80%; /* Allow text to take more space */
+    }
+
+    .image img {
+        max-width: 80%;
+        margin-top: 20px;
+    }
+}
+
+
+/* Styling for scrollable content */
+.extra-content {
+    padding: 20px;
+    height: 1500px; /* Large height to enable scrolling */
+    background: linear-gradient(to bottom, #f5f5f5, #ddd);
+}

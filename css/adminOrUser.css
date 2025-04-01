@@ -1,0 +1,130 @@
+/* Styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+/* Mise en page */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #FCFCFA, #C2C3E2);
+}
+
+/* Conteneur principal */
+.container {
+    width: 850px;
+    height: 550px;
+    padding: 90px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    margin: 100px;
+    overflow: hidden;
+}
+
+/* Titre */
+h2 {
+    color: #3E40AE;
+    margin-bottom: 25px;
+    font-size: 60px;
+}
+
+/* Section des rôles */
+.roles {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
+/* Cartes des rôles */
+.role-box {
+    background: #C2C3E2ff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 250px;
+    height: 200px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+
+/* Image */
+.role-box img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+/* Texte des rôles */
+.role-box h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3E40AE;
+}
+.role-box p {
+    font-size: 14px;
+    word-wrap: break-word;
+    color: #392761ff;
+}
+
+/* Effet au survol et sélection */
+.role-box:hover, .role-box.selected {
+    transform: scale(1.1);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    background: #3E40AE;
+    color: white;
+}
+.role-box:hover h3, .role-box.selected h3 {
+    color: white;
+}
+
+.role-box:hover p, .role-box.selected p {
+    color: white;
+}
+/* Bouton Continue */
+.btn {
+    width: 100%;
+    padding: 14px;
+    background: #3E40AE;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #2E3092;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 30px;
+    }
+    
+    .roles {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .role-box {
+        width: 100%;
+        height: auto;
+    }
+}
