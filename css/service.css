@@ -142,19 +142,51 @@ input:hover, input:focus {
     background: #FBFBFA;
 }
 
-/* Responsive Design */
+/* 🔹 Universal Responsive Design */
 @media (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
     header {
         flex-direction: column;
+        padding: 15px;
+        align-items: center;
+        background: linear-gradient(135deg, #392761, #5B4E93);
     }
+
     .search-bar {
-        margin: 10px 0;
+        width: 80%; /* Réduction de la largeur sur les petits écrans */
+        margin: 10px auto;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
     }
+
+    .search-bar input {
+        width: 70%; /* Réduction de la largeur de l'input */
+        padding: 6px; /* Ajustement du padding pour s'adapter */
+        font-size: 14px; /* Réduction de la taille du texte */
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
     nav ul {
         flex-direction: column;
         text-align: center;
+        gap: 10px;
     }
+
     nav ul li {
-        margin: 5px 0;
+        margin: 8px 0;
+    }
+
+    .extra-content {
+        padding: 15px;
+        font-size: 16px;
+        background: linear-gradient(135deg, #FBFBFA, #EAEAEA);
     }
 }

@@ -83,6 +83,7 @@ nav ul li a:hover, nav ul li a.active {
 .content h1 {
     font-size: 70px;
     font-weight: bold;
+    text-align:left;
     color: #6a5acd;
     margin-bottom: 0;
 }
@@ -90,6 +91,7 @@ nav ul li a:hover, nav ul li a.active {
 .content h3 {
     color: #231740ff;
     font-weight: bold;
+    text-align:left;
     font-size: 25px;
 }
 
@@ -97,7 +99,11 @@ nav ul li a:hover, nav ul li a.active {
     max-width: 400px;
     line-height: 1.6;
     margin-right: 40px;
-    color: #231740ff;
+    text-align:left;
+    margin-bottom: 20px;
+    color: #3E40AE;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 button {
@@ -121,32 +127,68 @@ button:hover {
     max-width: 400px;
 }
 
-/* 🔹 Tablet Screens (Width: 768px - 1024px) */
-@media screen and (max-width: 1024px) {
-    .hero {
-        flex-direction: column; /* Stack items vertically */
-        text-align: center;
-        padding: 50px;
-    }
-
-    .content h1 {
-        font-size: 50px; /* Reduce heading size */
-    }
-
-    .content p {
-        max-width: 80%; /* Allow text to take more space */
-    }
-
-    .image img {
-        max-width: 80%;
-        margin-top: 20px;
-    }
-}
-
-
 /* Styling for scrollable content */
 .extra-content {
     padding: 20px;
     height: 1500px; /* Large height to enable scrolling */
     background: #FBFBFA;
 }
+
+/* 🔹 Universal Responsive Design */
+@media screen and (max-width: 1024px) {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: linear-gradient(135deg, #3E40AE, #5A5AD6);
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px;
+        gap: 20px;
+    }
+
+    .content {
+        max-width: 90%;
+        margin: 50% auto;
+        padding: 20px;
+    }
+    
+    .content h1 {
+        font-size: 47px;
+        margin-bottom: 10px;
+    }
+
+    .content h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .content p {
+        max-width: 95%;
+        line-height: 1.6;
+        font-size: 16px;
+    }
+
+    .image img {
+        max-width: 85%;
+        margin-top: 15px;
+        border-radius: 10px;
+    }
+
+    button {
+        width: 70%;
+        height: 50px;
+        font-size: 15px;
+        background: #2E3092;
+        margin-right: 100%;
+    }
+}
+
+
+

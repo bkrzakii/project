@@ -69,8 +69,7 @@ hr {
     height: 2px;
     background: #392761ff;
     border: none;
-    margin: 10px 0;
-    padding: 0 20px;
+    margin: 20px 0;
 }
 
 main {
@@ -86,7 +85,7 @@ main {
 }
 
 .container {
-    width: 1000px;
+    width: 70%;
     background: white;
     padding: 30px;
     border-radius: 15px;
@@ -126,26 +125,34 @@ strong {
     font-size: 18px;
 }
 
-.form-control {
-    width: 100%;
-    padding: 16px 0px;
-    margin: 4px 0;
+.input-box {
+    width: 95%;
+    padding: 0px 10px;
+    margin: 10px auto;
     background: #C2C3E2ff;
-    border-radius: 8px;
+    border-radius: 10px;
+}
+
+.input-box:focus-within {
+    border: 2px solid #3E40AE;
+}
+
+.input,.textarea {
+    display: block;
+    width: 70%;
+    padding: 16px 0px;
+    margin: auto 20px;
+    background: #C2C3E2ff;
     border: none;
     outline: none;
     font-size: 16px;
     color: #392761ff;
-    font-weight: 500;
 }
-.form-control:focus {
-    border: 2px solid #3E40AE;
-}
-.form-control::placeholder {
+
+.input::placeholder,textarea::placeholder {
     color: #392761;
     font-weight: 400;
     font-family: "Poppins", sans-serif;
-    padding: 20px;
 }
 
 .btn {
@@ -156,9 +163,11 @@ strong {
     font-size: 20px;
     font-weight: bold;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
     cursor: pointer;
     transition: 0.3s;
+    display: block;
+    margin: 0px auto;
 }
 
 .btn:hover {
@@ -172,9 +181,10 @@ strong {
 }
 
 .social-icons a{
+    text-decoration: none;
     display: inline-flex;
     padding: 10px 10px;
-    border: 2px solid #C2C3E2ff;
+    border: 2px solid #392761ff;
     border-radius: 40px;
     font-size: 40px;
     color: #392761ff;
@@ -210,24 +220,46 @@ strong {
     color: #231740;
 }
 
-/* 🔹 Tablet Screens (Width: 768px - 1024px) */
+/* 🔹 Universal Responsive Design */
 @media screen and (max-width: 1024px) {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: linear-gradient(135deg, #6a5acd, #836fff);
+    }
+
     .main {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;
         text-align: center;
-        padding: 50px;
+        padding: 40px;
+        align-items: center;
+    }
+
+    .container {
+        width: 95%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
     }
 
     .content h1 {
-        font-size: 50px; /* Reduce heading size */
+        font-size: 42px;
+        margin-bottom: 10px;
     }
 
     .content p {
-        max-width: 80%; /* Allow text to take more space */
+        max-width: 95%;
+        font-size: 18px;
+        line-height: 1.6;
     }
 
     .image img {
-        max-width: 80%;
+        max-width: 100%;
         margin-top: 20px;
+        border-radius: 10px;
     }
 }
