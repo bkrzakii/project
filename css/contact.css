@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* CSS Document */
 
-* {
-    margin: 0;
-    padding: 5px;
-    box-sizing: border-box;
+body {
     font-family: "Poppins", sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background: #392761ff;
+    box-sizing: border-box;
     text-decoration: none;
     list-style: none;
 }
@@ -47,17 +49,19 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #392761ff;
+    color: #FBFBFAff;
     font-weight: bold;
     font-size: large;
     padding: 5px 15px;
+    border-radius: 50px;
+
 }
 
 nav ul li a:hover, nav ul li a.active {
     transform: scale(1.1);
-    background: #392761ff;
-    color: #FBFBFAff;
-    border-radius: 50px;
+    background: #FBFBFAff;
+    color: #392761ff;
+    transition: all 0.1s ease-in-out;
 }
 
 hr {
@@ -74,19 +78,20 @@ main {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #f9f9f9;
+    background: #392761ff;
     flex-direction: column;
     padding: 20px;
-    margin-top: 50px;
+    margin-top: 0px;
     
 }
 
 .container {
-    width: 850px;
+    width: 1000px;
     background: white;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
+    margin-top: 100px;
 }
 
 h2 {
@@ -109,20 +114,22 @@ form {
     gap: 15px;
 }
 
-.input-box {
-    display: flex;
-    flex-direction: column;
+p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #3E40AE;
+    font-size: 18px;
+    font-weight: bold;
+}
+strong {
+    color: #392761;
+    font-size: 18px;
 }
 
-.input-box label {
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #392761;
-    font-size: 16px;
-}
 .form-control {
     width: 100%;
-    padding: 13px 50px 13px 20px;
+    padding: 16px 0px;
+    margin: 4px 0;
     background: #C2C3E2ff;
     border-radius: 8px;
     border: none;
@@ -131,21 +138,22 @@ form {
     color: #392761ff;
     font-weight: 500;
 }
-.input-box input, .input-box textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #C2C3E2;
-    border-radius: 8px;
-    font-size: 16px;
-    background: #FCFCFA;
+.form-control:focus {
+    border: 2px solid #3E40AE;
+}
+.form-control::placeholder {
+    color: #392761;
+    font-weight: 400;
+    font-family: "Poppins", sans-serif;
+    padding: 20px;
 }
 
 .btn {
-    width: 100%;
-    padding: 12px;
+    width: 90%;
+    padding: 20px;
     background: #3E40AE;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     border: none;
     border-radius: 8px;
@@ -157,23 +165,28 @@ form {
     background: #2C2E8A;
 }
 
-.contact-info {
-    margin-top: 30px;
-    text-align: center;
-    color: #392761;
+
+.social-icons{
+    display: flex;
+    justify-content: center;
 }
 
-.contact-info p {
-    margin: 10px 0;
-    font-size: 16px;
+.social-icons a{
+    display: inline-flex;
+    padding: 10px 10px;
+    border: 2px solid #C2C3E2ff;
+    border-radius: 40px;
+    font-size: 40px;
+    color: #392761ff;
+    margin: 0 20px;
 }
 
-.social-links a {
-    display: inline-block;
-    margin: 10px;
-    color: #3E40AE;
-    font-size: 22px;
-    transition: 0.3s;
+.social-icons a:hover {
+    transform: scale(1.0);
+    color: #C2C3E2ff;
+    background-color: #392761ff;
+    border: 2px solid #392761ff;
+    
 }
 
 .social-links a:hover {
