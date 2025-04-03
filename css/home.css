@@ -227,18 +227,17 @@ a {
         align-items: center;
     }
 
-    
+    nav {
+        flex-direction: column;
+        align-items: center;
+        margin: 10px auto;
+    }
+
     nav ul {
         flex-direction: row;
         text-align: center;
         gap: 10px;
         margin: 0 10px;
-    }
-
-    nav {
-        flex-direction: column;
-        align-items: center;
-        margin: 10px auto;
     }
 
     nav ul li {

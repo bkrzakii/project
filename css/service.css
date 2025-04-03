@@ -138,7 +138,7 @@ input:hover, input:focus {
 }
 
 /* 🔹 Universal Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     * {
         box-sizing: border-box;
         margin: 0;
@@ -161,7 +161,7 @@ input:hover, input:focus {
         flex-direction: row;
         text-align: center;
         gap: 10px;
-        margin: 0;
+        margin: 0 10px;
     }
 
     nav ul li {
@@ -169,16 +169,10 @@ input:hover, input:focus {
     }
 
     .search-bar {
-        width: 80%; /* Réduction de la largeur sur les petits écrans */
+        width: 65%; /* Réduction de la largeur sur les petits écrans */
         margin: 10px auto;
         display: flex;
         justify-content: center;
-    }
-
-    .search-bar input {
-        width: 70%; /* Réduction de la largeur de l'input */
-
-        font-size: 14px; /* Réduction de la taille du texte */
     }
 
     .extra-content {
