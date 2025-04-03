@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-/* CSS Document */
 
 body {
     font-family: "Poppins", sans-serif;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background: #392761ff;
     box-sizing: border-box;
     text-decoration: none;
@@ -16,9 +15,19 @@ header {
     justify-content: space-between;
     position: relative;
     align-items: center;
-    background: transparent;
+    background: #392761ff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
     padding: 10px 30px;
+}
+
+.background {
+    background-image: url(/pics/homePics1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment:local; 
+    background-repeat: no-repeat; 
+    height: 100vh;
+    padding: 5;
 }
 
 .logo {
@@ -60,15 +69,6 @@ nav ul li a:hover, nav ul li a.active {
     border-radius: 50px;
 }
 
-
-hr {
-    width: 100%;
-    height: 2px;
-    background: #392761ff;
-    border: none;
-    margin: 20px 0;
-}
-
 main {
     display: flex;
     justify-content: center;
@@ -90,24 +90,12 @@ main {
     margin: 100px 0 50px 0;
 }
 
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #392761;
     font-size: 40px;
-}
-
-h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #392761;
-    font-size: 30px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
 p {
@@ -117,107 +105,7 @@ p {
     font-size: 18px;
     font-weight: bold;
 }
-strong {
-    color: #392761;
-    font-size: 18px;
-}
 
-.input-box {
-    width: 95%;
-    padding: 0px 10px;
-    margin: 10px auto;
-    background: #C2C3E2ff;
-    border-radius: 10px;
-}
-
-.input-box:focus-within, .input-box:hover {
-    border: 2px solid #3E40AE;
-}
-
-.input,.textarea {
-    display: block;
-    width: 70%;
-    padding: 16px 0px;
-    margin: auto 20px;
-    background: #C2C3E2ff;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: #392761ff;
-}
-
-.input::placeholder,textarea::placeholder {
-    color: #392761;
-    font-weight: 400;
-    font-family: "Poppins", sans-serif;
-}
-
-.btn {
-    width: 90%;
-    padding: 20px;
-    background: #3E40AE;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: block;
-    margin: 0px auto;
-}
-
-.btn:hover {
-    background: #2C2E8A;
-}
-
-
-.social-icons{
-    display: flex;
-    justify-content: center;
-}
-
-.social-icons a{
-    text-decoration: none;
-    display: inline-flex;
-    padding: 10px 10px;
-    border: 2px solid #392761ff;
-    border-radius: 40px;
-    font-size: 40px;
-    color: #392761ff;
-    margin: 0 20px;
-}
-
-.social-icons a:hover {
-    transform: scale(1.0);
-    color: #C2C3E2ff;
-    background-color: #392761ff;
-    border: 2px solid #392761ff;
-    
-}
-
-.social-links a:hover {
-    color: #2C2E8A;
-    transform: scale(1.1);
-}
-
-.faq-section {
-    margin-top: 40px;
-}
-
-.faq-section h3 {
-    color: #392761;
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-.faq-section p {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #231740;
-}
-
-/* 🔹 Universal Responsive Design */
 @media screen and (max-width: 1024px) {
     * {
         box-sizing: border-box;
@@ -225,6 +113,13 @@ strong {
         padding: 0;
     }
 
+
+    .container {
+        width: 90%;
+        padding: 20px;
+        margin-top: 130px;
+    }
+    
     header {
         flex-direction: column;
         padding: 15px;
@@ -264,7 +159,7 @@ strong {
         margin-top: 20px;
     }
 
-    .content h1 {
+    .content h2 {
         font-size: 42px;
         margin-bottom: 10px;
     }
@@ -273,11 +168,5 @@ strong {
         max-width: 95%;
         font-size: 18px;
         line-height: 1.6;
-    }
-
-    .image img {
-        max-width: 100%;
-        margin-top: 20px;
-        border-radius: 10px;
     }
 }

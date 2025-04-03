@@ -149,7 +149,6 @@ input:hover, input:focus {
         flex-direction: column;
         padding: 15px;
         align-items: center;
-        background: linear-gradient(135deg, #392761, #5B4E93);
     }
 
     nav {
