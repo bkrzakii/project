@@ -11,54 +11,6 @@ body {
     list-style: none;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    align-items: center;
-    background: #392761ff;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
-    padding: 10px 30px;
-    width: 96.05%;
-    transition: all 0.5s ease-in-out;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    position: sticky;
-    align-items: center;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav ul li {
-    margin: 0 10px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #FBFBFAff;
-    font-weight: bold;
-    font-size: large;
-    padding: 5px 15px;
-    border-radius: 50px;
-
-}
-
-nav ul li a:hover, nav ul li a.active {
-    transform: scale(1.1);
-    background: #FBFBFAff;
-    color: #392761ff;
-    transition: all 0.1s ease-in-out;
-}
-
 .background {
     background:#FBFBFAff;
     background-size: cover;
@@ -75,15 +27,58 @@ nav ul li a:hover, nav ul li a.active {
     color: #FBFBFAff;
 }
 
+header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background: #392761ff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
+    padding: 10px 30px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    margin: 0 auto 0 200px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #FBFBFAff;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px 15px;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    transform: scale(1.1);
+    background: #FBFBFAff;
+    color: #392761ff;
+    border-radius: 50px;
+}
+
+
 .search-bar {
     display: flex;
     align-items: center;
+    position: relative;
     border: none;
     padding: 5px 10px;
     border-radius: 25px;
     background: #FBFBFAff;
-    position: absolute;
-    margin-right: 100px;
+    margin-right: 300px;
     right: -800px;
     animation: slide-in 0.5s ease-in-out forwards;
 }
@@ -105,8 +100,6 @@ nav ul li a:hover, nav ul li a.active {
     border: none;
 }
 input:hover, input:focus {
-    outline: none;
-    border: 2px solid #FBFBFAff;
     background-color: #CCC9E1ff;
     color: #392761ff;
 }
@@ -114,10 +107,9 @@ input:hover, input:focus {
 .search-bar input {
     border: none;
     outline: none;
-    padding: 5px 10px;
     font-size: 16px;
     width: 500px;
-    height: 10px;
+    height: 30px;
     background: transparent;
 }
 
@@ -125,13 +117,16 @@ input:hover, input:focus {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px 5px;
     font-size: 16px;
 }
-
+.search {
+    color: #392761ff;
+    font-weight: bold;
+}
 .search-bar button:hover {
     transform: scale(1.1);
-    background: #FBFBFAff;
+    background: #CCC9E1ff;
     color: #392761ff;
     border-radius: 50px;
 }
@@ -157,31 +152,34 @@ input:hover, input:focus {
         background: linear-gradient(135deg, #392761, #5B4E93);
     }
 
+    nav {
+        flex-direction: column;
+        align-items: center;
+        margin: 10px auto;
+    }
+
+    nav ul {
+        flex-direction: row;
+        text-align: center;
+        gap: 10px;
+        margin: 0;
+    }
+
+    nav ul li {
+        margin: 8px 0;
+    }
+
     .search-bar {
         width: 80%; /* Réduction de la largeur sur les petits écrans */
         margin: 10px auto;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
         display: flex;
         justify-content: center;
     }
 
     .search-bar input {
         width: 70%; /* Réduction de la largeur de l'input */
-        padding: 6px; /* Ajustement du padding pour s'adapter */
+
         font-size: 14px; /* Réduction de la taille du texte */
-        border-radius: 10px;
-        border: 1px solid #ccc;
-    }
-
-    nav ul {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    nav ul li {
-        margin: 8px 0;
     }
 
     .extra-content {
