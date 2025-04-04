@@ -1,14 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* CSS Document */
 
 body {
-    display: flex;
-    flex-direction: column;
     font-family: "Poppins", sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f9f9f9;
+    margin: 0px;
+    padding: 0px;
+    background: #392761ff;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
     text-decoration: none;
     list-style: none;
 }
@@ -18,7 +16,7 @@ header {
     justify-content: space-between;
     position: relative;
     align-items: center;
-    background: #392761ff;
+    background: transparent;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
     padding: 10px 30px;
 }
@@ -61,115 +59,121 @@ nav ul li a:hover, nav ul li a.active {
     color: #392761ff;
     border-radius: 50px;
 }
+
+
+hr {
+    width: 100%;
+    height: 2px;
+    background: #392761ff;
+    border: none;
+    margin: 20px 0;
+}
+
 main {
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #392761ff;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 0px;
+    
 }
 
-.background {
-    background-image: url(/pics/homePics1.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment:local; 
-    background-repeat: no-repeat; 
-    height: 100vh;
+.container {
+    width: 70%;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
+    margin: 100px 0 50px 0;
 }
 
-.hero {
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #392761;
+    font-size: 40px;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #392761;
+    font-size: 30px;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin: 180px 66% 180px 20px;
-    padding: 50px;
-    background: #EDEDF5;
-    border-radius: 25px;
-    box-shadow: 0 4px 20px #6a5acd;
+    gap: 15px;
 }
 
-h1 {
-    font-size: 70px;
-    font-weight: bold;
-    text-align:left;
-    color: #6a5acd;
-    margin: 0;
-}
-
-.h3-main {
-    margin: 0;
-    color: #231740ff;
-    font-weight: bold;
-    text-align:left;
-    font-size: 25px;
-}
-
-.main-p {
-    max-width: 400px;
-    line-height: 1.6;
-    text-align:left;
+p {
+    text-align: center;
+    margin-bottom: 20px;
     color: #3E40AE;
     font-size: 18px;
     font-weight: bold;
 }
+strong {
+    color: #392761;
+    font-size: 18px;
+}
 
-button {
-    margin: 20px 100px;
-    padding: 15px 0;
-    background: #3E40AEff;
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
+.input-box {
+    width: 95%;
+    padding: 0px 10px;
+    margin: 10px auto;
+    background: #C2C3E2ff;
+    border-radius: 10px;
+}
+
+.input-box:focus-within, .input-box:hover {
+    border: 2px solid #3E40AE;
+}
+
+.input,.textarea {
+    display: block;
+    width: 70%;
+    padding: 16px 0px;
+    margin: auto 20px;
+    background: #C2C3E2ff;
     border: none;
-    cursor: pointer;
+    outline: none;
     font-size: 16px;
-    color: #FCFCFAff;
-    font-weight: bold;
+    color: #392761ff;
 }
 
-button:hover {
-    background: #2E3092;
+.input::placeholder,textarea::placeholder {
+    color: #392761;
+    font-weight: 400;
+    font-family: "Poppins", sans-serif;
 }
 
-.image img {
-    max-width: 400px;
-}
-
-/* Styling for scrollable content */
-.extra-content {
+.btn {
+    width: 90%;
     padding: 20px;
-    height: 1500px; /* Large height to enable scrolling */
-    background: #FBFBFA;
-}
-
-/* Styling for the footer */
-
-footer {
-    background: #392761ff;
-    padding: 30px;
-}
-
-.h3-footer {
-    text-align: center;
-    margin: 25px 0;
+    background: #3E40AE;
     color: white;
-    font-size: 30px;
-}
-a {
-    text-decoration: none;
-    color: #C2C3E2ff;
     font-size: 20px;
     font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    margin: 0px auto;
 }
-.footer-p {
-    text-align: center;
-    margin: 20px;
-    color: white;
-    font-size: 18px;
-    font-weight: 100px;
+
+.btn:hover {
+    background: #2C2E8A;
 }
+
 
 .social-icons{
     display: flex;
-    margin: 25px 0;
     justify-content: center;
 }
 
@@ -177,10 +181,10 @@ a {
     text-decoration: none;
     display: inline-flex;
     padding: 10px 10px;
-    border: 2px solid #C2C3E2ff;
+    border: 2px solid #392761ff;
     border-radius: 40px;
     font-size: 40px;
-    color: #C2C3E2ff;
+    color: #392761ff;
     margin: 0 20px;
 }
 
@@ -225,6 +229,7 @@ a {
         flex-direction: column;
         padding: 15px;
         align-items: center;
+        margin-bottom: 10px;
     }
 
     nav {
@@ -237,50 +242,42 @@ a {
         flex-direction: row;
         text-align: center;
         gap: 10px;
-        margin: 0 10px;
+        margin: 0;
     }
 
     nav ul li {
         margin: 8px 0;
     }
 
-    .hero {
+    .main {
         flex-direction: column;
         text-align: center;
         padding: 40px;
-        gap: 20px;
+        align-items: center;
     }
-    
-    h1 {
-        font-size: 47px;
+
+    .container {
+        width: 95%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .content h1 {
+        font-size: 42px;
         margin-bottom: 10px;
     }
 
-    h3 {
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    p {
+    .content p {
         max-width: 95%;
+        font-size: 18px;
         line-height: 1.6;
-        font-size: 16px;
     }
 
     .image img {
-        max-width: 85%;
-        margin-top: 15px;
+        max-width: 100%;
+        margin-top: 20px;
         border-radius: 10px;
     }
-
-    button {
-        width: 70%;
-        height: 50px;
-        font-size: 15px;
-        background: #2E3092;
-        margin-right: 100%;
-    }
 }
-
-
-
