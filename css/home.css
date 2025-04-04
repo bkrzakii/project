@@ -140,6 +140,51 @@ button:hover {
     background: #FBFBFA;
 }
 
+/* Styling for the cards */
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+.card {
+    display: flex;
+    flex: 0 0 250px;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    background: #EDEDF5;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px #6a5acd;
+}
+.card p {
+    margin: 0;
+    color: #3E40AE;
+    font-size: 18px;;
+}
+.card h2 {
+    margin: 25px 0 0 0;
+    color: #231740ff;
+    font-weight: bold;
+    font-size: 40px;
+}
+.card h3 {
+    margin: 0;
+    color: #231740ff;
+    font-weight: bold;
+    font-size: 25px;
+}
+img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin: 0 auto;
+
+}
 /* Styling for the footer */
 
 footer {
