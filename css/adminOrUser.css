@@ -6,6 +6,7 @@
     font-family: "Poppins", sans-serif;
     text-decoration: none;
     list-style: none;
+    user-select: none;
 }
 
 /* Mise en page */
@@ -58,7 +59,6 @@ h2 {
     transition: all 0.3s ease-in-out;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-    user-select: none;
 }
 
 /* Image */
