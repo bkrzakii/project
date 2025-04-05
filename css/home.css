@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-* {
-    user-select: none;
-}
 body {
     display: flex;
     flex-direction: column;
@@ -143,78 +140,52 @@ button:hover {
     background: #FBFBFA;
 }
 
-/* Styling for the cards */
-
-.cards{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    overflow-x: auto;
-    margin: 0 auto;
-    padding: 50px 20px;
-}
-.card {
-    display: flex;
-    flex: 0 0 300px;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: -25px 20px;
-    padding: 15px;
-    background: #EDEDF5;
-    border-radius: 25px;
-    box-shadow: 0 4px 20px #6a5acd;
-    box-sizing: border-box;
-}
-.card-header {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin-bottom: 10px;
+/* Styling for the middle part */
+.middle {
     width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    position: relative;
 }
-
-.top-reviews h2{
-    font-size: 70px;
-    font-weight: bold;
-    text-align:left;
+.middle h2 {
+    position: absolute;
+    top: 20px;
+    left: 15px;
     color: #6a5acd;
-    margin: 50px 0 0 90px;
+    font-size: 2.2rem;
+    margin: 20px 40px;
 }
-
-.card h2 {
-    margin: 25px 0 0 10px;
-    color: #231740ff;
-    font-weight: bold;
-    font-size: 40px;
-}
-
-.card p {
-    margin: 0 0 0 10px;
-    color: #3E40AE;
-    font-size: 18px;;
-}
-
-.card h3 {
-    margin: 0 0 0 10px;
-    color: #231740ff;
-    font-weight: bold;
-    font-size: 25px;
-}
-img {
-    max-width: 100%;
-    border-radius: 15px;
-    margin: 0 auto;
-
-}
-
-.card:hover {
+ .Cards {
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    transform:  translateY(-50%);
+    margin:  -70px 20px;
     display: flex;
-    cursor: pointer;
-    transform: scale(1.05);
-    transition: 0.3s;
-    box-shadow: 0 4px 20px #6a5acd;
+  flex-wrap: wrap;
 }
+.Card {
+    width: 250px;
+    height: 100%;
+    background: white;
+    border-radius: 12px;
+    margin: 10px;
+    position: relative;
 
+}
+.Card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    margin: 0 10px;
+}
+.Card h3 {
+    font-size: 20px;
+    color: white;
+    position: absolute;
+    top: 82%;
+    left: 7%;
+}
 /* Styling for the footer */
 
 footer {
@@ -356,6 +327,7 @@ a {
         margin-right: 100%;
     }
 }
+
 
 
 
