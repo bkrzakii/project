@@ -162,7 +162,6 @@ button:hover {
     transform:  translateY(-50%);
     margin:  -70px 20px;
     display: flex;
-  flex-wrap: wrap;
 }
 .Card {
     width: 250px;
