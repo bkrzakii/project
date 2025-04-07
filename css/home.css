@@ -19,7 +19,6 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    position: relative;
     align-items: center;
     background: #392761ff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
@@ -35,7 +34,6 @@ header {
 nav {
     display: flex;
     justify-content: space-between;
-    position: relative;
     align-items: center;
     margin: 0 auto 0 200px;
 }
@@ -64,6 +62,90 @@ nav ul li a:hover, nav ul li a.active {
     color: #392761ff;
     border-radius: 50px;
 }
+
+
+/* Styling for the account */
+
+
+.profile-icon i{
+    font-size: 45px;
+    color: #FBFBFAff;
+    cursor: pointer;
+}
+.profile-icon {
+    margin: 0 20px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: #392761ff;
+}
+
+.user-info img {
+    width: 250px;
+    margin: 30px 0;
+    border-radius: 200px;
+    border: 2px solid #392761ff;
+    box-shadow: 0 4px 20px #6a5acd;
+}
+
+.user-info {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 0%;
+    left: 50%;
+    margin: 0 auto;
+    transform: translate(-50%, 2%);
+    padding: 10px 50px;
+    background-color: #edf5f1;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px #6a5acd;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 100px;
+}
+
+.business {
+    text-decoration: none;
+    display: inline-flex;
+    padding: 10px 10px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #3E40AEff;
+    margin: 0 20px;
+}
+
+.business:hover {
+    transform: scale(1.1);
+    text-decoration:underline;
+    color: #3E40AEff;
+}
+
+.logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    padding: 20px 50px;
+    background: #3E40AEff;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px #6a5acd;
+    text-decoration: none;
+    color: #C2C3E2ff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/* Styling for the main content area */
+
+
 main {
     display: flex;
     flex-direction: column;
@@ -115,7 +197,7 @@ h1 {
     font-weight: bold;
 }
 
-button {
+.read-more {
     margin: 20px 100px;
     padding: 15px 0;
     background: #3E40AEff;
@@ -128,7 +210,7 @@ button {
     font-weight: bold;
 }
 
-button:hover {
+.read-more:hover {
     background: #2E3092;
 }
 
@@ -165,11 +247,17 @@ button:hover {
 
 
 /* Styling for scrollable content */
+
+
+
 .extra-content {
     padding: 20px;
     height: 1500px; /* Large height to enable scrolling */
     background: #FBFBFA;
 }
+
+
+
 
 /* Styling for the cards */
 
@@ -228,7 +316,7 @@ button:hover {
     font-weight: bold;
     font-size: 25px;
 }
-img {
+.card img {
     max-width: 100%;
     border-radius: 15px;
     margin: 0 auto;
@@ -259,7 +347,7 @@ img {
     font-size: 2.2rem;
     margin: 20px 40px;
 }
- .Cards {
+.Cards {
     height: 50%;
     position: absolute;
     top: 50%;
@@ -304,7 +392,7 @@ footer {
     color: white;
     font-size: 30px;
 }
-a {
+footer a {
     text-decoration: none;
     color: #C2C3E2ff;
     font-size: 20px;
