@@ -30,12 +30,16 @@ body {
 }
 
 header {
-    display: flex;
-    position: relative;
+    display:flex;
+    position: fixed;
+    z-index: 3;
+    width: 96%;
+    justify-content: space-between;
     align-items: center;
     background: #392761ff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
     padding: 10px 30px;
+
 }
 
 nav {

@@ -13,9 +13,11 @@ body {
 }
 
 header {
-    display: flex;
+    display:flex;
+    position: fixed;
+    z-index: 3;
+    width: 96%;
     justify-content: space-between;
-    position: relative;
     align-items: center;
     background: #392761ff;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0);
