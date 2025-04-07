@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Treservi</title>
+    <link rel="stylesheet" href="/css/business/owner-info.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <main>
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or need assistance, feel free to contact us using the form below :</p>
+        <form class="mb" action="#" method="post">
+            <div class="input-box">
+                <input type="text" class="input" placeholder="Your Name" required>
+            </div>
+            <div class="input-box">
+                <input type="email" class="input" placeholder="Your Email" required>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input" placeholder="phone number" required pattern="[0-9]{10}"> 
+            </div>
+            <div class="input-box">
+                <label for="file-upload" id="file-name">Upload business verification document</label>
+                <input  type="file" id="file-upload" class="input-file" multiple required>
+                <div id="file-error" class="error-msg"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Continue</button>
+        </form>
+    </main>
+    
+    <script src="/js/business/owner-info.js"></script>
+</body>
+</html>
