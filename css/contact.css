@@ -131,15 +131,21 @@ nav ul li a:hover, nav ul li a.active {
     justify-content: center;
     align-items: center;
     margin: 10px auto;
-    padding: 20px 50px;
-    background: #3E40AEff;
+    padding: 15px 50px;
+    background: #6a5acd;
     border-radius: 25px;
-    box-shadow: 0 4px 20px #6a5acd;
     text-decoration: none;
     color: #C2C3E2ff;
     font-size: 20px;
     font-weight: bold;
 }
+
+.logout:hover {
+    background: #3E40AEff;
+    color: #FBFBFAff;
+    box-shadow: 0 4px 20px #6a5acd;
+}
+
 
 hr {
     width: 100%;
