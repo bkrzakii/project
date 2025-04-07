@@ -71,6 +71,85 @@ nav ul li a:hover, nav ul li a.active {
     border-radius: 50px;
 }
 
+
+/* Styling for the account */
+
+.profile-icon i{
+    font-size: 45px;
+    color: #FBFBFAff;
+    cursor: pointer;
+}
+.profile-icon {
+    margin: 0 20px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: #392761ff;
+}
+.user-info {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 0%;
+    left: 50%;
+    margin: 0 auto;
+    transform: translate(-50%, 2%);
+    padding: 10px 50px;
+    background: #EDEDF5;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px #6a5acd;
+}
+
+.user-info img {
+    width: 250px;
+    margin: 30px 0;
+    border-radius: 200px;
+    border: 2px solid #392761ff;
+    box-shadow: 0 4px 20px #6a5acd;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 100px;
+}
+
+.business {
+    text-decoration: none;
+    display: inline-flex;
+    padding: 10px 10px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #3E40AEff;
+    margin: 0 20px;
+}
+
+.business:hover {
+    transform: scale(1.1);
+    text-decoration:underline;
+    color: #3E40AEff;
+}
+
+.logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    padding: 20px 50px;
+    background: #3E40AEff;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px #6a5acd;
+    text-decoration: none;
+    color: #C2C3E2ff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
 main {
     display: flex;
     justify-content: center;
@@ -93,14 +172,14 @@ main {
 }
 
 
-h2 {
+main h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #392761;
     font-size: 40px;
 }
 
-p {
+main p {
     text-align: center;
     margin-bottom: 20px;
     color: #3E40AE;

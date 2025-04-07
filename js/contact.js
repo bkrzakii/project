@@ -17,3 +17,10 @@ window.addEventListener("scroll", function() {
         header.style.width = "none"; /* Ensure full width */
     }
 });
+function toggleDescription() {
+    var desc = document.getElementById("user-info");
+    if (desc.style.display === "none") {
+        desc.style.display = "flex";
+    } else {
+        desc.style.display = "none";
+}}
