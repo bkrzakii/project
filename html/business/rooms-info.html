@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Rooms</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .room-section {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      background: #fafafa;
+      position: relative;
+    }
+    .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .checkbox-group label {
+      font-weight: normal;
+      display: inline-block;
+      margin-right: 15px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🛏️ Add Multiple Rooms</h2>
+      
+        <form id="hotelForm" action="/submit-rooms" method="POST" enctype="multipart/form-data">
+          <div id="roomsContainer">
+            <!-- Default Room 1 -->
+            <div class="room-section">
+              <button type="button" class="remove-btn" onclick="removeRoom(this)">✖</button>
+              <h3>Room 1</h3>
+      
+              <label>Room Type</label>
+              <select name="rooms[1][type]" required>
+                <option value="">-- Select Room Type --</option>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
+              </select>
+      
+              <label>Number of Rooms</label>
+              <input type="number" name="rooms[1][count]" min="1" required>
+      
+              <label>Price per Night (DZD)</label>
+              <input type="number" name="rooms[1][price]" min="0" required>
+      
+              <label>Max Occupancy</label>
+              <input type="number" name="rooms[1][occupancy]" min="1">
+      
+              <label>Amenities</label>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="rooms[1][amenities][]" value="WiFi"> WiFi</label>
+                <label><input type="checkbox" name="rooms[1][amenities][]" value="AC"> AC</label>
+                <label><input type="checkbox" name="rooms[1][amenities][]" value="TV"> TV</label>
+              </div>
+      
+              <label>Room Images</label>
+              <input type="file" name="rooms[1][images][]" multiple accept="image/*">
+            </div>
+          </div>
+      
+          <button type="button" onclick="addRoom()">➕ Add Room</button>
+          <br><br>
+          <button type="submit">✅ Submit</button>
+        </form>
+      </div>
+      
+
+<script src="/js/business/rooms-info.js"></script>
+</body>
+</html>

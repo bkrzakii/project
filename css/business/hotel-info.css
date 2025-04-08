@@ -54,7 +54,7 @@ main form {
     gap: 15px;
 }
 
-main p {
+.underTitle {
     display: flex;
     margin: 20px 0px 20px 50px;
     color: #3E40AE;
@@ -79,9 +79,8 @@ main strong {
     border: 2px solid #3E40AE;
 }
 
-.input, label {
+label {
     display: block;
-    width: 70%;
     padding: 16px 0px;
     margin: auto 20px;
     background: #C2C3E2ff;
@@ -91,6 +90,41 @@ main strong {
     color: #392761ff;
 }
 
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+i {
+    font-size: 100px;
+    margin: 10px 10px;
+}
+
+.input, .textarea {
+    display: block;
+    width: 98.7%;
+    padding: 16px 0px;
+    margin: 0 0px 0 20px;
+    background: #C2C3E2ff;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #392761ff;
+
+}
+.textarea {
+    height: 200px;
+    resize: none;
+}
 .input-file {
     display: none;
 }
@@ -101,7 +135,7 @@ main strong {
     color: #392761ff;
 }
 
-.input::placeholder,textarea::placeholder {
+.input::placeholder,textarea::placeholder,.image {
     color: #392761;
     font-weight: 400;
     font-family: "Poppins", sans-serif;
@@ -133,13 +167,36 @@ main strong {
     background: #2C2E8A;
 }
 
-
 /* 🔹 Universal Responsive Design */
 @media screen and (max-width: 1024px) {
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+    }
+
+    header {
+        flex-direction: column;
+        padding: 15px;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        margin: 10px auto;
+    }
+
+    nav ul {
+        flex-direction: row;
+        text-align: center;
+        gap: 10px;
+        margin: 0;
+    }
+
+    nav ul li {
+        margin: 8px 0;
     }
 
     .main {
