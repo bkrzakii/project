@@ -1,122 +1,80 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Add Rooms</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
-      padding: 20px;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    .room-section {
-      border: 1px solid #ddd;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      background: #fafafa;
-      position: relative;
-    }
-    .remove-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .checkbox-group label {
-      font-weight: normal;
-      display: inline-block;
-      margin-right: 15px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add rooms</title>
+    <link rel="stylesheet" href="/css/business/rooms-info.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
 
+<body>
+  <main>
     <div class="container">
         <h2>🛏️ Add Multiple Rooms</h2>
       
-        <form id="hotelForm" action="/submit-rooms" method="POST" enctype="multipart/form-data">
-          <div id="roomsContainer">
+        <form class="hotelForm" id="hotelForm" action="/submit-rooms" method="POST" enctype="multipart/form-data">
+          <div class="roomsContainer" id="roomsContainer">
             <!-- Default Room 1 -->
             <div class="room-section">
-              <button type="button" class="remove-btn" onclick="removeRoom(this)">✖</button>
+
+            <div class="room-header">
               <h3>Room 1</h3>
-      
-              <label>Room Type</label>
-              <select name="rooms[1][type]" required>
-                <option value="">-- Select Room Type --</option>
-                <option value="Single">Single</option>
-                <option value="Double">Double</option>
-                <option value="Suite">Suite</option>
-              </select>
-      
-              <label>Number of Rooms</label>
-              <input type="number" name="rooms[1][count]" min="1" required>
-      
-              <label>Price per Night (DZD)</label>
-              <input type="number" name="rooms[1][price]" min="0" required>
-      
-              <label>Max Occupancy</label>
-              <input type="number" name="rooms[1][occupancy]" min="1">
-      
-              <label>Amenities</label>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="rooms[1][amenities][]" value="WiFi"> WiFi</label>
-                <label><input type="checkbox" name="rooms[1][amenities][]" value="AC"> AC</label>
-                <label><input type="checkbox" name="rooms[1][amenities][]" value="TV"> TV</label>
+              <i type="button" onclick="removeRoom(this)"class="bx bxs-message-square-x"></i>
+            </div>
+              
+              
+              <div class="input-box">
+                <select class="input" name="rooms[1][type]" required>
+                  <option value="">-- Select Room Type --</option>
+                  <option value="Single">Single</option>
+                  <option value="Double">Double</option>
+                  <option value="Suite">Suite</option>
+                </select>
               </div>
+              
       
-              <label>Room Images</label>
-              <input type="file" name="rooms[1][images][]" multiple accept="image/*">
+              <div class="input-box">
+                <input type="number" class="input" name="rooms[1][count]" min="1" placeholder="Number of Rooms" required>
+              </div>
+
+              <div class="input-box">
+                <input type="number" class="input" name="rooms[1][price]" min="0" placeholder="Price per Night (DZD)" required>
+              </div>
+
+              <div class="input-box">
+                <input type="number" class="input" name="rooms[1][occupancy]" min="1" placeholder="Max Occupancy">
+              </div>
+
+              <div class="input-box">
+                <label>Amenities</label>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="rooms[1][amenities][]" value="WiFi"> WiFi</label>
+                  <label><input type="checkbox" name="rooms[1][amenities][]" value="AC"> AC</label>
+                  <label><input type="checkbox" name="rooms[1][amenities][]" value="TV"> TV</label>
+                </div>
+              </div>
+              
+              
+              <div class="input-box">
+                <label for="file-upload" id="file-name">Upload business verification document</label>
+                <input  type="file" id="file-upload" class="input-file" name="rooms[1][images][]" multiple accept="image/*" required>
+                <div id="file-error" class="error-msg"></div>
+              </div>
             </div>
           </div>
-      
-          <button type="button" onclick="addRoom()">➕ Add Room</button>
+          
+          <div class="room-footer">
+            <button class="btn btn-primary" onclick="addRoom()"><i type="button" class="bx bx-message-square-add" onclick="addRoom()"></i>Add Room</button>
           <br><br>
-          <button type="submit">✅ Submit</button>
+          <button type="submit" class="btn btn-primary"><i class='bx bx-check-square'></i> Submit</button>
+          </div>
+          
         </form>
       </div>
-      
+  </main>
+    
+    
 
 <script src="/js/business/rooms-info.js"></script>
 </body>

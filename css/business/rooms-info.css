@@ -27,11 +27,18 @@ main {
 
 .container {
     width: 70%;
-    background: white;
+    background: #FCFCFAff;
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
     margin: 100px 0 100px 0;
+}
+
+.roomsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 main h2 {
@@ -41,17 +48,11 @@ main h2 {
     font-size: 40px;
 }
 
-main h3 {
+h3 {
     text-align: center;
-    margin-bottom: 20px;
     color: #392761;
     font-size: 30px;
-}
-
-main form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    margin: 0;
 }
 
 main p {
@@ -62,10 +63,15 @@ main p {
     font-weight: bold;
 }
 
-main strong {
-    color: #392761;
-    font-size: 18px;
+.room-section {
+    width: 80%;
+    background: rgb(255, 255, 255);
+    padding: 50px 50px 100px 50px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
+    margin: 10px 0 10px 0;
 }
+
 
 .input-box {
     width: 95%;
@@ -81,11 +87,12 @@ main strong {
 
 .input, label {
     display: block;
-    width: 70%;
+    width: 98.7%;
     padding: 16px 0px;
     margin: auto 20px;
     background: #C2C3E2ff;
     border: none;
+    border-radius: 10px;
     outline: none;
     font-size: 16px;
     color: #392761ff;
@@ -101,17 +108,24 @@ main strong {
     color: #392761ff;
 }
 
-.input::placeholder,textarea::placeholder {
+.input::placeholder {
     color: #392761;
     font-weight: 400;
     font-family: "Poppins", sans-serif;
 }
 
-.error-msg {
-    color: #FF0000;
-    font-size: 14px;
-    margin: 10px auto;
-    text-align: center;
+.buttons, .checkbox-group, .room-header, .room-footer{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 10px 50px;
+
+}
+
+.bx.bxs-message-square-x::before {
+    color: rgb(224, 7, 7);
+    cursor: pointer;
+    font-size: 40px;
 }
 
 .btn {
@@ -126,7 +140,12 @@ main strong {
     cursor: pointer;
     transition: 0.3s;
     display: block;
-    margin: 0px auto;
+    margin: 0px 150px;
+}
+.bx.bx-message-square-add::before, .bx.bx-check-square::before {
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0px 12px 0 0px;
 }
 
 .btn:hover {
