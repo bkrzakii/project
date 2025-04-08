@@ -36,7 +36,6 @@ input.addEventListener('change', function () {
         img.src = e.target.result;
         img.style.maxWidth = "120px";
         img.style.borderRadius = "8px";
-        img.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
         previewContainer.appendChild(img);
     };
     reader.readAsDataURL(file);
