@@ -11,19 +11,19 @@
 <body>
   <main>
     <div class="container">
-        <h2>🛏️ Add Multiple Rooms</h2>
+        <h2>🛏️ Add Hotel Rooms & Features</h2>
       
         <form class="hotelForm" id="hotelForm" action="/submit-rooms" method="POST" enctype="multipart/form-data">
           <div class="roomsContainer" id="roomsContainer">
+            <h1>🛏️ Add Multiple Rooms ➕</h1>
             <!-- Default Room 1 -->
             <div class="room-section">
 
-            <div class="room-header">
-              <h3>Room 1</h3>
-              <i type="button" onclick="removeRoom(this)"class="bx bxs-message-square-x"></i>
-            </div>
-              
-              
+              <div class="room-header">
+                <h3>Room 1</h3>
+                <i type="button" onclick="removeRoom(this)"class="bx bxs-message-square-x"></i>
+              </div>
+                
               <div class="input-box">
                 <select class="input" name="rooms[1][type]" required>
                   <option value="">-- Select Room Type --</option>
@@ -47,25 +47,167 @@
               </div>
 
               <div class="input-box">
-                <label>Amenities</label>
+                <label class="input-label">Amenities</label>
                 <div class="checkbox-group">
-                  <label><input type="checkbox" name="rooms[1][amenities][]" value="WiFi"> WiFi</label>
-                  <label><input type="checkbox" name="rooms[1][amenities][]" value="AC"> AC</label>
-                  <label><input type="checkbox" name="rooms[1][amenities][]" value="TV"> TV</label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="WiFi">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Free WiFi</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="AirConditioning">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Air Conditioning</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="TV">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">TV</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="BreakfastInclude">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Breakfast Include</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="Elevator">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Elevator</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="Pets Allows">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Pets Allows</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="Bathroom">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Private Bathroom</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="RoomService">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Room Service</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="Housekeeping">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Daily Housekeeping</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="24hReception">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">24h Reception</span>
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="rooms[1][amenities][]" value="Parking">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text ">Parking</span>
+                  </label>
                 </div>
               </div>
               
+
+
+
+              
+
               
               <div class="input-box">
-                <label for="file-upload" id="file-name">Upload business verification document</label>
+                <label class="input-label" for="file-upload" id="file-name">Upload business verification document</label>
                 <input  type="file" id="file-upload" class="input-file" name="rooms[1][images][]" multiple accept="image/*" required>
                 <div id="file-error" class="error-msg"></div>
               </div>
-            </div>
+            </div><button class="btn btn-primary" onclick="addRoom()"><i type="button" class="bx bx-message-square-add" onclick="addRoom()"></i>Add Room</button>
           </div>
           
-          <div class="room-footer">
-            <button class="btn btn-primary" onclick="addRoom()"><i type="button" class="bx bx-message-square-add" onclick="addRoom()"></i>Add Room</button>
+          <div class="featuresContainer" id="featuresContainer">
+            <h1>🎯 Special Features & Activities</h1>
+        
+            <div class="features-section">
+              <h3>Select available features</h3>
+              <div class="input-box">
+              <label class="input-label"></label>
+              <div class="checkbox-group">
+                
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="BeachAccess">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Beach Access</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="PrivatePool">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Private Pool</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="LiveEvents">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Live Events</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="GuidedTours">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Guided Tours (city or nature)</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="WaterSports">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Water Sports (Jet ski, kayak…)</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="HikingTrails">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Hiking Trails Nearby</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="KidsActivities">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Kids Activities</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="NightEntertainment">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Night Entertainment</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="CookingClasses">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Cooking Classes</span>
+                </label>
+        
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="YogaWellness">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Yoga / Wellness Sessions</span>
+                </label>
+
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="SpecialEvents">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Special Events (weddings, concerts…)</span>
+                </label>
+
+                <label class="checkbox">
+                  <input type="checkbox" name="features[]" value="Spa">
+                  <i class='bx bx-check-square'></i>
+                  <span class="label-text">Spa / Massage Treatments</span>
+                </label>
+              </div>
+            </div>
+            </div>
+            
+          </div>
+
+          <div class="room-footer">  
           <br><br>
           <button type="submit" class="btn btn-primary"><i class='bx bx-check-square'></i> Submit</button>
           </div>

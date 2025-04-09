@@ -36,9 +36,23 @@ main {
 
 .roomsContainer {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #C2C3E2ff;
+    padding: 10px 0 95px 0;
+    border-radius: 50px;
+}
+.featuresContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #C2C3E2ff;
+    padding: 10px 0 95px 0;
+    margin-top: 50px;
+    border-radius: 50px;
 }
 
 main h2 {
@@ -72,6 +86,14 @@ main p {
     margin: 10px 0 10px 0;
 }
 
+.features-section {
+    width: 80%;
+    background: rgb(255, 255, 255);
+    padding: 50px 50px 100px 50px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
+    margin: 10px 0 10px 0;
+}
 
 .input-box {
     width: 95%;
@@ -85,7 +107,7 @@ main p {
     border: 2px solid #3E40AE;
 }
 
-.input, label {
+.input, .input-label {
     display: block;
     width: 98.7%;
     padding: 16px 0px;
@@ -114,7 +136,7 @@ main p {
     font-family: "Poppins", sans-serif;
 }
 
-.buttons, .checkbox-group, .room-header, .room-footer{
+.buttons, .room-header, .room-footer{
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -122,10 +144,69 @@ main p {
 
 }
 
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 0px 50px 20px 50px;
+}
+
+.checkbox {
+    display: block;
+    width: 37%;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    margin: 5px 50px;
+    background: #C2C3E2ff;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #392761ff;
+    cursor: pointer;
+}
+.checkbox:hover,.checkbox:has(input:checked) {
+    background: #3E40AE;
+    color: white;
+}
+
+.checkbox input[type="checkbox"] {
+    display: none;
+    
+}
+
+.checkbox .bx.bx-check-square::before {
+    display: none;
+}
+
+
+.checkbox input[type="checkbox"]:checked + .bx.bx-check-square::before {
+    display:inline;
+    background-color: transparent;
+}
+
 .bx.bxs-message-square-x::before {
     color: rgb(224, 7, 7);
     cursor: pointer;
     font-size: 40px;
+}
+
+.roomsContainer .btn {
+    position: absolute;
+    bottom: 20px;
+    width: 20%;
+    padding: 20px;
+    background: #3E40AE;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    margin: 0px auto;
 }
 
 .btn {
@@ -145,7 +226,8 @@ main p {
 .bx.bx-message-square-add::before, .bx.bx-check-square::before {
     cursor: pointer;
     font-size: 25px;
-    margin: 0px 12px 0 0px;
+    margin-right:12px;
+    vertical-align: -15%;
 }
 
 .btn:hover {

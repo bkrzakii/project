@@ -4,44 +4,34 @@ function addRoom() {
   roomCount++;
 
   const roomsContainer = document.getElementById('roomsContainer');
+  const firstRoom = document.querySelector('.room-section');
 
-  const roomDiv = document.createElement('div');
-  roomDiv.className = 'room-section';
+  // Clone the first room node
+  const newRoom = firstRoom.cloneNode(true);
 
-  roomDiv.innerHTML = `
-    <button type="button" class="remove-btn" onclick="removeRoom(this)">✖</button>
-    <h3>Room ${roomCount}</h3>
+  // Update heading
+  newRoom.querySelector('.room-header h3').textContent = `Room ${roomCount}`;
 
-    <label>Room Type</label>
-    <select name="rooms[${roomCount}][type]" required>
-      <option value="">-- Select Room Type --</option>
-      <option value="Single">Single</option>
-      <option value="Double">Double</option>
-      <option value="Suite">Suite</option>
-    </select>
+  // Update all name attributes with the new roomCount
+  const inputs = newRoom.querySelectorAll('[name]');
+  inputs.forEach(input => {
+    input.name = input.name.replace(/\[\d+\]/, `[${roomCount}]`);
 
-    <label>Number of Rooms</label>
-    <input type="number" name="rooms[${roomCount}][count]" min="1" required>
+    // Clear input values
+    if (input.type === 'checkbox' || input.type === 'file') {
+      input.checked = false;
+    } else {
+      input.value = '';
+    }
+  });
 
-    <label>Price per Night (DZD)</label>
-    <input type="number" name="rooms[${roomCount}][price]" min="0" required>
+  // Clear file error message
+  const fileError = newRoom.querySelector('#file-error');
+  if (fileError) fileError.textContent = '';
 
-    <label>Max Occupancy</label>
-    <input type="number" name="rooms[${roomCount}][occupancy]" min="1">
-
-    <label>Amenities</label>
-    <div class="checkbox-group">
-      <label><input type="checkbox" name="rooms[${roomCount}][amenities][]" value="WiFi"> WiFi</label>
-      <label><input type="checkbox" name="rooms[${roomCount}][amenities][]" value="AC"> AC</label>
-      <label><input type="checkbox" name="rooms[${roomCount}][amenities][]" value="TV"> TV</label>
-    </div>
-
-    <label>Room Images</label>
-    <input type="file" name="rooms[${roomCount}][images][]" multiple accept="image/*">
-  `;
-
-  roomsContainer.appendChild(roomDiv);
+  roomsContainer.appendChild(newRoom);
 }
+
 
 function removeRoom(button) {
   const section = button.closest('.room-section');
