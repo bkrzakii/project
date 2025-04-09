@@ -34,6 +34,13 @@ main {
     margin: 100px 0 100px 0;
 }
 
+.hotelForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+ 
 .roomsContainer {
     display: flex;
     position: relative;
@@ -136,7 +143,7 @@ main p {
     font-family: "Poppins", sans-serif;
 }
 
-.buttons, .room-header, .room-footer{
+.buttons, .room-header{
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -154,7 +161,7 @@ main p {
 
 .checkbox {
     display: block;
-    width: 37%;
+    width: 30%;
     box-sizing: border-box;
     padding: 10px 10px;
     margin: 5px 50px;
@@ -221,7 +228,7 @@ main p {
     cursor: pointer;
     transition: 0.3s;
     display: block;
-    margin: 0px 150px;
+    margin: 20px 150px;
 }
 .bx.bx-message-square-add::before, .bx.bx-check-square::before {
     cursor: pointer;
