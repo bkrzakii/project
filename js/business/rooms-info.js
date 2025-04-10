@@ -13,7 +13,7 @@ function addRoom() {
   // Mettre à jour le titre de la nouvelle chambre
   newRoom.querySelector('.room-header h3').textContent = `Room ${roomCount}`;
 
-  // Mettre à jour tous les noms d'inputs avec le nouveau numéro de chambre
+  // Mettre à jour tous les noms d'inputs avec le nouveau numéro de room
   const inputs = newRoom.querySelectorAll('[name]');
   inputs.forEach(input => {
     input.name = input.name.replace(/\[\d+\]/, `[${roomCount}]`);
@@ -114,14 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-
-      // ici t9dar tjib les données wla tvalidihom
-
       // set business mode
       localStorage.setItem("isBusiness", "true");
 
       // redirect to home
-      window.location.href = "home.html";
+      window.location.href = "../../html/user/home.html";
     });
   }
 });

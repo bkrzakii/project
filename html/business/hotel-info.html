@@ -21,32 +21,32 @@
                     </div>
                     <div id="preview-container" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                 </label>
-                <input  type="file" id="file-upload" class="input-file" accept="image/*" multiple required>
+                <input name="Image" type="file" id="file-upload" class="input-file" accept="image/*" multiple >
             </div>
             <div class="input-box">
-                <input type="text" class="input" placeholder="Hotel Name" required>
+                <input name="HotelName" type="text" class="input" placeholder="Hotel Name" required>
             </div>
             <div class="input-box">
-                <textarea class="input" rows="4" placeholder="Hotel Description . . ."></textarea>
+                <textarea name="Description " class="input" rows="4" placeholder="Hotel Description . . ."></textarea>
             </div>
             <div class="input-box">
-                <input type="number" class="input" placeholder=" phone number (fix)" required pattern="[0-9]{10}"> 
+                <input name="fix" type="number" class="input" placeholder=" phone number (fix)" required pattern="[0-9]{10}"> 
             </div>
             <div class="input-box">
-                <input type="email" class="input" placeholder="Contact Email" >
+                <input name="HotelEmail" type="email" class="input" placeholder="Contact Email" >
             </div>
             
             <div class="input-box">
-                <input type="text" class="input" placeholder="Address (Street, City, ZIP)" required > 
+                <input name="Address" type="text" class="input" placeholder="Address (Street, City, ZIP)" required > 
             </div>
             <div class="input-box">
-                <input type="text" class="input" placeholder="Website (optional)" >
+                <input name="Website" type="text" class="input" placeholder="Website (optional)" >
             </div>
             
             <button type="submit" class="btn btn-primary">Continue</button>
         </form>
     </main>
     
-    <script src="/js/business/hotel-info.js"></script>
+    <script src="/js/business/hotel-info.js" defer></script>
 </body>
 </html>

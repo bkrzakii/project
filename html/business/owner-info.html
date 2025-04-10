@@ -14,17 +14,17 @@
         <p>You have to feel the form below :</p>
         <form class="mb" action="hotel-info.html" method="get">
             <div class="input-box">
-                <input type="text" class="input" placeholder="Your Name" required>
+                <input type="text" class="input" placeholder="Your Name" name="Name" required>
             </div>
             <div class="input-box">
-                <input type="email" class="input" placeholder="Your Email" required>
+                <input type="email" class="input" placeholder="Your Email" name="Email" required>
             </div>
             <div class="input-box">
-                <input type="text" class="input" placeholder="phone number" required pattern="[0-9]{10}"> 
+                <input type="text" class="input" placeholder="Phone number"  name="Phone" required pattern="[0-9]{10}"> 
             </div>
             <div class="input-box">
                 <label for="file-upload" id="file-name">Upload business verification document</label>
-                <input  type="file" id="file-upload" class="input-file" multiple required>
+                <input  type="file" id="file-upload" class="input-file" name="Image" multiple required>
                 <div id="file-error" class="error-msg"></div>
             </div>
             <button type="submit" class="btn btn-primary">Continue</button>

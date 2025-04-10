@@ -13,7 +13,7 @@
     <div class="container">
         <h2>🛏️ Add Hotel Rooms & Features</h2>
       
-        <form class="hotelForm" id="hotelForm" action="/html/user/home.html" method="get" enctype="multipart/form-data">
+        <form class="hotelForm" id="hotelForm" action="" method="post" enctype="multipart/form-data" >
           <div class="roomsContainer" id="roomsContainer">
             <h1>🛏️ Add Multiple Rooms ➕</h1>
             <!-- Default Room 1 -->
@@ -111,7 +111,7 @@
                     </div>
                     <div id="preview-container" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                 </label>
-                <input  type="file" id="file-upload" class="input-file" accept="image/*" multiple required>
+                <input  type="file" id="file-upload" class="input-file" accept="image/*" multiple >
               </div>
             </div><button class="btn btn-primary" onclick="addRoom()"><i type="button" class="bx bx-message-square-add" onclick="addRoom()"></i>Add Room</button>
           </div>
@@ -216,6 +216,6 @@
     
     
 
-<script src="/js/business/rooms-info.js"></script>
+<script src="/js/business/rooms-info.js" defer></script>
 </body>
 </html>
