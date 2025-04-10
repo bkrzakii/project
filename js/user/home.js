@@ -22,3 +22,13 @@ function toggleDescription() {
     } else {
         desc.style.display = "";
 }}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const isBusiness = localStorage.getItem("isBusiness");
+    if (isBusiness === "true") {
+      const dashboardLink = document.getElementById("dashboard");
+      if (dashboardLink) {
+        dashboardLink.style.display = "inline";
+      }
+    }
+  });

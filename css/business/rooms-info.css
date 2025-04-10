@@ -76,18 +76,12 @@ h3 {
     margin: 0;
 }
 
-main p {
-    display: flex;
-    margin: 20px 0px 20px 50px;
-    color: #3E40AE;
-    font-size: 18px;
-    font-weight: bold;
-}
+
 
 .room-section {
     width: 80%;
     background: rgb(255, 255, 255);
-    padding: 50px 50px 100px 50px;
+    padding: 50px;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
     margin: 10px 0 10px 0;
@@ -96,13 +90,15 @@ main p {
 .features-section {
     width: 80%;
     background: rgb(255, 255, 255);
-    padding: 50px 50px 100px 50px;
+    padding: 50px;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
     margin: 10px 0 10px 0;
 }
 
 .input-box {
+    display: flex;
+    flex-direction: column;
     width: 95%;
     padding: 0px 10px;
     margin: 10px auto;
@@ -116,7 +112,7 @@ main p {
 
 .input, .input-label {
     display: block;
-    width: 98.7%;
+    width: 98%;
     padding: 16px 0px;
     margin: auto 20px;
     background: #C2C3E2ff;
@@ -142,13 +138,11 @@ main p {
     font-weight: 400;
     font-family: "Poppins", sans-serif;
 }
-
 .buttons, .room-header{
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     padding: 10px 50px;
-
 }
 
 .checkbox-group {
@@ -156,15 +150,15 @@ main p {
     flex-wrap: wrap;;
     justify-content: space-between;
     flex-direction: row;
-    padding: 0px 50px 20px 50px;
+    padding: 20px 20px 20px 20px;
 }
 
 .checkbox {
     display: block;
-    width: 30%;
+    width: 45%;
     box-sizing: border-box;
     padding: 10px 10px;
-    margin: 5px 50px;
+    margin: 5px 5px;
     background: #C2C3E2ff;
     border: none;
     border-radius: 10px;
@@ -202,12 +196,11 @@ main p {
 .roomsContainer .btn {
     position: absolute;
     bottom: 20px;
-    width: 20%;
+    width: 30%;
     padding: 20px;
     background: #3E40AE;
     color: white;
     font-size: 20px;
-    font-weight: bold;
     border: none;
     border-radius: 50px;
     cursor: pointer;
@@ -217,7 +210,7 @@ main p {
 }
 
 .btn {
-    width: 20%;
+    width: 40%;
     padding: 20px;
     background: #3E40AE;
     color: white;
@@ -242,6 +235,52 @@ main p {
 }
 
 
+
+
+
+
+.image-upload {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#image-input {
+    display: block;
+    padding: 16px 0px;
+    margin: auto 20px;
+    background: #C2C3E2ff;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #392761ff;
+}
+
+.image {
+    color: #392761;
+    font-weight: 400;
+    font-family: "Poppins", sans-serif;
+}
+
+.image-box {
+    width: 95%;
+    padding: 0px 10px;
+    margin: 10px auto;
+    background: #C2C3E2ff;
+    border-radius: 10px;
+}
+
+.bx.bx-image-add::before {
+    color: #392761;
+    font-size: 50px;
+    margin: 10px 10px;
+}
 /* 🔹 Universal Responsive Design */
 @media screen and (max-width: 1024px) {
     * {

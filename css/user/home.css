@@ -69,6 +69,11 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 
+#Dashboard {
+    display: none;
+}
+
+
 /* Styling for the account */
 
 
