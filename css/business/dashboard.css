@@ -154,3 +154,13 @@ nav ul li a:hover, nav ul li a.active {
     color: #FBFBFAff;
     box-shadow: 0 4px 20px #6a5acd;
 }
+
+
+/* side bar */
+
+.sidebar{
+    display: flex;
+    background-color: #6a5acd;
+    width: 25%;
+    margin-left: 75%;
+}
