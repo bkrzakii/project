@@ -23,6 +23,7 @@ function toggleDescription() {
         desc.style.display = "";
 }}
 
+
 document.addEventListener("DOMContentLoaded", function () {
     const isBusiness = localStorage.getItem("isBusiness");
     if (isBusiness === "true") {

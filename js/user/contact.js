@@ -22,3 +22,17 @@ function toggleDescription() {
     } else {
         desc.style.display = "";
 }}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const isBusiness = localStorage.getItem("isBusiness");
+    if (isBusiness === "true") {
+        const Business = document.getElementById("Business");
+        const dashboardLink = document.getElementById("Dashboard-link");
+        if (dashboardLink && Business) {
+        dashboardLink.style.display = "inline";
+        Business.style.color = "transparent";
+        Business.style.cursor = "default";
+        Business.style.pointerEvents = "none";
+        }
+    }
+});
