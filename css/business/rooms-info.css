@@ -106,8 +106,31 @@ h3 {
     border-radius: 10px;
 }
 
-.input-box:focus-within, .input-box:hover {
+.input-box-rooms {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 0px 10px;
+    margin: 10px auto;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+.input-box:focus-within, .input-box:hover,.input-box-rooms:focus-within, .input-box-rooms:hover {
     border: 2px solid #3E40AE;
+}
+
+.input-rooms{
+    display: block;
+    width: 98%;
+    padding: 16px 0px;
+    margin: auto 20px;
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    color: #392761ff;
 }
 
 .input, .input-label {
@@ -133,7 +156,7 @@ h3 {
     color: #392761ff;
 }
 
-.input::placeholder {
+.input::placeholder, .input-rooms::placeholder{
     color: #392761;
     font-weight: 400;
     font-family: "Poppins", sans-serif;

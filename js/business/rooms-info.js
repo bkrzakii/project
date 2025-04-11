@@ -1,6 +1,6 @@
-let roomCount = 1; // Compteur de chambres, commence à 1
+let roomCount = 1; // start from 1
 
-// Fonction pour ajouter une nouvelle chambre
+// Fonction add new room template
 function addRoom() {
   roomCount++;
 
@@ -11,7 +11,7 @@ function addRoom() {
   const newRoom = firstRoom.cloneNode(true);
 
   // Mettre à jour le titre de la nouvelle chambre
-  newRoom.querySelector('.room-header h3').textContent = `Room ${roomCount}`;
+  newRoom.querySelector('.room-header h3').textContent = `Room Template ${roomCount}`;
 
   // Mettre à jour tous les noms d'inputs avec le nouveau numéro de room
   const inputs = newRoom.querySelectorAll('[name]');
@@ -54,7 +54,7 @@ function removeRoom(button) {
   roomCount = 0;
   updatedRooms.forEach((room, index) => {
     roomCount = index + 1;
-    room.querySelector('.room-header h3').textContent = `Room ${roomCount}`;
+    room.querySelector('.room-header h3').textContent = `Room Template ${roomCount}`;
 
     // Mettre à jour tous les noms de champs avec le bon index
     const inputs = room.querySelectorAll('[name]');
@@ -107,18 +107,4 @@ input.addEventListener('change', function () {
     if (uploadedImages.length >= MAX_IMAGES) {
     uploadBox.style.display = 'none';
     }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("hotelForm");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      // set business mode
-      localStorage.setItem("isBusiness", "true");
-
-      // redirect to home
-      window.location.href = "../../html/user/home.html";
-    });
-  }
 });
