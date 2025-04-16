@@ -170,7 +170,7 @@ h3 {
 
 .checkbox-group {
     display: flex;
-    flex-wrap: wrap;;
+    flex-wrap: wrap;
     justify-content: space-between;
     flex-direction: row;
     padding: 20px 20px 20px 20px;

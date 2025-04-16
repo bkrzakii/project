@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../../../css/business/dashboard/BookingsOverview.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+        <header>
+        <div class="logo">LOGO</div>
+        <nav>
+            <ul>
+                <li id="1"><a href="../../user/home.html" >Home</a></li>
+                <li id="2"><a href="../../user/service.html">Service</a></li>
+                <li id="3"><a href="../../user/about.html">About</a></li>
+                <li id="4"><a href="../../user/contact.html">Contact</a></li>
+                <li id="Dashboard-link"><a href="#" class="active">Dashboard</a></li>
+            </ul>
+        </nav>
+        <div class="profile">
+            <button class="profile-icon" onclick="toggleDescription()">
+                <i class='bx bxs-user-circle'></i>
+            </button>
+            <div class="user-info" id="user-info">
+                <img class="user-img" src="/pics/admin.jpg" alt="">
+                <div class="user-details">
+                    <h3>my profile</h3>
+                    <p>boukrouna zakaria</p>
+                    <p>phone number</p>
+                    <p>email</p>
+                </div>
+                <a class="business" href="../business/owner-info.html">switch to business account</a>
+                <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
+            </div>
+        </div>
+        </header>
+        <main class="main">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i>  Statistics</a></li>
+                    <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i>  Room Management</a></li>
+                    <li><a href="../../business/dashboard/BookingsOverview.html"class="active"><i class="fas fa-calendar-check"></i>  Bookings Overview</a></li>
+                    <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i>  Messages & Feedback</a></li>
+                </ul>
+            </div>
+            <div class="content">
+                <h3><i class="fas fa-calendar-check"></i> Bookings Overview</h3>
+                <div class="table">
+                    <table>
+                        <colgroup>
+                            <col data-dt-column="0" style="width: 0px;">
+                            <col data-dt-column="1" style="width: 0px;">
+                            <col data-dt-column="2" style="width: 0px;">
+                            <col data-dt-column="3" style="width: 0px;">
+                            <col data-dt-column="4" style="width: 0px;">
+                            <col data-dt-column="5" style="width: 0px;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th data-dt-column="0" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">RoomNumber</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="1" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">F.Name</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="2" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">L.Name</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="3" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">type</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">date</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">Payment</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                    <span class="dt-column-title" role="button">Status</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>room 101</td>
+                                <td>boukrouna</td>
+                                <td>zakaria</td>
+                                <td>single</td>
+                                <td>3 days</td>
+                                <td>DAHABIA</td>
+                                <td>
+                                    <select name="EditStatus" id="EditStatus">
+                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
+                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
+                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>room 101</td>
+                                <td>boukrouna</td>
+                                <td>zakaria</td>
+                                <td>single</td>
+                                <td>3 days</td>
+                                <td>DAHABIA</td>
+                                <td>
+                                    <select name="EditStatus" id="EditStatus">
+                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
+                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
+                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>room 101</td>
+                                <td>boukrouna</td>
+                                <td>zakaria</td>
+                                <td>single</td>
+                                <td>3 days</td>
+                                <td>DAHABIA</td>
+                                <td>
+                                    <select name="EditStatus" id="EditStatus">
+                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
+                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
+                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>room 101</td>
+                                <td>boukrouna</td>
+                                <td>zakaria</td>
+                                <td>single</td>
+                                <td>3 days</td>
+                                <td>DAHABIA</td>
+                                <td>
+                                    <select name="EditStatus" id="EditStatus">
+                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
+                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
+                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+            </div>
+        </main>
+    <!-- Extra content to make the page scrollable -->
+
+
+</div>
+<script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
+</body>
+</html>
