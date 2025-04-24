@@ -184,11 +184,11 @@ main {
     text-decoration: none;
     color: #FBFBFAff;
     font-weight: bold;
-    padding: 5px 15px;
+    padding: 5px 10px;
 }
 
 .sidebar ul li {
-    margin: 25px 10px;
+    margin: 20px 10px;
 }
 
 
@@ -222,12 +222,14 @@ th{
     background-color: #392761ff;
     color: #edf5f1;
     border-radius: 10px;
-    padding: 10px 30px;
+    padding: 5px 20px;
     text-align: left;
     text-align: center;
+    border: none;
 }
 td{
-    padding: 10px 15px;
+    padding: 5px 10px;
     color: #392761ff;
+    border: none;
     
 }
