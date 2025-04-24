@@ -24,7 +24,7 @@
                 <i class='bx bxs-user-circle'></i>
             </button>
             <div class="user-info" id="user-info">
-                <img class="user-img" src="/pics/admin.jpg" alt="">
+                <img class="user-img" src="../pics/admin.jpg" alt="">
                 <div class="user-details">
                     <h3>my profile</h3>
                     <p>boukrouna zakaria</p>

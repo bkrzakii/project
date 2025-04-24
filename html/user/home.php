@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +30,9 @@
             <div class="user-info" id="user-info">
                 <img class="user-img" src="../../pics/admin.jpg" alt="">
                 <div class="user-details">
+                    <?php 
+                    
+                    ?>
                     <h3>my profile</h3>
                     <p>boukrouna zakaria</p>
                     <p>phone number</p>

@@ -200,8 +200,6 @@ main {
 
 .content-header{
     display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
     justify-content: space-around;
     padding: 50px 70px;
     background-color: #6a5acd;

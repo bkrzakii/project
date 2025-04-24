@@ -84,7 +84,61 @@
                                     <span class="dt-column-title" role="button">Status</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                
+                                <?php
+$conn = new mysqli("localhost", "root", "", "hotel_db");
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM hotel_info";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+
+    // Convert result to array
+    $hotels = [];
+    while($row = $result->fetch_assoc()) {
+        $hotels[] = $row;
+    }
+
+    echo "<table border='1' cellpadding='10'>
+        <tr>
+            <th>ID</th>
+            <th>Hotel Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Rooms</th>
+            <th>Features (IDs)</th>
+            <th>Rate</th>
+        </tr>";
+
+    // Now use foreach
+    foreach($hotels as $row) {
+        echo "<tr>
+            <td>{$row['id']}</td>
+            <td>{$row['hotel_name']}</td>
+            <td>{$row['hotel_email']}</td>
+            <td>{$row['hotel_phoneNbr']}</td>
+            <td>{$row['hotel_address']}</td>
+            <td>{$row['hotel_description']}</td>
+            <td>{$row['rooms']}</td>
+            <td>{$row['features']}</td>
+            <td>{$row['hotel_rate']}</td>
+        </tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "0 results";
+}
+
+$conn->close();
+?>
+
                             </tr>
                         </thead>
                         <tbody>

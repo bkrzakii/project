@@ -31,22 +31,49 @@
                     <i class='bx bxs-user-circle'></i>
                 </button>
                 <div class="user-info" id="user-info">
-                    <img class="user-img" src="/pics/admin.jpg" alt="">
+                    <img class="user-img" src="../../pics/admin.jpg" alt="">
                     <div class="user-details">
                         <h3>my profile</h3>
                         <p>boukrouna zakaria</p>
-                        <p>phone number</p>
-                        <p>email</p>
+                        <p>0540418730</p>
+                        <p>zackstorm0404@gmail.com</p>
                     </div>
                     <a class="business" id="Business" href="#">switch to business account</a>
                     <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
                 </div>
             </div>
         </header>
-        
     </div>
     <!-- Extra content to make the page scrollable -->
-    <div class="extra-content"></div>
+    <div class="hotels_list">
+        <div class="hotel_card">
+            <img src="../../pics/hotel1.jpg" alt="Hotel 1">
+            <h3>Hotel Name 1</h3>
+            <p>hotel_description</p>
+            <p>Location: City, Country</p>
+            <p>Rating: 4.5/5</p>
+        </div>
+        <div class="hotel_card">
+            <img src="../../pics/hotel2.jpg" alt="Hotel 2">
+            <h3>Hotel Name 2</h3>
+            <p>hotel_description</p>
+            <p>Location: City, Country</p>
+            <p>Rating: 4.0/5</p>
+        </div>
+        <div class="hotel_card">
+            <img src="../../pics/hotel3.jpg" alt="Hotel 3">
+            <h3>Hotel Name 3</h3>
+            <p>hotel_description</p>
+            <p>Location: City, Country</p>
+            <p>Rating: 4.8/5</p>
+        </div>
+        <div class="hotel_card">
+            <img src="../../pics/hotel4.jpg" alt="Hotel 4">
+            <h3>Hotel Name 4</h3>
+            <p>hotel_description</p>
+            <p>Location: City, Country</p>
+            <p>Rating: 4.2/5</p>
+        </div>
 </div>
 <script src="../../js/user/service.js"></script>
 </body>
