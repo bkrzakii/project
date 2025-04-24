@@ -231,7 +231,7 @@ INSERT INTO `room_info` (`id`, `room_type`, `room_capacity`, `amenities`, `room_
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `username` varchar(20) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `pswd` varchar(100) DEFAULT NULL
@@ -319,10 +319,7 @@ ALTER TABLE `room_images`
 
 --
 -- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
+-
 --
 -- AUTO_INCREMENT for dumped tables
 --

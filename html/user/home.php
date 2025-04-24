@@ -13,10 +13,10 @@
         <nav>
             <ul>
                 <li id="1"><a href="#" class="active">Home</a></li>
-                <li id="2"><a href="service.html">Service</a></li>
-                <li id="3"><a href="about.html">About</a></li>
-                <li id="4"><a href="contact.html">Contact</a></li>
-                <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.html">Dashboard</a></li>
+                <li id="2"><a href="service.php">Service</a></li>
+                <li id="3"><a href="about.php">About</a></li>
+                <li id="4"><a href="contact.php">Contact</a></li>
+                <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
             </ul>
         </nav>
         <div class="profile">
@@ -31,8 +31,8 @@
                     <p>phone number</p>
                     <p>email</p>
                 </div>
-                <a class="business" id="Business" href="../business/owner-info.html">switch to business account</a>
-                <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
+                <a class="business" id="Business" href="../business/owner-info.php">switch to business account</a>
+                <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>
         </div>
         </header>
@@ -76,7 +76,7 @@
                 <h2>Top Reviews</h2>
                 <div class="cards">
                 <div class="card">
-                    <a href="service.html">
+                    <a href="service.php">
                         <img src="../../pics/admin.jpg" alt="">
                         <h2>Oran</h2>
                         <p>Wilaya d'Oran, Algérie</p>
@@ -85,7 +85,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a href="service.html">
+                    <a href="service.php">
                         <img src="../../pics/admin.jpg" alt="">
                         <h2>Oran</h2>
                         <p>Wilaya d'Oran, Algérie</p>
@@ -94,7 +94,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a href="service.html">
+                    <a href="service.php">
                         <img src="../../pics/admin.jpg" alt="">
                         <h2>Oran</h2>
                         <p>Wilaya d'Oran, Algérie</p>
@@ -103,7 +103,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a href="service.html">
+                    <a href="service.php">
                         <img src="../../pics/admin.jpg" alt="">
                         <h2>Oran</h2>
                         <p>Wilaya d'Oran, Algérie</p>
@@ -112,7 +112,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a href="service.html">
+                    <a href="service.php">
                         <img src="../../pics/admin.jpg" alt="">
                         <h2>Oran</h2>
                         <p>Wilaya d'Oran, Algérie</p>

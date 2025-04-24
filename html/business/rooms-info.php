@@ -13,7 +13,7 @@
     <div class="container">
         <h2>🛏️ Add Hotel Rooms & Features</h2>
       
-        <form class="hotelForm" id="hotelForm" action="Features.html" method="get" enctype="multipart/form-data" >
+        <form class="hotelForm" id="hotelForm" action="Features.php" method="get" enctype="multipart/form-data" >
           <div class="roomsContainer" id="roomsContainer">
             <h1>🛏️ Add Multiple Rooms ➕</h1>
             <div class="input-box-rooms">

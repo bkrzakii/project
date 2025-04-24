@@ -1,3 +1,10 @@
+<?php
+$conn = new mysqli("localhost", "root", "", "hotel_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +17,7 @@
 <body>
     <div class="container active"> 
         <div class="form-box login">
-            <form action="#" method="post">
+            <form method="POST">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" name="username" required>
@@ -32,55 +39,47 @@
                     <a href="#"><i class='bx bxl-linkedin'></i></a>
                 </div>
             </form>
-
             <?php
-            if(isset($_POST['submit1'])){
+            if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-
-                // Database connection
-                $conn = new mysqli('localhost', 'bkrzack', 'bkrbkrbkr', 'hotels');
-
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
+                $stmt = $conn->prepare("SELECT pswd FROM user WHERE username = ?");
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $stmt->store_result();
+                if ($stmt->num_rows == 1) {
+                    $stmt->bind_result($hashedPasswordFromDB);
+                    $stmt->fetch();
+            
+                    if (password_verify($password, $hashedPasswordFromDB)) {
+                        header("Location: ../html/user/home.html");
+                    } else {
+                        echo " <script>alert('Error: Password incorrect or Username not found');</script>";
+                    }
+                    $stmt->close();
+                    $conn->close();
                 }
-
-                // SQL query to check if the user exists
-                $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    // User exists, redirect to home page
-                    header("Location: ../html/user/home.html");
-                    exit();
-                } else {
-                    echo "<script>alert('Invalid username or password');</script>";
-                }
-
-                // Close connection
-                $conn->close();
             }
             ?>
         </div>
 
 
         <div class="form-box register">
-            <form action="../html/user/home.html" method="get">
+            <form method="POST">
                 <h1>Registration</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username" name="username" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="email" placeholder="Email" required>
+                    <input type="email" placeholder="Email" name="email" required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" name="password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
-                <button type="submit" class="btn" >Continue</button>
+                <button type="submit" name="submit" class="btn" >Continue</button>
                 <p>or register with social platforms</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
@@ -89,6 +88,23 @@
                     <a href="#"><i class='bx bxl-linkedin'></i></a>
                 </div>
             </form>
+            <?php
+                if ($_SERVER["REQUEST_METHOD"]== "POST") {
+                    $username = $_POST['username'];
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $stmt = $conn->prepare("INSERT INTO user (username, email, pswd) VALUES (?, ?, ?)");
+                    $stmt->bind_param("sss", $username, $email, $hashedPassword);
+                    if ($stmt->execute()) {
+                        header("Location: ../html/user/home.html");
+                        exit();
+                    } else {
+                        echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";
+                    }
+                    $conn->close();
+                }
+                ?>
         </div>
 
         <div class="toggle-box">

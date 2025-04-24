@@ -12,11 +12,11 @@
         <div class="logo">LOGO</div>
         <nav>
             <ul>
-                <li id="1"><a href="home.html" >Home</a></li>
-                <li id="2"><a href="service.html">Service</a></li>
-                <li id="3"><a href="about.html">About</a></li>
+                <li id="1"><a href="home.php" >Home</a></li>
+                <li id="2"><a href="service.php">Service</a></li>
+                <li id="3"><a href="about.php">About</a></li>
                 <li id="4"><a href="#" class="active">Contact</a></li>
-                <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.html">Dashboard</a></li>
+                <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
             </ul>
         </nav>
         <div class="profile">
@@ -32,7 +32,7 @@
                     <p>email</p>
                 </div>
                 <a class="business" id="Business" href="#">switch to business account</a>
-                <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
+                <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>
         </div>
     </header>
