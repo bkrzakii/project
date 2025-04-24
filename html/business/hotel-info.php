@@ -12,7 +12,7 @@
     <div class="container">
         <h2>Hotel Information</h2>
         <p class="underTitle">You have to feel the form below :</p>
-        <form class="mb" action="rooms-info.html" method="get">
+        <form class="mb" action="rooms-info.php" method="get">
             <div class="input-box">
                 <label  for="file-upload" id="image-input">
                     <div class="image-upload">

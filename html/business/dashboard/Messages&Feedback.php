@@ -12,10 +12,10 @@
         <div class="logo">LOGO</div>
         <nav>
             <ul>
-                <li id="1"><a href="../../user/home.html" >Home</a></li>
-                <li id="2"><a href="../../user/service.html">Service</a></li>
-                <li id="3"><a href="../../user/about.html">About</a></li>
-                <li id="4"><a href="../../user/contact.html">Contact</a></li>
+                <li id="1"><a href="../../user/home.php" >Home</a></li>
+                <li id="2"><a href="../../user/service.php">Service</a></li>
+                <li id="3"><a href="../../user/about.php">About</a></li>
+                <li id="4"><a href="../../user/contact.php">Contact</a></li>
                 <li id="Dashboard-link"><a href="#" class="active">Dashboard</a></li>
             </ul>
         </nav>
@@ -31,18 +31,18 @@
                     <p>phone number</p>
                     <p>email</p>
                 </div>
-                <a class="business" href="../business/owner-info.html">switch to business account</a>
-                <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
+                <a class="business" href="../business/owner-info.php">switch to business account</a>
+                <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>
         </div>
         </header>
         <main class="main">
             <div class="sidebar">
                 <ul>
-                    <li><a href="../../business/dashboard/Statistics.html">Statistics</a></li>
-                    <li><a href="#" class="active" >Room Management</a></li>
-                    <li><a href="../../business/dashboard/BookingsOverview.html">Bookings Overview</a></li>
-                    <li><a href="../../business/dashboard/Messages&Feedback.html">Messages & Feedback</a></li>
+                    <li><a href="../../business/dashboard/Statistics.php">Statistics</a></li>
+                    <li><a href="../../business/dashboard/RoomManagement.php">Room Management</a></li>
+                    <li><a href="../../business/dashboard/BookingsOverview.php">Bookings Overview</a></li>
+                    <li><a href="#"class="active">Messages & Feedback</a></li>
                 </ul>
             </div>
         <div class="container">
@@ -58,6 +58,6 @@
 
 
 </div>
-<script src="../../../js/business/dashboard/RoomManagement.js" defer></script>
+<script src="../../../js/business/dashboard/Messages&Feedback.js" defer></script>
 </body>
 </html>

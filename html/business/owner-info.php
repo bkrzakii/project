@@ -12,7 +12,7 @@
     <div class="container">
         <h2>Personal iIformation</h2>
         <p>You have to feel the form below :</p>
-        <form class="mb" action="hotel-info.html" method="get">
+        <form class="mb" action="hotel-info.php" method="get">
             <div class="input-box">
                 <input type="text" class="input" placeholder="Your Name" name="Name" required>
             </div>

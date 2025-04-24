@@ -13,15 +13,6 @@ body {
     list-style: none;
 }
 
-.background {
-    background:#FBFBFAff;
-    background-size: cover;
-    background-position: center;
-    background-attachment:local; 
-    background-repeat: no-repeat; 
-    height: 100vh;
-    padding: 5;
-}
 
 .logo {
     font-size: 24px;
@@ -222,11 +213,35 @@ input:hover, input:focus {
     box-shadow: 0 4px 20px #6a5acd;
 }
 
-.extra-content {
-    padding: 20px;
-    height: 1500px; /* Large height to enable scrolling */
-    background: #FBFBFA;
+.hotel_list {
+        display:flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 50px 70px;
+        background-color: #6a5acd;
+        background: rgb(255, 255, 255);
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
+        margin: 10px 20px 10px 20px;
 }
+
+.hotel_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 400px;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #EDEDF5;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
+}
+
+
+
 
 /* 🔹 Universal Responsive Design */
 @media (max-width: 1024px) {
