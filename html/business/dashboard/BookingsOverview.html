@@ -50,41 +50,37 @@
                 <h3><i class="fas fa-calendar-check"></i> Bookings Overview</h3>
                 <div class="table">
                     <table>
-                        <colgroup>
-                            <col data-dt-column="0" style="width: 0px;">
-                            <col data-dt-column="1" style="width: 0px;">
-                            <col data-dt-column="2" style="width: 0px;">
-                            <col data-dt-column="3" style="width: 0px;">
-                            <col data-dt-column="4" style="width: 0px;">
-                            <col data-dt-column="5" style="width: 0px;">
-                        </colgroup>
                         <thead>
                             <tr>
-                                <th data-dt-column="0" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
-                                    <span class="dt-column-title" role="button">RoomNumber</span>
+                                <th data-dt-column="0" aria-sort="ascending" aria-label="Roomnbr">
+                                    <span class="dt-column-title" role="button">RoomNum</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="1" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                <th data-dt-column="1" aria-sort="ascending" aria-label="fName">
                                     <span class="dt-column-title" role="button">F.Name</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="2" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                <th data-dt-column="2" aria-sort="ascending" aria-label="lName">
                                     <span class="dt-column-title" role="button">L.Name</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="3" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                <th data-dt-column="3" aria-sort="ascending" aria-label="type">
                                     <span class="dt-column-title" role="button">type</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
-                                    <span class="dt-column-title" role="button">date</span>
+                                <th data-dt-column="4" aria-sort="ascending" aria-label="dateFrom">
+                                    <span class="dt-column-title" role="button">dateIN</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                <th data-dt-column="5" aria-sort="ascending" aria-label="dateTo">
+                                    <span class="dt-column-title" role="button">dateOUT</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="6" aria-sort="ascending" aria-label="payment">
                                     <span class="dt-column-title" role="button">Payment</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-type-numeric dt-orderable-asc dt-orderable-desc dt-ordering-asc" aria-sort="ascending" aria-label="Matricule: Activate to invert sorting" tabindex="0">
+                                <th data-dt-column="7" aria-sort="ascending" aria-label="status">
                                     <span class="dt-column-title" role="button">Status</span>
                                     <span class="dt-column-order"></span>
                                 </th>
@@ -92,68 +88,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>room 101</td>
-                                <td>boukrouna</td>
-                                <td>zakaria</td>
-                                <td>single</td>
-                                <td>3 days</td>
-                                <td>DAHABIA</td>
-                                <td>
-                                    <select name="EditStatus" id="EditStatus">
-                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
-                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
-                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>room 101</td>
-                                <td>boukrouna</td>
-                                <td>zakaria</td>
-                                <td>single</td>
-                                <td>3 days</td>
-                                <td>DAHABIA</td>
-                                <td>
-                                    <select name="EditStatus" id="EditStatus">
-                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
-                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
-                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>room 101</td>
-                                <td>boukrouna</td>
-                                <td>zakaria</td>
-                                <td>single</td>
-                                <td>3 days</td>
-                                <td>DAHABIA</td>
-                                <td>
-                                    <select name="EditStatus" id="EditStatus">
-                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
-                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
-                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>room 101</td>
-                                <td>boukrouna</td>
-                                <td>zakaria</td>
-                                <td>single</td>
-                                <td>3 days</td>
-                                <td>DAHABIA</td>
-                                <td>
-                                    <select name="EditStatus" id="EditStatus">
-                                        <option value="1"><i class="fa-solid fa-circle-check"></i> Accepte</option>
-                                        <option value="#"><i class="fa-solid fa-rotate"></i> In progress</option>
-                                        <option value="3"><i class="fa-solid fa-circle-xmark"></i> refused</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
                         <tfoot></tfoot>
                     </table>
                 </div>

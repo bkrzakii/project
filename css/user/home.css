@@ -165,7 +165,7 @@ main {
 }
 
 .background {
-    background-image: url(/pics/homePics1.jpg);
+    background-image: url(../../pics/homePics1.jpg);
     background-size: cover;
     background-position: center;
     background-attachment:local; 

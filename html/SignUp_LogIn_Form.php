@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Signup Form</title>
-    <link rel="stylesheet" href="/css/SignUp_LogIn_Form.css">
+    <link rel="stylesheet" href="../css/SignUp_LogIn_Form.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <div class="container active"> 
         <div class="form-box login">
-            <form action="/html/user/home.html" method="get">
+            <form action="#" method="post">
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username" name="username" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" name="password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="forgot-link">
                     <a href="#">Forgot Password?</a>
                 </div>
-                <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn" name="submit1">Login</button>
                 <p>or login with social platforms</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
@@ -32,10 +32,41 @@
                     <a href="#"><i class='bx bxl-linkedin'></i></a>
                 </div>
             </form>
+
+            <?php
+            if(isset($_POST['submit1'])){
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+
+                // Database connection
+                $conn = new mysqli('localhost', 'bkrzack', 'bkrbkrbkr', 'hotels');
+
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                // SQL query to check if the user exists
+                $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // User exists, redirect to home page
+                    header("Location: ../html/user/home.html");
+                    exit();
+                } else {
+                    echo "<script>alert('Invalid username or password');</script>";
+                }
+
+                // Close connection
+                $conn->close();
+            }
+            ?>
         </div>
 
+
         <div class="form-box register">
-            <form action="/html/user/home.html" method="get">
+            <form action="../html/user/home.html" method="get">
                 <h1>Registration</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" required>
@@ -75,6 +106,6 @@
         </div>
     </div>
 
-    <script src="/js/SignUp_LogIn_Form.js"></script>
+    <script src="../js/SignUp_LogIn_Form.js"></script>
 </body>
 </html>
