@@ -1,7 +1,9 @@
 <?php
-
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,24 +64,6 @@
     </div>
     <!-- Extra content to make the page scrollable -->
     <div class="hotels_list">
-<<<<<<< HEAD
-    <div class="hotel_card">
-        <img src="../../pics/img5.jpeg" alt="Hotel 1">
-        <div class="hotel_info">
-            <h3>Hotel Name 1</h3>
-            <p>hotel_description</p>
-            <p>Location: City, Country</p>
-            <p>Rating: 4.5/5</p>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<script src="../../js/user/service.js"></script>
-=======
     <?php
         $sql = "SELECT 
                 hotel_info.id,
@@ -108,6 +92,5 @@
     ?>
     </div>
     <script src="../../js/user/service.js"></script>
->>>>>>> 311b1a1898c0ee65c7ac1f64cab5078dacb9565a
 </body>
 </html>
