@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
+$conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -250,7 +250,7 @@ $userId = $_GET['user'];
         </form>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $hotel_id = intval($_GET['id']); // Assumes one hotel ID
+                $id = $_GET['id'];
                 $Fname = $_POST['Fname'];
                 $Lname = $_POST['Lname'];
                 $NumPhone = $_POST['NumPhone'];
