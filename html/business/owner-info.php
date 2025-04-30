@@ -18,7 +18,7 @@ if ($conn->connect_error) {
     <div class="container">
         <h2>Personal iIformation</h2>
         <p>You have to feel the form below :</p>
-        <form class="mb" action="hotel-info.php" method="get">
+        <form class="mb" action="hotel-info.php" method="POST">
             <div class="input-box">
                 <input type="text" class="input" placeholder="Your Name" name="Name" required>
             </div>
@@ -35,6 +35,46 @@ if ($conn->connect_error) {
             </div>
             <button type="submit" class="btn btn-primary">Continue</button>
         </form>
+        <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form fields
+    $username = $_POST['Name'];
+    $email = $_POST['Email'];
+    $phoneNbr = $_POST['Phone'];
+
+    // Handle file upload
+    $uploadDir = "../../pics/uploads/";
+    $fileName = basename($_FILES["Image"]["name"]);
+    $targetFilePath = $uploadDir . $fileName;
+
+    // Optional: Check file type
+    $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    if (!in_array($fileType, $allowedTypes)) {
+        echo "<script>alert('Only JPG, JPEG, PNG, GIF, or WEBP files are allowed.');</script>";
+        exit();
+    }
+
+    // Move uploaded file
+        // Insert into database
+        $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, phoneNbr, verification_image) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssis", $username, $email, $phoneNbr, $targetFilePath);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('Data and image uploaded successfully!');</script>";
+        } else {
+            echo "<script>alert('Database insertion failed.');</script>";
+        }
+
+        $stmt->close();
+    } else {
+        echo "<script>alert('File upload failed.');</script>";
+    }
+
+    $conn->close();
+
+?>
+
     </main>
     
     <script src="../../js/business/owner-info.js"></script>

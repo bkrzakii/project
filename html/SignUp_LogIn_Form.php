@@ -43,16 +43,16 @@ if ($conn->connect_error) {
             if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                $stmt = $conn->prepare("SELECT pswd FROM user WHERE username = ?");
+                $stmt = $conn->prepare("SELECT pswd, id FROM user WHERE username = ?");
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $stmt->store_result();
                 if ($stmt->num_rows == 1) {
-                    $stmt->bind_result($hashedPasswordFromDB);
+                    $stmt->bind_result($hashedPasswordFromDB, $id);
                     $stmt->fetch();
             
                     if (password_verify($password, $hashedPasswordFromDB)) {
-                        header("Location: ../html/user/home.php");
+                        header("Location: ../html/user/home.php?id=" . $id);
                     } else {
                         echo " <script>alert('Error: Password incorrect or Username not found');</script>";
                     }
@@ -97,7 +97,7 @@ if ($conn->connect_error) {
                     $stmt = $conn->prepare("INSERT INTO user (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
                     if ($stmt->execute()) {
-                        header("Location: ../html/user/home.php");
+                        echo "<script>alert('Registration successful!');</script>";
                         exit();
                     } else {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";

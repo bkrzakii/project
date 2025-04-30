@@ -170,7 +170,7 @@ input:hover, input:focus {
     box-shadow: 0 4px 20px #6a5acd;
 }
 
-p {
+.hotel_info p {
     color: #3E40AE;
     font-size: 15px;
     font-weight: bold;

@@ -3,6 +3,7 @@ $conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$userId = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,10 +22,10 @@ if ($conn->connect_error) {
             <div class="logo">LOGO</div>
             <nav>
                 <ul>
-                    <li id="1"><a href="home.php">Home</a></li>
+                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>">Home</a></li>
                     <li id="2"><a href="#" class="active">Hotels</a></li>
-                    <li id="3"><a href="about.php">About</a></li>
-                    <li id="4"><a href="contact.php">Contact</a></li>
+                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>">About</a></li>
+                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>">Contact</a></li>
                     <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
                 </ul>
             </nav>
@@ -39,22 +40,20 @@ if ($conn->connect_error) {
                 <div class="user-info" id="user-info">
                     <img class="user-img" src="../../pics/admin.jpg" alt="">
                     <div class="user-details">
-                        <?php /*
-                        $id = $_GET['id'];
-                        $sql = "SELECT
-                            bissness_users.username,
-                            bissness_users.phoneNbr,
-                            bissness_users.email 
-                        FROM bissness_users WHERE id = $id";
+                    <?php
+                    
+                    $sql = "SELECT
+                        user.username,
+                        user.email 
+                        FROM user WHERE id = $userId";
                         $result = $conn->query($sql);
                         if ($result && $result->num_rows > 0) {
                             $user = $result->fetch_assoc();
                             echo "<h3>my profile</h3>";
                             echo "<p>" . htmlspecialchars($user['username']) . "</p>";
-                            echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
                             echo "<p>" . htmlspecialchars($user['email']) . "</p>";
-                        }*/
-                        ?>
+                        }
+                    ?>
                     </div>
                     <a class="business" id="Business" href="#">switch to business account</a>
                     <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
