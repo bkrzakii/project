@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
+$conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -249,7 +249,6 @@ if ($conn->connect_error) {
         </form>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                echo "nikmoh";
                 $id = $_GET['id'];
                 $Fname = $_POST['Fname'];
                 $Lname = $_POST['Lname'];
