@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "cc");
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -62,11 +62,10 @@ if ($conn->connect_error) {
                 </div>
             </div>
         </header>
-    </div>
+</div>
 
-        <div class="container">
-        
-        <?php
+<div class="container">
+    <?php
         $id = $_GET['id'];
         if (!isset($_GET['id'])) {
             die("No rooms IDs provided.");
@@ -84,13 +83,13 @@ if ($conn->connect_error) {
             FROM hotel_info 
             JOIN hotel_image ON hotel_image.hotel_id = hotel_info.id
             WHERE hotel_info.id = $id";
-        $result = $conn->query($sql);
+            $result = $conn->query($sql);
 
         if($result && $result->num_rows >0):
             $value = $result->fetch_assoc();?>
             <h1><?php echo htmlspecialchars($value['hotel_name']); ?></h1>
             <img class="hotel_img" src="../../pics/<?php echo htmlspecialchars($value['image_path'])?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
-            <h2>More Inforemation</h2>
+            <h2>More Information</h2>
             <h4 style="display: inline;">description : &nbsp;</h4>
             <span class="hotel_info"><?php echo htmlspecialchars($value['hotel_description'])?> </span><br>
             <h4 style="display: inline;">Address : &nbsp;</h4>
@@ -108,9 +107,36 @@ if ($conn->connect_error) {
                     echo '<i class="fa-regular fa-star" style="color: gold; font-size: 20px;"></i>';
                 }
             }
-            endif?>
-            <span class="hotel_info">&nbsp;(<?php echo htmlspecialchars($value['hotel_rate'])?>/5)</span>
+        endif?>
+        <span class="hotel_info">&nbsp;(<?php echo htmlspecialchars($value['hotel_rate'])?>/5)</span>
 
+        <h2>Hotel Featues</h2>
+
+        <div class="featuresContainer">
+            <div class="features-group">
+                <?php
+                $featureIDs = explode(',', $value['features']);
+                $featureIDs = array_filter($featureIDs, 'is_numeric');
+                $featureIDs = array_map('intval', $featureIDs);
+                if (!empty($featureIDs)) {
+                    $featurePlaceholders = implode(',', array_fill(0, count($featureIDs), '?'));
+                    $featureSql = "SELECT feature FROM features WHERE id IN ($featurePlaceholders)";
+                    $featureStmt = $conn->prepare($featureSql);
+                    $featureTypes = str_repeat('i', count($featureIDs));
+                    $featureStmt->bind_param($featureTypes, ...$featureIDs);
+                    $featureStmt->execute();
+                    $featureResult = $featureStmt->get_result();
+                    while ($featureRow = $featureResult->fetch_assoc()): ?>
+                        <label class='feature'>
+                        <span class='label-text'> <?php echo htmlspecialchars($featureRow['feature']) ?></span>
+                        </label>
+                    <?php endwhile;
+                } else {
+                    echo "<p>No features listed</p>";
+                }
+                ?>
+            </div>
+        </div>
 
 
             <h2>Room Details</h2>
@@ -126,106 +152,103 @@ if ($conn->connect_error) {
                 </tr>
             </thead>
             <tbody>
-
                 <?php
-            // Fetch room details based on the hotel ID passed in the URL
-            $roomIDs = explode(',', $_GET['id']);
-            $roomIDs = array_filter($roomIDs, 'is_numeric');
-            
-            if (empty($roomIDs)) {
-                die("No valid rooms IDs provided.");
-            }
-            
-            $placeholders = implode(',', array_fill(0, count($roomIDs), '?'));
-            
-            $sql = "SELECT 
-                        room_info.room_type,
-                        room_info.room_capacity,
-                        room_info.room_price,
-                        room_info.amenities
-                    FROM room_info 
-                    WHERE room_info.hotel_id IN ($placeholders)";
-            
-            $stmt = $conn->prepare($sql);
-            $types = str_repeat('i', count($roomIDs));
-            $stmt->bind_param($types, ...$roomIDs);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            
-            if ($result && $result->num_rows > 0) {
-                // Fetch and display room details
-                while ($room = $result->fetch_assoc()) :?>
-                    <tr>
-                    <th><p> <?php echo htmlspecialchars($room['room_type']) ?> </p></th>
-                    <th><p> <?php echo htmlspecialchars($room['room_capacity']) ?> </p></th>
-                    <th><p> <?php echo htmlspecialchars($room['room_price']) ?> </p></th>
-                    <?php
-                // Display amenities
-                $amenityIDs = explode(',', $room['amenities']);
-                $amenityIDs = array_filter($amenityIDs, 'is_numeric');
-                    $amenityIDs = array_map('intval', $amenityIDs);
-                    if (!empty($amenityIDs)) {
-                        $amenityPlaceholders = implode(',', array_fill(0, count($amenityIDs), '?'));
-                        $amenitySql = "SELECT amenity FROM amenities WHERE id IN ($amenityPlaceholders)";
-                        $amenityStmt = $conn->prepare($amenitySql);
-                        $amenityTypes = str_repeat('i', count($amenityIDs));
-                        $amenityStmt->bind_param($amenityTypes, ...$amenityIDs);
-                        $amenityStmt->execute();
-                        $amenityResult = $amenityStmt->get_result();
-                        $amenityNames = [];
-                        while ($amenityRow = $amenityResult->fetch_assoc()) {
-                        $amenityNames[] = htmlspecialchars($amenityRow['amenity']);
-                        }
-                        echo "<th><p> " . implode(',&nbsp;&nbsp;&nbsp;', $amenityNames) . "</p></th>";
-                    } else {
-                    echo "<th><p>None listed</p></th>";
-                    }?>
-                    <th><label class="checkbox">
-                    <input type="radio" name="selected" value="0" style="display: none">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <i class="fa-regular fa-circle-check"></i>
-                    </label></th>
-                    </tr>
-                <?php endwhile;
-            } else { echo "No rooms found for the selected hotel(s)."; }
+                // Fetch room details based on the hotel ID passed in the URL
+                $roomIDs = explode(',', $_GET['id']);
+                $roomIDs = array_filter($roomIDs, 'is_numeric');
                 
-                ?>
-                </tbody>
-                </table>
-
-
-            <h2>Hotel Featues</h2>
-
-            <div class="featuresContainer">
-                <div class="features-group">
-                    <?php
-                    $featureIDs = explode(',', $value['features']);
-                    $featureIDs = array_filter($featureIDs, 'is_numeric');
-                    $featureIDs = array_map('intval', $featureIDs);
-                    if (!empty($featureIDs)) {
-                        $featurePlaceholders = implode(',', array_fill(0, count($featureIDs), '?'));
-                        $featureSql = "SELECT feature FROM features WHERE id IN ($featurePlaceholders)";
-                        $featureStmt = $conn->prepare($featureSql);
-                        $featureTypes = str_repeat('i', count($featureIDs));
-                        $featureStmt->bind_param($featureTypes, ...$featureIDs);
-                        $featureStmt->execute();
-                        $featureResult = $featureStmt->get_result();
-                        while ($featureRow = $featureResult->fetch_assoc()): ?>
-                            <label class='feature'>
-                            <span class='label-text'> <?php echo htmlspecialchars($featureRow['feature']) ?></span>
-                            </label>
+                if (empty($roomIDs)) {
+                    die("No valid rooms IDs provided.");
+                }
+                
+                $placeholders = implode(',', array_fill(0, count($roomIDs), '?'));
+                
+                $sql = "SELECT 
+                            room_info.room_type,
+                            room_info.room_capacity,
+                            room_info.room_price,
+                            room_info.amenities
+                        FROM room_info 
+                        WHERE room_info.hotel_id IN ($placeholders)";
+                
+                $stmt = $conn->prepare($sql);
+                $types = str_repeat('i', count($roomIDs));
+                $stmt->bind_param($types, ...$roomIDs);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                
+                if ($result && $result->num_rows > 0) {
+                    // Fetch and display room details
+                    while ($room = $result->fetch_assoc()) :?>
+                        <tr>
+                        <th><p> <?php echo htmlspecialchars($room['room_type']) ?> </p></th>
+                        <th><p> <?php echo htmlspecialchars($room['room_capacity']) ?> </p></th>
+                        <th><p> <?php echo htmlspecialchars($room['room_price']) ?> DZ</p></th>
+                        <?php
+                        // Display amenities
+                        $amenityIDs = explode(',', $room['amenities']);
+                        $amenityIDs = array_filter($amenityIDs, 'is_numeric');
+                        $amenityIDs = array_map('intval', $amenityIDs);
+                        if (!empty($amenityIDs)) {
+                            $amenityPlaceholders = implode(',', array_fill(0, count($amenityIDs), '?'));
+                            $amenitySql = "SELECT amenity FROM amenities WHERE id IN ($amenityPlaceholders)";
+                            $amenityStmt = $conn->prepare($amenitySql);
+                            $amenityTypes = str_repeat('i', count($amenityIDs));
+                            $amenityStmt->bind_param($amenityTypes, ...$amenityIDs);
+                            $amenityStmt->execute();
+                            $amenityResult = $amenityStmt->get_result();
+                            $amenityNames = [];
+                            while ($amenityRow = $amenityResult->fetch_assoc()) {
+                            $amenityNames[] = htmlspecialchars($amenityRow['amenity']);
+                            }
+                            echo "<th><p> " . implode(',&nbsp;&nbsp;&nbsp;', $amenityNames) . "</p></th>";
+                        } else {
+                        echo "<th><p>None listed</p></th>";
+                        }?>
+                        <form action="" method="post">
+                            <th><label class="checkbox">
+                            <input type="radio" name="selected" value="0" style="display: none">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <i class="fa-regular fa-circle-check"></i>
+                            </label></th>
+                            </tr>
+                        </form>
                         <?php endwhile;
-                    } else {
-                        echo "<p>No features listed</p>";
-                    }
-                    ?>
+                    } else { echo "No rooms found for the selected hotel(s)."; }?>
+            </tbody>
+        </table>
+        <h2>Fill your Information</h2>
+        <form action="" method="post" class="form">
+            <div class="input-box">
+                <input type="text" class="input" placeholder="First Name" name="Fname" required>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input" placeholder="Last Name" name="Lname" required>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input" placeholder="Phone number"  name="NumPhone" required pattern="{13}"> 
+            </div>
+            <div class="date-boxes">
+                <div class="date-box">
+                    <p class="date_span">Date In:</p>
+                    <input type="date" class="input" placeholder="Phone number" name="dateFrom" required>
+                </div>
+                <div class="date-box">
+                    <p class="date_span">Date Out:</p>
+                    <input type="date" class="input" placeholder="Phone number" name="dateTo" required>
                 </div>
             </div>
-
-        <div style="text-align: center;">
-            <a href="#" class="btn">Book Now</a>
-        </div>
-    </div>
+            <div class="input-box">
+                <select class="input" name="payment" >
+                    <option value="">-- Select method of payment --</option>
+                    <option value="Single">DAHABIA</option>
+                    <option value="Double">CB</option>
+                    <option value="Suite">REDOTPAY</option>
+                </select>
+                </div>
+            <button type="submit" class="btn btn-primary">Book Now</button>
+        </form>
+</div>
     <script src="../../js/user/service.js"></script>
 </body>
 </html>
