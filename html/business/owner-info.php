@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "hotel_db");
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -19,7 +19,7 @@ if ($conn->connect_error) {
         <h2>Personal information</h2>
         <p>You have to feel the form below :</p>
         <!-- hotel-info.php -->
-<form class="mb" action="hotel-info.php" method="POST" enctype="multipart/form-data">
+<form class="mb" method="POST" enctype="multipart/form-data">
     <div class="input-box">
         <input type="text" class="input" placeholder="Your Name" name="Name" required>
     </div>
@@ -36,29 +36,46 @@ if ($conn->connect_error) {
     </div>
     <button type="submit" class="btn btn-primary">Continue</button>
 </form>
-
 <?php
-
+// Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['Name'];
-    $email = $_POST['Email'];
-    $phoneNbr = $_POST['Phone'];
-    $image = $_POST['Image'];
-        $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, phoneNbr, verification_image) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssis", $username, $email, $phoneNbr, $image);
+    $name = $conn->real_escape_string($_POST['Name']);
+    $email = $conn->real_escape_string($_POST['Email']);
+    $phone = $conn->real_escape_string($_POST['Phone']);
 
-        if ($stmt->execute()) {
-            echo "<script>alert('Data and image uploaded successfully!');</script>";
-        } else {
-            echo "<script>alert('Database insertion failed.');</script>";
+    // Handle file upload
+    if (isset($_FILES['Image'])) {
+        $fileName = basename($_FILES['Image']['name']);
+        $targetDir = "../../pics/uploads/";
+        $targetFile = $targetDir . uniqid() . "_" . $fileName;
+
+        // Create uploads directory if it doesn't exist
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0755, true);
         }
 
-        $stmt->close();
-    } else {
-        echo "<script>alert('File upload failed.');</script>";
-    }
+        if (move_uploaded_file($_FILES['Image']['tmp_name'], $targetFile)) {
+            // Insert into business_users table
+            $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, phoneNbr, verification_image) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $name, $email, $phone, $targetFile);
 
-    $conn->close();
+            if ($stmt->execute()) {
+                echo "Information saved successfully.";
+                header("Location: hotel-info.php");
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+
+            $stmt->close();
+        } else {
+            echo "Error uploading the file.";
+        }
+    } else {
+        echo "Please upload a valid document.";
+    }
+}
+
+$conn->close();
 ?>
 
     </main>

@@ -98,6 +98,7 @@ if ($conn->connect_error) {
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
                     if ($stmt->execute()) {
                         echo "<script>alert('Registration successful!');</script>";
+                        header("Location: #?id=" . $id);
                         exit();
                     } else {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";

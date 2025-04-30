@@ -31,7 +31,7 @@ $userId = $_GET['id'];
                 <i class='bx bxs-user-circle'></i>
             </button>
             <div class="user-info" id="user-info">
-                <img class="user-img" src="../pics/admin.jpg" alt="">
+                <img class="user-img" src="../../pics/admin.jpg" alt="">
                 <div class="user-details">
                 <?php
                     $sql = "SELECT

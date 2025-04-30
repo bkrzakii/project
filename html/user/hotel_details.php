@@ -42,21 +42,18 @@ $userId = $_GET['user'];
                     <img class="user-img" src="../../pics/admin.jpg" alt="">
                     <div class="user-details">
                     <?php
-                        $id = $_GET['id'];
-                        $sql = "SELECT
-                            bissness_users.username,
-                            bissness_users.phoneNbr,
-                            bissness_users.email 
-                        FROM bissness_users WHERE id = $id";
+                    $sql = "SELECT
+                        user.username,
+                        user.email 
+                        FROM user WHERE id = $userId";
                         $result = $conn->query($sql);
                         if ($result && $result->num_rows > 0) {
                             $user = $result->fetch_assoc();
                             echo "<h3>my profile</h3>";
                             echo "<p>" . htmlspecialchars($user['username']) . "</p>";
-                            echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
                             echo "<p>" . htmlspecialchars($user['email']) . "</p>";
                         }
-                        ?>
+                    ?>
                     </div>
                     <a class="business" id="Business" href="#">switch to business account</a>
                     <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
