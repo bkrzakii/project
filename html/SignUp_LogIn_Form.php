@@ -52,7 +52,7 @@ if ($conn->connect_error) {
                     $stmt->fetch();
             
                     if (password_verify($password, $hashedPasswordFromDB)) {
-                        header("Location: ../html/user/home.html");
+                        header("Location: ../html/user/home.php");
                     } else {
                         echo " <script>alert('Error: Password incorrect or Username not found');</script>";
                     }
@@ -97,7 +97,7 @@ if ($conn->connect_error) {
                     $stmt = $conn->prepare("INSERT INTO user (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
                     if ($stmt->execute()) {
-                        header("Location: ../html/user/home.html");
+                        header("Location: ../html/user/home.php");
                         exit();
                     } else {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";

@@ -24,6 +24,7 @@ header {
     display:flex;
     position: fixed;
     z-index: 3;
+    top: 0px;
     width: 96%;
     justify-content: space-between;
     align-items: center;
@@ -169,6 +170,18 @@ input:hover, input:focus {
     box-shadow: 0 4px 20px #6a5acd;
 }
 
+p {
+    color: #3E40AE;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+h3 {
+    color: #392761ff;
+    margin: 20px 15px;
+    font-size: 25px;
+    font-weight: bold;
+}
 
 .user-details {
     display: flex;
@@ -213,35 +226,56 @@ input:hover, input:focus {
     box-shadow: 0 4px 20px #6a5acd;
 }
 
-.hotel_list {
-        display:flex;
+.hotels_list {
+        display:flex;;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-around;
-        padding: 50px 70px;
+        padding: 10px 0;
         background-color: #6a5acd;
-        background: rgb(255, 255, 255);
+        background: #392761ff;
         border-radius: 50px;
         box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
-        margin: 10px 20px 10px 20px;
+        margin: 90px 20px;
 }
 
 .hotel_card {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    width: 300px;
-    height: 400px;
+    width: 40%;
+    height: 250px;
     margin: 20px 0;
     padding: 20px;
     background-color: #EDEDF5;
     border-radius: 25px;
-    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
 }
 
+.hotel_info {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0px 0 20px;
+}
 
+.hotel_info h3, .hotel_info p {
+    color: #392761ff;
+    margin: 5px 0;
+    width: 100%;
+}
 
+.hotel_img {
+    width: 200px;
+    height: 200px;
+    margin: 30px 0;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px #6a5acd;
+}
+
+.hotel_card:hover {
+    transform: scale(1.05);
+    background: #EDEDF5;
+    box-shadow: 0 4px 20px #6a5acd;
+}
 
 /* 🔹 Universal Responsive Design */
 @media (max-width: 1024px) {

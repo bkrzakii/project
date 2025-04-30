@@ -1,9 +1,15 @@
+<?php
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Statistics - BookingDZ</title>
     <link rel="stylesheet" href="../../../css/business/dashboard/Statistics.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -25,12 +31,24 @@
                 <i class='bx bxs-user-circle'></i>
             </button>
             <div class="user-info" id="user-info">
-                <img class="user-img" src="/pics/admin.jpg" alt="">
+                <img class="user-img" src="../../../pics/admin.jpg" alt="">
                 <div class="user-details">
-                    <h3>my profile</h3>
-                    <p>boukrouna zakaria</p>
-                    <p>phone number</p>
-                    <p>email</p>
+                <?php
+                        $id = $_GET['id'];
+                        $sql = "SELECT
+                            bissness_users.username,
+                            bissness_users.phoneNbr,
+                            bissness_users.email 
+                        FROM bissness_users WHERE id = $id";
+                        $result = $conn->query($sql);
+                        if ($result && $result->num_rows > 0) {
+                            $user = $result->fetch_assoc();
+                            echo "<h3>my profile</h3>";
+                            echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                            echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                            echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        }
+                        ?>
                 </div>
                 <a class="business" href="../business/owner-info.php">switch to business account</a>
                 <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
