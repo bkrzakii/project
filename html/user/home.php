@@ -57,96 +57,18 @@ $userId = $_GET['id'];
         <main>
             <div class="background">
                 <section class="hero">
-                    <h1>HOTEL</h1>
+                    <h1>BookingDZ</h1>
                     <h3 class="h3-main">LANDING PAGE</h3>
-                    <p class="main-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
-                    <button class="read-more">Read More</button>
+                    <p class="main-p">Hey there! Welcome to BookingDZ — your go-to platform for booking amazing stays with ease and peace of mind.</p>
+                    <button class="read-more"><a href="about.php?id=<?php echo $userId; ?>">Read More</a></button>
                 </section>
             </div>
-
-            <div class="middle">
-                <h2>Welcome to Our Hotel</h2>
-                <div class="Cards">
-                    <div class="Card">
-                        <img src="../../pics/img1.jpeg" alt="Image 1">
-                        <h3>Spa</h3>
-                    </div>
-                    <div class="Card">
-                        <img src="../../pics/img2.jpeg" alt="Image 2">
-                        <h3>Piscine</h3>
-                    </div>
-                    <div class="Card">
-                        <img src="../../pics/img3.jpeg" alt="Image 3">
-                        <h3>Appart l’hôtel</h3>
-                    </div>
-                    <div class="Card">
-                        <img src="../../pics/img4.jpeg" alt="Image 3">
-                        <h3>Appartement</h3>
-                    </div>
-                    <div class="Card">
-                        <img src="../../pics/img5.jpeg" alt="Image 3">
-                        <h3>Vue sur la mer</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="top-reviews">
-                <h2>Top Reviews</h2>
-                <div class="cards">
-                <div class="card">
-                    <a href="service.php">
-                        <img src="../../pics/admin.jpg" alt="">
-                        <h2>Oran</h2>
-                        <p>Wilaya d'Oran, Algérie</p>
-                        <h3> 102 € </h3>
-                        <p>tarif moyen par nuit</p>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="service.php">
-                        <img src="../../pics/admin.jpg" alt="">
-                        <h2>Oran</h2>
-                        <p>Wilaya d'Oran, Algérie</p>
-                        <h3> 102 € </h3>
-                        <p>tarif moyen par nuit</p>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="service.php">
-                        <img src="../../pics/admin.jpg" alt="">
-                        <h2>Oran</h2>
-                        <p>Wilaya d'Oran, Algérie</p>
-                        <h3> 102 € </h3>
-                        <p>tarif moyen par nuit</p>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="service.php">
-                        <img src="../../pics/admin.jpg" alt="">
-                        <h2>Oran</h2>
-                        <p>Wilaya d'Oran, Algérie</p>
-                        <h3> 102 € </h3>
-                        <p>tarif moyen par nuit</p>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="service.php">
-                        <img src="../../pics/admin.jpg" alt="">
-                        <h2>Oran</h2>
-                        <p>Wilaya d'Oran, Algérie</p>
-                            <h3> 102 € </h3>
-                        <p>tarif moyen par nuit</p>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="extra-content"></div>
         </main>
         <footer>
             <hr/>
             <div class="mt-5">
                 <h3 class="h3-footer">Support Contact</h3>
-                <p class="footer-p">Email: <a href="mailto:contact@treservi.com">contact@treservi.com</a></p>
+                <p class="footer-p">Email: <a href="mailto:boukrounazakaria01@gmail.com">boukrounazakaria01@gmail.com</a></p>
                 <p class="footer-p">Phone: +1 234 567 890</p>
                 <p class="footer-p">Address: 123 Treservi Street, City, Country</p>
             </div>
