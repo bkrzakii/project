@@ -18,47 +18,34 @@ if ($conn->connect_error) {
     <div class="container">
         <h2>Personal iIformation</h2>
         <p>You have to feel the form below :</p>
-        <form class="mb" action="hotel-info.php" method="POST">
-            <div class="input-box">
-                <input type="text" class="input" placeholder="Your Name" name="Name" required>
-            </div>
-            <div class="input-box">
-                <input type="email" class="input" placeholder="Your Email" name="Email" required>
-            </div>
-            <div class="input-box">
-                <input type="text" class="input" placeholder="Phone number"  name="Phone" required pattern="[0-9]{10}"> 
-            </div>
-            <div class="input-box">
-                <label for="file-upload" id="file-name">Upload business verification document</label>
-                <input  type="file" id="file-upload" class="input-file" name="Image" multiple required>
-                <div id="file-error" class="error-msg"></div>
-            </div>
-            <button type="submit" class="btn btn-primary">Continue</button>
-        </form>
-        <?php
+        <!-- hotel-info.php -->
+<form class="mb" action="hotel-info.php" method="POST" enctype="multipart/form-data">
+    <div class="input-box">
+        <input type="text" class="input" placeholder="Your Name" name="Name" required>
+    </div>
+    <div class="input-box">
+        <input type="email" class="input" placeholder="Your Email" name="Email" required>
+    </div>
+    <div class="input-box">
+        <input type="text" class="input" placeholder="Phone number" name="Phone" required pattern="[0-9]{10}">
+    </div>
+    <div class="input-box">
+        <label for="file-upload" id="file-name">Upload business verification document</label>
+        <input type="file" id="file-upload" class="input-file" name="Image" required>
+        <div id="file-error" class="error-msg"></div>
+    </div>
+    <button type="submit" class="btn btn-primary">Continue</button>
+</form>
+
+<?php
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form fields
     $username = $_POST['Name'];
     $email = $_POST['Email'];
     $phoneNbr = $_POST['Phone'];
-
-    // Handle file upload
-    $uploadDir = "../../pics/uploads/";
-    $fileName = basename($_FILES["Image"]["name"]);
-    $targetFilePath = $uploadDir . $fileName;
-
-    // Optional: Check file type
-    $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-    if (!in_array($fileType, $allowedTypes)) {
-        echo "<script>alert('Only JPG, JPEG, PNG, GIF, or WEBP files are allowed.');</script>";
-        exit();
-    }
-
-    // Move uploaded file
-        // Insert into database
+    $image = $_POST['Image'];
         $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, phoneNbr, verification_image) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssis", $username, $email, $phoneNbr, $targetFilePath);
+        $stmt->bind_param("ssis", $username, $email, $phoneNbr, $image);
 
         if ($stmt->execute()) {
             echo "<script>alert('Data and image uploaded successfully!');</script>";
@@ -72,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-
 ?>
 
     </main>
