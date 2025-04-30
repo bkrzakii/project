@@ -152,6 +152,7 @@ if ($conn->connect_error) {
                 </tr>
             </thead>
             <tbody>
+                <form method="post">
                 <?php
                 // Fetch room details based on the hotel ID passed in the URL
                 $roomIDs = explode(',', $_GET['id']);
@@ -164,6 +165,7 @@ if ($conn->connect_error) {
                 $placeholders = implode(',', array_fill(0, count($roomIDs), '?'));
                 
                 $sql = "SELECT 
+                            room_info.id,
                             room_info.room_type,
                             room_info.room_capacity,
                             room_info.room_price,
@@ -205,20 +207,17 @@ if ($conn->connect_error) {
                         } else {
                         echo "<th><p>None listed</p></th>";
                         }?>
-                        <form action="" method="post">
                             <th><label class="checkbox">
-                            <input type="radio" name="selected" value="0" style="display: none">
+                            <input type="radio" name="selected" value="<?php echo htmlspecialchars($room['id'])?>" style="display: none">
                             <i class="fa-solid fa-circle-check"></i>
                             <i class="fa-regular fa-circle-check"></i>
                             </label></th>
-                            </tr>
-                        </form>
+                        </tr>
                         <?php endwhile;
                     } else { echo "No rooms found for the selected hotel(s)."; }?>
             </tbody>
         </table>
         <h2>Fill your Information</h2>
-        <form action="" method="post" class="form">
             <div class="input-box">
                 <input type="text" class="input" placeholder="First Name" name="Fname" required>
             </div>
@@ -241,13 +240,30 @@ if ($conn->connect_error) {
             <div class="input-box">
                 <select class="input" name="payment" >
                     <option value="">-- Select method of payment --</option>
-                    <option value="Single">DAHABIA</option>
-                    <option value="Double">CB</option>
-                    <option value="Suite">REDOTPAY</option>
+                    <option value="1">DAHABIA</option>
+                    <option value="2">CB</option>
+                    <option value="3">REDOTPAY</option>
                 </select>
                 </div>
             <button type="submit" class="btn btn-primary">Book Now</button>
         </form>
+        <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                echo "nikmoh";
+                $id = $_GET['id'];
+                $Fname = $_POST['Fname'];
+                $Lname = $_POST['Lname'];
+                $NumPhone = $_POST['NumPhone'];
+                $dateFrom = $_POST['dateFrom'];
+                $dateTo = $_POST['dateTo'];
+                $NumRoom = $_POST['selected'];
+                $sql = ("INSERT INTO booking (id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo) VALUES ($id, '$Fname', '$Lname', '$NumPhone', '$NumRoom', '$dateFrom', '$dateTo')");
+                if ($conn->query($sql) === TRUE) {
+                    echo "<script>alert('Booking successful!');</script>";
+                    header("Location: ../html/user/home.php");
+                    exit();
+                }
+            }?>
 </div>
     <script src="../../js/user/service.js"></script>
 </body>
