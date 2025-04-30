@@ -213,33 +213,8 @@ input:hover, input:focus {
     box-shadow: 0 4px 20px #6a5acd;
 }
 
-.hotel_list {
-        display:flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 50px 70px;
-        background-color: #6a5acd;
-        background: rgb(255, 255, 255);
-        border-radius: 50px;
-        box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
-        margin: 10px 20px 10px 20px;
-}
 
-.hotel_card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    height: 400px;
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #EDEDF5;
-    border-radius: 25px;
-    box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
-}
-
+/* 🔹 Extra Content Section */
 
 
 

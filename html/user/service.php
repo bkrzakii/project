@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,35 +50,21 @@
     </div>
     <!-- Extra content to make the page scrollable -->
     <div class="hotels_list">
-        <div class="hotel_card">
-            <img src="../../pics/hotel1.jpg" alt="Hotel 1">
+    <div class="hotel_card">
+        <img src="../../pics/img5.jpeg" alt="Hotel 1">
+        <div class="hotel_info">
             <h3>Hotel Name 1</h3>
             <p>hotel_description</p>
             <p>Location: City, Country</p>
             <p>Rating: 4.5/5</p>
         </div>
-        <div class="hotel_card">
-            <img src="../../pics/hotel2.jpg" alt="Hotel 2">
-            <h3>Hotel Name 2</h3>
-            <p>hotel_description</p>
-            <p>Location: City, Country</p>
-            <p>Rating: 4.0/5</p>
-        </div>
-        <div class="hotel_card">
-            <img src="../../pics/hotel3.jpg" alt="Hotel 3">
-            <h3>Hotel Name 3</h3>
-            <p>hotel_description</p>
-            <p>Location: City, Country</p>
-            <p>Rating: 4.8/5</p>
-        </div>
-        <div class="hotel_card">
-            <img src="../../pics/hotel4.jpg" alt="Hotel 4">
-            <h3>Hotel Name 4</h3>
-            <p>hotel_description</p>
-            <p>Location: City, Country</p>
-            <p>Rating: 4.2/5</p>
-        </div>
+    </div>
 </div>
+
+
+
+
+
 <script src="../../js/user/service.js"></script>
 </body>
 </html>
