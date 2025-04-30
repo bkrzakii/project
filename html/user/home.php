@@ -17,7 +17,7 @@ $userId = $_GET['id'];
 </head>
 <body>
         <header>
-        <div class="logo">LOGO</div>
+        <div class="logo">BookingDZ</div>
         <nav>
             <ul>
                 <li id="1"><a href="#" class="active">Home</a></li>

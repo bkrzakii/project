@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 </head>
 <body>
     <header>
-        <div class="logo">LOGO</div>
+        <div class="logo">BookingDZ</div>
         <nav>
             <ul>
                 <li id="1"><a href="../../user/home.php" >Home</a></li>

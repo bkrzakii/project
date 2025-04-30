@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 <body>
     <main>
     <div class="container">
-        <h2>Personal iIformation</h2>
+        <h2>Personal information</h2>
         <p>You have to feel the form below :</p>
         <!-- hotel-info.php -->
 <form class="mb" action="hotel-info.php" method="POST" enctype="multipart/form-data">

@@ -3,6 +3,7 @@ $conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$userId = $_GET['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -19,14 +20,14 @@ if ($conn->connect_error) {
 
 <div class="background">
         <header>
-            <div class="logo">LOGO</div>
+            <div class="logo">BookingDZ</div>
             <nav>
                 <ul>
-                    <li id="1"><a href="home.php">Home</a></li>
+                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>">Home</a></li>
                     <li id="2"><a href="#" class="active">Hotels</a></li>
-                    <li id="3"><a href="about.php">About</a></li>
-                    <li id="4"><a href="contact.php">Contact</a></li>
-                    <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
+                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>">About</a></li>
+                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>">Contact</a></li>
+                    <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>">Dashboard</a></li>
                 </ul>
             </nav>
             <form action="#" class="search-bar" method="get">

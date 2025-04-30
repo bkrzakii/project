@@ -19,7 +19,7 @@ $userId = $_GET['id'];
 <body>
     <div class="background">
         <header>
-            <div class="logo">LOGO</div>
+            <div class="logo">BookingDZ</div>
             <nav>
                 <ul>
                     <li id="1"><a href="home.php?id=<?php echo $userId; ?>">Home</a></li>
@@ -77,7 +77,7 @@ $userId = $_GET['id'];
 
         if ($result && $result->num_rows > 0) {
             foreach ($result as $value) :?>
-            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?id=<?php echo $value['id']; ?>';" style="cursor:pointer;">
+            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?id=<?php echo $value['id']; ?>&user=<?php echo $userId; ?>';" style="cursor:pointer;">
                 <img class="hotel_img" src="../../pics/<?php echo htmlspecialchars($value['image_path']); ?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
                 <div class="hotel_info">
                     <h3><?php echo htmlspecialchars($value['hotel_name']); ?></h3>

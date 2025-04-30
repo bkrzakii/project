@@ -35,7 +35,7 @@ $result = $conn->query($sql);
 </head>
 <body>
   <header>
-    <div class="logo">LOGO</div>
+    <div class="logo">BookingDZ</div>
     <nav>
       <ul>
         <li><a href="../../user/home.php">Home</a></li>
