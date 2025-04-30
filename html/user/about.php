@@ -1,3 +1,10 @@
+<?php
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$userId = $_GET['id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +20,10 @@
         <div class="logo">LOGO</div>
         <nav>
             <ul>
-                <li id="1"><a href="home.php" >Home</a></li>
-                <li id="2"><a href="service.php">Hotels</a></li>
-                <li id="3"><a href="about.php"class="active">About</a></li>
-                <li id="4"><a href="contact.php">Contact</a></li>
+                <li id="1"><a href="home.php?id=<?php echo $userId; ?>" >Home</a></li>
+                <li id="2"><a href="service.php?id=<?php echo $userId; ?>">Hotels</a></li>
+                <li id="3"><a href="#"class="active">About</a></li>
+                <li id="4"><a href="contact.php?id=<?php echo $userId; ?>">Contact</a></li>
                 <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
             </ul>
         </nav>
@@ -28,10 +35,20 @@
             <div class="user-info" id="user-info">
                 <img class="user-img" src="/pics/admin.jpg" alt="">
                 <div class="user-details">
-                    <h3>my profile</h3>
-                    <p>boukrouna zakaria</p>
-                    <p>phone number</p>
-                    <p>email</p>
+                <?php
+                    
+                    $sql = "SELECT
+                        user.username,
+                        user.email 
+                    FROM user WHERE id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                    }
+                    ?>
                 </div>
                 <a class="business" id="Business" href="#">switch to business account</a>
                 <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>

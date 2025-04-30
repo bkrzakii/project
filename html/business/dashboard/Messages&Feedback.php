@@ -43,7 +43,6 @@ if ($conn->connect_error) {
             <div class="sidebar">
                 <ul>
                     <li><a href="../../business/dashboard/Statistics.php">Statistics</a></li>
-                    <li><a href="../../business/dashboard/RoomManagement.php">Room Management</a></li>
                     <li><a href="../../business/dashboard/BookingsOverview.php">Bookings Overview</a></li>
                     <li><a href="#"class="active">Messages & Feedback</a></li>
                 </ul>

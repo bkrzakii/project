@@ -152,7 +152,7 @@ if ($conn->connect_error) {
                 </tr>
             </thead>
             <tbody>
-                <form method="post">
+        <form method="post">
                 <?php
                 // Fetch room details based on the hotel ID passed in the URL
                 $roomIDs = explode(',', $_GET['id']);
@@ -216,8 +216,8 @@ if ($conn->connect_error) {
                         <?php endwhile;
                     } else { echo "No rooms found for the selected hotel(s)."; }?>
             </tbody>
-        </table>
-        <h2>Fill your Information</h2>
+            </table>
+            <h2>Fill your Information</h2>
             <div class="input-box">
                 <input type="text" class="input" placeholder="First Name" name="Fname" required>
             </div>
@@ -256,13 +256,22 @@ if ($conn->connect_error) {
                 $dateFrom = $_POST['dateFrom'];
                 $dateTo = $_POST['dateTo'];
                 $NumRoom = $_POST['selected'];
-                $sql = ("INSERT INTO booking (id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo) VALUES ($id, '$Fname', '$Lname', '$NumPhone', '$NumRoom', '$dateFrom', '$dateTo')");
-                if ($conn->query($sql) === TRUE) {
+
+                // Prepare and bind
+                $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("isssiss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo);
+
+                if ($stmt->execute()) {
                     echo "<script>alert('Booking successful!');</script>";
-                    header("Location: ../html/user/home.php");
                     exit();
+                } else {
+                    echo "Error: " . $stmt->error;
                 }
-            }?>
+
+                $stmt->close();
+            }
+        ?>
+
 </div>
     <script src="../../js/user/service.js"></script>
 </body>

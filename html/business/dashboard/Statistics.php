@@ -45,7 +45,6 @@ if ($conn->connect_error) {
             <ul>
                 <li><a href="#"class="active"><i class="fas fa-chart-pie"></i>  Statistics</a></li>
                 <li><a href="../../business/dashboard/RoomManagement.php"><i class="fas fa-bed"></i>  Room Management</a></li>
-                <li><a href="../../business/dashboard/BookingsOverview.php"><i class="fas fa-calendar-check"></i>  Bookings Overview</a></li>
                 <li><a href="../../business/dashboard/Messages&Feedback.php"><i class="fas fa-envelope"></i>  Messages & Feedback</a></li>
             </ul>
         </div>

@@ -404,7 +404,7 @@ input:hover, input:focus {
             width: 63.5%;
             justify-content: space-around;
             flex-direction: row;
-            margin: 0 250px;
+            margin: 0 219px;
         }
 
         .date_span {
@@ -459,5 +459,6 @@ input:hover, input:focus {
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
-            margin: 50px ;
+            width: 20%;
+            margin: 50px 41%;
         }
