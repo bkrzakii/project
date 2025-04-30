@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $conn = new mysqli("localhost", "root", "", "hotel_db");
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -29,7 +28,7 @@ $result = $conn->query($sql);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bookings Overview</title>
+  <title>Bookings Overview - BookingDZ</title>
   <link rel="stylesheet" href="../../../css/business/dashboard/BookingsOverview.css"/>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -39,10 +38,10 @@ $result = $conn->query($sql);
     <div class="logo">LOGO</div>
     <nav>
       <ul>
-        <li><a href="../../user/home.html">Home</a></li>
-        <li><a href="../../user/service.html">Service</a></li>
-        <li><a href="../../user/about.html">About</a></li>
-        <li><a href="../../user/contact.html">Contact</a></li>
+        <li><a href="../../user/home.php">Home</a></li>
+        <li><a href="../../user/service.php">Service</a></li>
+        <li><a href="../../user/about.php">About</a></li>
+        <li><a href="../../user/contact.php">Contact</a></li>
         <li><a href="#" class="active">Dashboard</a></li>
       </ul>
     </nav>
@@ -51,15 +50,15 @@ $result = $conn->query($sql);
         <i class='bx bxs-user-circle'></i>
       </button>
       <div class="user-info" id="user-info">
-        <img class="user-img" src="/pics/admin.jpg" alt="User">
+        <img class="user-img" src="../../../pics/admin.jpg" alt="User">
         <div class="user-details">
           <h3>My Profile</h3>
           <p>boukrouna zakaria</p>
           <p>phone number</p>
           <p>email</p>
         </div>
-        <a class="business" href="../business/owner-info.html">Switch to Business Account</a>
-        <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
+        <a class="business" href="../business/owner-info.php">Switch to Business Account</a>
+        <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
       </div>
     </div>
   </header>
@@ -67,10 +66,10 @@ $result = $conn->query($sql);
   <main class="main">
     <div class="sidebar">
       <ul>
-        <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i> Statistics</a></li>
-        <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i> Room Management</a></li>
+        <li><a href="../../business/dashboard/Statistics.php"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+        <li><a href="../../business/dashboard/RoomManagement.php"><i class="fas fa-bed"></i> Room Management</a></li>
         <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
-        <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
+        <li><a href="../../business/dashboard/Messages&Feedback.php"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
       </ul>
     </div>
 

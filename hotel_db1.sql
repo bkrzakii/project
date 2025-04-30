@@ -205,7 +205,9 @@ CREATE TABLE `room_info` (
   `room_capacity` int(20) DEFAULT NULL,
   `amenities` varchar(11) DEFAULT NULL,
   `room_price` int(20) DEFAULT NULL,
-  `matching_rooms` int(20) DEFAULT NULL
+  `matching_rooms` int(20) DEFAULT NULL,
+  `hote_id` int(20) DEFAULT NULL,
+  FOREIGN KEY (`hote_id`) REFERENCES `hotel_info`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

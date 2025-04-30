@@ -8,7 +8,7 @@ window.addEventListener("scroll", function() {
         header.style.width = "none";
         header.style.animation = "movedown 1.9s ease-in-out forwards"; /* Smooth transition */
     } else {
-        header.style.position = "relative"; /* Stay inside .background */
+        header.style.position = "fixed"; /* Stay inside .background */
         header.style.top = "0px"; 
         header.style.boxShadow = "none";
         header.style.width = "none"; /* Ensure full width */

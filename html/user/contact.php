@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Treservi</title>
+    <title>Contact Us - BookingDZ</title>
     <link rel="stylesheet" href="../../css/user/contact.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -13,7 +13,7 @@
         <nav>
             <ul>
                 <li id="1"><a href="home.php" >Home</a></li>
-                <li id="2"><a href="service.php">Service</a></li>
+                <li id="2"><a href="service.php">Hotels</a></li>
                 <li id="3"><a href="about.php">About</a></li>
                 <li id="4"><a href="#" class="active">Contact</a></li>
                 <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
