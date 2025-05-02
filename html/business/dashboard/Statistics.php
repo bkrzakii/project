@@ -58,12 +58,12 @@ $hotelId = $_GET['hotelId'] ?? null;
     <main class="main">
         <div class="sidebar">
             <ul>
-                <li><a href="#"class="active"><i class="fas fa-chart-pie"></i>  Statistics</a></li>
+                <li><a href="#"class="active"><i class="fas fa-chart-pie">
+
+                </i>&nbsp;&nbsp;Statistics</a>
+            </li>
                 <li><a href="../../business/dashboard/BookingsOverview.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId;?>">
-                    <i class="fas fa-calendar-check"></i> Bookings Overview</a>
-                </li>
-                <li><a href="../../business/dashboard/Messages&Feedback.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
-                    <i class="fas fa-envelope"></i>  Messages & Feedback</a>
+                    <i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a>
                 </li>
             </ul>
         </div>

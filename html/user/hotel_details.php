@@ -286,9 +286,18 @@ if ($result && $result->num_rows > 0) {
                     echo "Error: Room not found.";
                     exit();
                 }
+                $sql = ("SELECT email FROM bissness_users WHERE id = $userId");
+                $result = $conn->query($sql);
+                if ($result && $result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $email = $row['email'];
+                } else {
+                    echo "Error: User not found.";
+                    exit();
+                }
                 // Prepare and bind
-                $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("isssisss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo, $totalPrice);
+                $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo, total_price, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("isssissss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo, $totalPrice, $email);
 
                 if ($stmt->execute()) {
                     echo "<script>alert('Booking successful!');</script>";

@@ -171,7 +171,7 @@ main {
     flex-direction: column;
     background-color:#392761ff;
     width: 22%;
-    padding-bottom: 30.9%;
+    padding-bottom: 35.9%;
     text-decoration: none;
 }
 
@@ -232,7 +232,7 @@ h3 {
     margin:  10px 20px 5px 20px ;
 }
 
-p {
+.content-header p {
     margin: 5px 20px 10px 20px ;
     color: #3E40AE;
     font-size: 18px;

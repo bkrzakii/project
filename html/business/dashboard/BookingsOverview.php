@@ -9,6 +9,15 @@ if ($conn->connect_error) {
 }
 $userId = $_GET['id'];
 $hotelId = $_GET['hotelId'] ?? null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['booking_id'])) {
+  $newStatus = $_POST['status'];
+  $bookingId = (int) $_POST['booking_id'];
+  $stmt = $conn->prepare("UPDATE booking SET booking_status = ? WHERE id = ?");
+  $stmt->bind_param("si", $newStatus, $bookingId);
+  $stmt->execute();
+  $stmt->close();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,10 +73,8 @@ $hotelId = $_GET['hotelId'] ?? null;
     <div class="sidebar">
       <ul>
         <li><a href="../../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
-          <i class="fas fa-chart-pie"></i> Statistics</a></li>
-        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
-        <li><a href="../../business/dashboard/Messages&Feedback.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
-          <i class="fas fa-envelope"></i> Messages & Feedback</a></li>
+          <i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Statistics</a></li>
+        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a></li>
       </ul>
     </div>
 
@@ -85,12 +92,14 @@ $hotelId = $_GET['hotelId'] ?? null;
               <th>Date_OUT</th>
               <th>Price</th>
               <th>Status</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <?php
               // Query updated based on actual column names
               $sql = "SELECT 
+              booking.id,
               booking.NumRoom,
               booking.Fname,
               booking.Lname,
@@ -98,7 +107,7 @@ $hotelId = $_GET['hotelId'] ?? null;
               booking.dateFrom,
               booking.dateTo,
               booking.total_price,
-              room_info.matching_rooms AS room_status
+              booking.booking_status
               FROM booking
               LEFT JOIN room_info ON booking.NumRoom = room_info.id
               WHERE booking.hotel_id = $hotelId";
@@ -113,10 +122,30 @@ $hotelId = $_GET['hotelId'] ?? null;
                     <td>{$row['room_type']}</td>
                     <td>{$row['dateFrom']}</td>
                     <td>{$row['dateTo']}</td>
-                    <td>{$row['total_price']}</td>
-                    <td>{$row['room_status']}</td>
-                  </tr>";
-                }
+                    <td>{$row['total_price']}</td> 
+                    <td>";
+                    if ($row['booking_status'] == 'pending') {
+                      echo "<i class=\"fa-solid fa-arrows-rotate\"></i>&nbsp;&nbsp;{$row['booking_status']}";
+                    } elseif ($row['booking_status'] == 'accepted') {
+                      echo "<i class=\"fa-solid fa-circle-check\"></i>&nbsp;&nbsp;{$row['booking_status']}";
+                    } elseif ($row['booking_status'] == 'refused') {
+                      echo "<i class=\"fa-solid fa-circle-xmark\"></i>&nbsp;&nbsp;{$row['booking_status']}";
+                    }?>
+                    </td>
+                    <td>
+                      <i class="fa-solid fa-pen-to-square" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';"></i>
+                      <form method='POST' style="display: none;">
+                      <input type='hidden' name='booking_id' value="<?php echo $row['id']; ?>">
+                        <select name='status'>
+                          <option value='pending' >Pending</option>
+                          <option value='accepted' >Accepted</option>
+                          <option value='refused'>Refused</option>
+                        </select>
+                        <button type='submit'><i class="fa-solid fa-check"></i></button>
+                      </form>
+                    </td>
+                  </tr>
+                <?php }
               } else {
                 echo "<tr><td colspan='8'>No bookings found</td></tr>";
               }

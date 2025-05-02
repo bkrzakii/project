@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2025 at 04:35 PM
+-- Generation Time: May 02, 2025 at 04:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -57,21 +57,19 @@ INSERT INTO `amenities` (`id`, `amenity`) VALUES
 
 CREATE TABLE `bissness_users` (
   `id` int(11) NOT NULL,
-  `username` varchar(20) DEFAULT NULL,
-  `email` varchar(20) DEFAULT NULL,
+  `username` varchar(20) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `pswd` varchar(255) NOT NULL,
   `phoneNbr` int(20) DEFAULT NULL,
-  `verification_image` varchar(200) DEFAULT NULL,
-  `hotel_id` int(20) DEFAULT NULL
+  `verification_image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bissness_users`
 --
 
-INSERT INTO `bissness_users` (`id`, `username`, `email`, `phoneNbr`, `verification_image`, `hotel_id`) VALUES
-(1, 'zaki', 'zaki@gmail.com', 541678283, 'uploads/verification1.jpg', 1),
-(2, 'firasse', 'sadi@gmail.com', 540418730, 'uploads/verification2.jpg', 2),
-(3, 'nabil', 'nabil@gmail.com', 54747523, 'uploads/verification3.jpg', 3);
+INSERT INTO `bissness_users` (`id`, `username`, `email`, `pswd`, `phoneNbr`, `verification_image`) VALUES
+(8, 'boukrouna anes', 'anes@gmail.com', '$2y$10$a3j.HNwwG6NGiYzvnDmGQOesCKjdYx5Gfbp1x/DKfoXr3RSdfr/kS', 1234567890, '../../pics/uploads/68141a5e90b8a_image.png');
 
 -- --------------------------------------------------------
 
@@ -85,21 +83,30 @@ CREATE TABLE `booking` (
   `Fname` varchar(20) DEFAULT NULL,
   `Lname` varchar(20) DEFAULT NULL,
   `NumPhone` int(10) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `NumRoom` int(11) NOT NULL,
   `dateFrom` date DEFAULT NULL,
   `dateTo` date DEFAULT NULL,
-  `DateOfBooking` timestamp NOT NULL DEFAULT current_timestamp()
+  `DateOfBooking` timestamp NOT NULL DEFAULT current_timestamp(),
+  `total_price` int(20) NOT NULL,
+  `booking_status` enum('pending','accepted','refused') NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`id`, `hotel_id`, `Fname`, `Lname`, `NumPhone`, `NumRoom`, `dateFrom`, `dateTo`, `DateOfBooking`) VALUES
-(1, 1, 'boukrouna', 'zakaria', 4444444, 1, '2025-04-20', '2025-05-01', '2025-04-23 22:14:22'),
-(2, 1, 'boukrouna', 'zakaria', 4444444, 2, '2025-04-20', '2025-05-01', '2025-04-23 22:14:22'),
-(3, 2, 'boukrouna', 'zakaria', 4444444, 3, '2025-04-20', '2025-05-01', '2025-04-23 22:14:22'),
-(4, 3, 'boukrouna', 'zakaria', 4444444, 4, '2025-04-20', '2025-05-01', '2025-04-23 22:14:22');
+INSERT INTO `booking` (`id`, `hotel_id`, `Fname`, `Lname`, `NumPhone`, `email`, `NumRoom`, `dateFrom`, `dateTo`, `DateOfBooking`, `total_price`, `booking_status`) VALUES
+(1, 1, 'zaki', 'bkr', 540418730, 'boukrounazakaria0@gmail.com', 4, '2025-04-22', '2025-04-22', '2025-04-30 17:12:45', 7800, 'accepted'),
+(2, 1, 'sadii', 'firasse', 74125896, '', 1, '2025-07-04', '2025-07-08', '2025-04-30 17:13:41', 6000, 'pending'),
+(4, 1, 'salhi', 'nabil', 89632145, '', 8, '2024-07-09', '2030-02-08', '2025-04-30 17:14:37', 5500, 'pending'),
+(10, 2, 'salhi', 'firasse', 540418730, '', 2, '2025-04-01', '2025-04-15', '2025-04-30 17:17:37', 4720, 'pending'),
+(46, 2, 'salhi', 'firasse', 540418730, '', 2, '2025-04-01', '2025-04-15', '2025-04-30 17:47:21', 7440, 'pending'),
+(47, 1, 'zaki', 'nabil', 89632145, '', 4, '2025-04-22', '2025-05-07', '2025-04-30 19:45:27', 10000, 'pending'),
+(48, 3, 'anes', 'dd', 1234567, '', 6, '2025-05-14', '2025-05-26', '2025-05-01 16:09:15', 7200, 'pending'),
+(49, 38, 'zaki', 'bkr', 540418730, '', 30, '2025-05-01', '2025-05-10', '2025-05-02 01:34:56', 63000, 'accepted'),
+(50, 38, 'sadii', 'firasse', 1234567, '', 30, '2025-05-21', '2025-05-27', '2025-05-02 01:43:57', 42000, 'refused'),
+(51, 1, 'zaki', 'nabil', 2147483647, 'anes@gmail.com', 8, '2025-05-15', '2025-05-20', '2025-05-02 11:01:18', 4000, 'pending');
 
 -- --------------------------------------------------------
 
@@ -150,7 +157,13 @@ CREATE TABLE `hotel_image` (
 INSERT INTO `hotel_image` (`id`, `hotel_id`, `image_path`) VALUES
 (1, 1, '1.jpg'),
 (3, 2, '1.jpg'),
-(5, 3, '1.jpg');
+(5, 3, '1.jpg'),
+(7, 4, '2.jpg'),
+(10, 29, '../../pics/uploads/6812eac0b209e_Screenshot 2025-04-27 134916.png'),
+(11, 29, '../../pics/uploads/6812eac0b5c18_Screenshot 2025-04-27 142011.png'),
+(12, 29, '../../pics/uploads/6812eac0b8f93_Screenshot 2025-04-27 145131.png'),
+(13, 29, '../../pics/uploads/6812eac0ba4bd_Screenshot 2025-04-28 143712.png'),
+(16, 38, '../../pics/uploads/68141cf84666e_Monkey D_ Luffy.jpg');
 
 -- --------------------------------------------------------
 
@@ -166,19 +179,23 @@ CREATE TABLE `hotel_info` (
   `hotel_address` varchar(200) DEFAULT NULL,
   `hotel_description` varchar(200) DEFAULT NULL,
   `rooms_total` bigint(255) DEFAULT NULL,
-  `rooms` varchar(20) DEFAULT NULL,
+  `rooms` varchar(255) DEFAULT NULL,
   `features` varchar(20) DEFAULT NULL,
-  `hotel_rate` float DEFAULT NULL
+  `hotel_rate` float DEFAULT NULL,
+  `hotel_owner` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hotel_info`
 --
 
-INSERT INTO `hotel_info` (`id`, `hotel_name`, `hotel_email`, `hotel_phoneNbr`, `hotel_address`, `hotel_description`, `rooms_total`, `rooms`, `features`, `hotel_rate`) VALUES
-(1, 'holte1', 'hotel1@gmail.com', 100000, 'bounmerdes', 'hotel1 description', 100, '1,2,3', '0,1,2,11,10,4', 5),
-(2, 'holte2', 'hotel2@gmail.com', 111111, 'bounmerdes', 'hotel2 description', 200, '4,5,6', '3,4,5,11,7,12', 4.2),
-(3, 'holte3', 'hotel3@gmail.com', 222222, 'bounmerdes', 'hotel3 description', 500, '7,8,9', '0,1,2,3,4,5,6,7,8,9', 2.1);
+INSERT INTO `hotel_info` (`id`, `hotel_name`, `hotel_email`, `hotel_phoneNbr`, `hotel_address`, `hotel_description`, `rooms_total`, `rooms`, `features`, `hotel_rate`, `hotel_owner`) VALUES
+(1, 'hotel_1', 'hotel1@gmail.com', 100000, 'boumerdes, boumerdes', 'hotel_1 description', 100, '1,2,3', '0,1,2,11,10,4', 5, 0),
+(2, 'hotel_2', 'hotel2@gmail.com', 111111, 'alger,bab el oued', 'hotel_2 description', 200, '4,5,6', '3,4,5,11,7,12', 4.2, 0),
+(3, 'hotel_3', 'hotel3@gmail.com', 222222, 'oran', 'hotel_3 description', 500, '7,8,9', '0,1,2,3,4,5,6,7,8,9', 2.1, 0),
+(4, 'hotel_4', 'hotel4@gmail.com', 55742, 'annaba', 'hotel_4 description', 5000, '7,8', '0,1,2,3,4,5,7,8,9', 3.4, 0),
+(29, 'zaza', 'zakii@gmail.com', 1234567890, 'zazaroot', 'zaza', 700, '14,15,16,17,23,26,27', '5,8,11,12', 0, 6),
+(38, 'anesHotel', 'anes@gmail.com', 123456789, 'boumerdes, boumerdes, aligo', '', 400, '30', '1,2,5,7,10,12', 4, 8);
 
 -- --------------------------------------------------------
 
@@ -268,31 +285,15 @@ INSERT INTO `room_info` (`id`, `room_type`, `room_capacity`, `amenities`, `room_
 (7, 'deluxe room', 7, '3,7,9,0', 700, NULL, 3),
 (8, 'presidential suite', 8, '1,0,5', 800, NULL, 1),
 (9, 'honeymoon suite', 9, '0,1,2,8,9,1', 900, NULL, 1),
-(10, 'business suite', 10, '0,1,2,5,7', 1000, NULL, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(20) DEFAULT NULL,
-  `email` varchar(20) DEFAULT NULL,
-  `pswd` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `username`, `email`, `pswd`) VALUES
-(1, 'zaki', 'zaki@gmail.com', 'zakii'),
-(2, 'firasse', 'sadi@gmail.com', 'sadi'),
-(3, 'gg', 'gg@gmail.com', 'gg'),
-(4, 'g', 'g@gmail.com', 'g'),
-(5, 'gl', 'gl@gmail.com', 'gl');
+(10, 'business suite', 10, '0,1,2,5,7', 1000, NULL, 4),
+(14, 'Double', 8, '4,6,7', 700, 8, 29),
+(15, 'Single', 4, '5,9', 4000, 40, 29),
+(16, 'Suite', 5, '0,1,10', 12000, 10, 29),
+(17, 'Double', 1111, '0,2,4,6', 11111, 11111, 29),
+(23, 'Double', 40, '7,10', 44444, 88888, 29),
+(26, 'Double', 40, '7,10', 44444, 88888, 29),
+(27, 'Double', 40, '7,10', 44444, 88888, 29),
+(30, 'Suite', 3, '4,7,10', 7000, 13, 38);
 
 --
 -- Indexes for dumped tables
@@ -308,8 +309,7 @@ ALTER TABLE `amenities`
 -- Indexes for table `bissness_users`
 --
 ALTER TABLE `bissness_users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `hotel_id` (`hotel_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `booking`
@@ -317,7 +317,8 @@ ALTER TABLE `bissness_users`
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`id`),
   ADD KEY `hotel_id` (`hotel_id`),
-  ADD KEY `NumRoom` (`NumRoom`);
+  ADD KEY `NumRoom` (`NumRoom`),
+  ADD KEY `email` (`email`);
 
 --
 -- Indexes for table `features`
@@ -336,7 +337,8 @@ ALTER TABLE `hotel_image`
 -- Indexes for table `hotel_info`
 --
 ALTER TABLE `hotel_info`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `hotel_owner` (`hotel_owner`);
 
 --
 -- Indexes for table `room_images`
@@ -353,20 +355,32 @@ ALTER TABLE `room_info`
   ADD KEY `hote_id` (`hotel_id`);
 
 --
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `bissness_users`
+--
+ALTER TABLE `bissness_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `booking`
+--
+ALTER TABLE `booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `hotel_image`
 --
 ALTER TABLE `hotel_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `hotel_info`
+--
+ALTER TABLE `hotel_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `room_images`
@@ -375,14 +389,14 @@ ALTER TABLE `room_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `room_info`
 --
+ALTER TABLE `room_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- Constraints for table `bissness_users`
+-- Constraints for dumped tables
 --
-ALTER TABLE `bissness_users`
-  ADD CONSTRAINT `bissness_users_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotel_info` (`id`);
 
 --
 -- Constraints for table `booking`
