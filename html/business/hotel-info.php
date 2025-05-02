@@ -3,6 +3,7 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$userId = $_GET['id'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +19,7 @@ if ($conn->connect_error) {
     <div class="container">
         <h2>Hotel Information</h2>
         <p class="underTitle">You have to feel the form below :</p>
-        <form class="mb" action="rooms-info.php" method="get">
+        <form class="mb" method="POST" enctype="multipart/form-data">
             <div class="input-box">
                 <label  for="file-upload" id="image-input">
                     <div class="image-upload">
@@ -27,13 +28,13 @@ if ($conn->connect_error) {
                     </div>
                     <div id="preview-container" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                 </label>
-                <input name="Image" type="file" id="file-upload" class="input-file" accept="image/*" multiple >
+                <input name="Image[]" type="file" id="file-upload" class="input-file" accept="image/*" multiple >
             </div>
             <div class="input-box">
                 <input name="HotelName" type="text" class="input" placeholder="Hotel Name" required>
             </div>
             <div class="input-box">
-                <textarea name="Description " class="input" rows="4" placeholder="Hotel Description . . ."></textarea>
+                <textarea name="Description" class="input" rows="4" placeholder="Hotel Description . . ."></textarea>
             </div>
             <div class="input-box">
                 <input name="fix" type="number" class="input" placeholder=" phone number (fix)" required pattern="[0-9]{10}"> 
@@ -52,7 +53,51 @@ if ($conn->connect_error) {
             <button type="submit" class="btn btn-primary">Continue</button>
         </form>
     </main>
-    
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $ownerId = $_GET['id'] ?? null;
+        $hotelName = $conn->real_escape_string($_POST['HotelName']);
+        $description = $conn->real_escape_string($_POST['Description']);
+        $phone = $conn->real_escape_string($_POST['fix']);
+        $email = $conn->real_escape_string($_POST['HotelEmail']);
+        $address = $conn->real_escape_string($_POST['Address']);
+        $website = $conn->real_escape_string($_POST['Website']);
+        $rate = '0'; // Default rate
+
+        // 1. Insert hotel_info (once)
+        $stmt = $conn->prepare("INSERT INTO hotel_info (hotel_name, hotel_email, hotel_phoneNbr, hotel_address, hotel_description, hotel_owner, hotel_rate) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $hotelName, $email, $phone, $address, $description, $ownerId, $rate);
+        if ($stmt->execute()) {
+            $hotelId = $conn->insert_id;
+
+            // 2. Handle multiple images
+            if (isset($_FILES['Image'])) {
+                foreach ($_FILES['Image']['tmp_name'] as $key => $tmp_name) {
+                    $fileName = basename($_FILES['Image']['name'][$key]);
+                    $targetDir = "../../pics/uploads/";
+                    $targetFile = $targetDir . uniqid() . "_" . $fileName;
+
+                    if (!file_exists($targetDir)) {
+                        mkdir($targetDir, 0755, true);
+                    }
+
+                    if (move_uploaded_file($tmp_name, $targetFile)) {
+                        $stmtImg = $conn->prepare("INSERT INTO hotel_image (hotel_id, image_path) VALUES (?, ?)");
+                        $stmtImg->bind_param("ss", $hotelId, $targetFile);
+                        $stmtImg->execute();
+                        if ($stmtImg->error) {
+                            echo "<script>alert('Error inserting image into database');</script>";
+                        }
+                    }
+                }
+            }
+            echo "<script>alert('Hotel information submitted successfully');window.location.href = 'rooms-info.php?userId=$userId&hotelId=$hotelId';</script>";
+        }exit;
+
+    } else {
+        echo "<script>alert('Error inserting hotel info');</>";
+    }
+    ?>
     <script src="../../js/business/hotel-info.js" defer></script>
 </body>
 </html>

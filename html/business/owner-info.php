@@ -3,6 +3,7 @@ $conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$userId = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,22 +57,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (move_uploaded_file($_FILES['Image']['tmp_name'], $targetFile)) {
             // Insert into business_users table
-            $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, phoneNbr, verification_image) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $name, $email, $phone, $targetFile);
+            $stmt = $conn->prepare("UPDATE bissness_users SET username = ?, email = ?, phoneNbr = ?, verification_image = ? WHERE id = ?");
+            $stmt->bind_param("sssss", $name, $email, $phone, $targetFile, $userId);
 
             if ($stmt->execute()) {
-                echo "Information saved successfully.";
-                header("Location: hotel-info.php");
+                echo "<script>alert('Your information has been submitted successfully.'); window.location.href = 'hotel-info.php?id=$userId'</script>"; // Redirect to hotel-info.php with the new user ID
             } else {
                 echo "Error: " . $stmt->error;
             }
 
             $stmt->close();
-        } else {
-            echo "Error uploading the file.";
         }
     } else {
-        echo "Please upload a valid document.";
+        echo "<script>alert('No file uploaded.');</script>";
     }
 }
 

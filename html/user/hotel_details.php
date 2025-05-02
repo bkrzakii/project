@@ -3,7 +3,17 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['user'];
+$userId = $_GET['userId'] ?? null;
+$hotelId = $_GET['hotelId'] ?? null;
+$sql = "SELECT verification_image FROM bissness_users WHERE id = $userId";
+$result = $conn->query($sql);
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $verificationImage = $row['verification_image'];
+} else {
+    $verificationImage = null;
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -23,14 +33,16 @@ $userId = $_GET['user'];
             <div class="logo">BookingDZ</div>
             <nav>
                 <ul>
-                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>">Home</a></li>
+                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
                     <li id="2"><a href="#" class="active">Hotels</a></li>
-                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>">About</a></li>
-                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>">Contact</a></li>
-                    <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>">Dashboard</a></li>
+                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
+                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+                    <?php if ($verificationImage != null): ?>
+                        <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Dashboard</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
-            <form action="#" class="search-bar" method="get">
+            <form class="search-bar" method="get">
                 <input type="text" placeholder="Search...">
                 <button type="submit" class="bi bi-search search"></button>
             </form>
@@ -43,19 +55,23 @@ $userId = $_GET['user'];
                     <div class="user-details">
                     <?php
                     $sql = "SELECT
-                        user.username,
-                        user.email 
-                        FROM user WHERE id = $userId";
-                        $result = $conn->query($sql);
-                        if ($result && $result->num_rows > 0) {
-                            $user = $result->fetch_assoc();
-                            echo "<h3>my profile</h3>";
-                            echo "<p>" . htmlspecialchars($user['username']) . "</p>";
-                            echo "<p>" . htmlspecialchars($user['email']) . "</p>";
-                        }
-                    ?>
+                        bissness_users.username,
+                        bissness_users.phoneNbr,
+                        bissness_users.email 
+                    FROM bissness_users WHERE id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                    }
+                ?>
                     </div>
-                    <a class="business" id="Business" href="#">switch to business account</a>
+                    <?php if ($verificationImage == null): ?>
+                        <a class="business" id="Business" href="../business/owner-info.php?id=<?php echo $userId; ?>">switch to business account</a>
+                    <?php endif; ?>
                     <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
                 </div>
             </div>
@@ -64,8 +80,8 @@ $userId = $_GET['user'];
 
 <div class="container">
     <?php
-        $id = $_GET['id'];
-        if (!isset($_GET['id'])) {
+        $id = $_GET['hotelId'];
+        if (!isset($_GET['hotelId'])) {
             die("No rooms IDs provided.");
         }
         $sql = "SELECT 
@@ -153,7 +169,7 @@ $userId = $_GET['user'];
         <form method="post">
                 <?php
                 // Fetch room details based on the hotel ID passed in the URL
-                $roomIDs = explode(',', $_GET['id']);
+                $roomIDs = explode(',', $id);
                 $roomIDs = array_filter($roomIDs, 'is_numeric');
                 
                 if (empty($roomIDs)) {
@@ -247,7 +263,7 @@ $userId = $_GET['user'];
         </form>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $id = $_GET['id'];
+                $hotel_id = $_GET['hotelId'];
                 $Fname = $_POST['Fname'];
                 $Lname = $_POST['Lname'];
                 $NumPhone = $_POST['NumPhone'];
@@ -255,9 +271,24 @@ $userId = $_GET['user'];
                 $dateTo = $_POST['dateTo'];
                 $NumRoom = $_POST['selected'];
 
+                $date1 = new DateTime($dateFrom);
+                $date2 = new DateTime($dateTo);
+                $interval = $date1->diff($date2);
+                $numDays = $interval->days; // Absolute number of days
+
+                $sql = "SELECT room_price FROM room_info WHERE id = $NumRoom";
+                $result = $conn->query($sql);
+                if ($result && $result->num_rows > 0) {
+                    $room = $result->fetch_assoc();
+                    $roomPrice = $room['room_price'];
+                    $totalPrice = $roomPrice * $numDays;
+                } else {
+                    echo "Error: Room not found.";
+                    exit();
+                }
                 // Prepare and bind
-                $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("isssiss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo);
+                $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("isssisss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo, $totalPrice);
 
                 if ($stmt->execute()) {
                     echo "<script>alert('Booking successful!');</script>";

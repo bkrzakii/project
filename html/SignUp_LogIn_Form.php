@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "hotel_db");
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -43,7 +43,7 @@ if ($conn->connect_error) {
             if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                $stmt = $conn->prepare("SELECT pswd, id FROM user WHERE username = ?");
+                $stmt = $conn->prepare("SELECT pswd, id FROM bissness_users WHERE username = ?");
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $stmt->store_result();
@@ -94,11 +94,10 @@ if ($conn->connect_error) {
                     $email = $_POST['email'];
                     $password = $_POST['password'];
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO user (username, email, pswd) VALUES (?, ?, ?)");
+                    $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
                     if ($stmt->execute()) {
                         echo "<script>alert('Registration successful!');</script>";
-                        header("Location: #?id=" . $id);
                         exit();
                     } else {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";

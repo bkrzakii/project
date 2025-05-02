@@ -1,9 +1,19 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "hotel_db");
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $userId = $_GET['id'];
+$hotelId = $_GET['hotelId'] ?? null;
+$sql = "SELECT verification_image FROM bissness_users WHERE id = $userId";
+$result = $conn->query($sql);
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $verificationImage = $row['verification_image'];
+} else {
+    $verificationImage = null;
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,11 +32,13 @@ $userId = $_GET['id'];
             <div class="logo">BookingDZ</div>
             <nav>
                 <ul>
-                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>">Home</a></li>
+                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
                     <li id="2"><a href="#" class="active">Hotels</a></li>
-                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>">About</a></li>
-                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>">Contact</a></li>
-                    <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
+                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
+                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+                    <?php if ($verificationImage != null): ?>
+                        <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Dashboard</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
             <form action="#" class="search-bar" method="get">
@@ -41,21 +53,24 @@ $userId = $_GET['id'];
                     <img class="user-img" src="../../pics/admin.jpg" alt="">
                     <div class="user-details">
                     <?php
-                    
                     $sql = "SELECT
-                        user.username,
-                        user.email 
-                        FROM user WHERE id = $userId";
-                        $result = $conn->query($sql);
-                        if ($result && $result->num_rows > 0) {
-                            $user = $result->fetch_assoc();
-                            echo "<h3>my profile</h3>";
-                            echo "<p>" . htmlspecialchars($user['username']) . "</p>";
-                            echo "<p>" . htmlspecialchars($user['email']) . "</p>";
-                        }
-                    ?>
+                        bissness_users.username,
+                        bissness_users.phoneNbr,
+                        bissness_users.email 
+                    FROM bissness_users WHERE id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                    }
+                ?>
                     </div>
-                    <a class="business" id="Business" href="#">switch to business account</a>
+                    <?php if ($verificationImage == null): ?>
+                        <a class="business" id="Business" href="../business/owner-info.php?id=<?php echo $userId; ?>">switch to business account</a>
+                    <?php endif; ?>
                     <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
                 </div>
             </div>
@@ -77,7 +92,7 @@ $userId = $_GET['id'];
 
         if ($result && $result->num_rows > 0) {
             foreach ($result as $value) :?>
-            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?id=<?php echo $value['id']; ?>&user=<?php echo $userId; ?>';" style="cursor:pointer;">
+            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $value['id']; ?>&userId=<?php echo $userId; ?>';" style="cursor:pointer;">
                 <img class="hotel_img" src="../../pics/<?php echo htmlspecialchars($value['image_path']); ?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
                 <div class="hotel_info">
                     <h3><?php echo htmlspecialchars($value['hotel_name']); ?></h3>

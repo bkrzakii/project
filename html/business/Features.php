@@ -1,8 +1,10 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "hotel_db");
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+$userId = $_GET['id'];
+$hotelId = $_GET['hotelId'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,102 +21,129 @@ if ($conn->connect_error) {
     <div class="container">
         <h2>🛏️ Add Hotel Features</h2>
       
-        <form class="hotelForm" id="hotelForm" action="" method="post" enctype="multipart/form-data" >
+        <form class="hotelForm" id="hotelForm" method="POST" >
           <div class="featuresContainer" id="featuresContainer">
             <h1>🎯 Special Features & Activities</h1>
         
             <div class="features-section">
               <h3>Select available features & activities</h3>
               <div class="input-box">
-              <label class="input-label"></label>
-              <div class="checkbox-group">
-                
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="0">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Beach Access</span>
-                </label>
-        
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="1">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Private Pool</span>
-                </label>
-        
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="2">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Live Events</span>
-                </label>
+                <label class="input-label"></label>
+                <div class="checkbox-group">
+                  
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="0">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Beach Access</span>
+                  </label>
+          
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="1">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Private Pool</span>
+                  </label>
+          
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="2">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Live Events</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="3">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Gym / Fitness</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="3">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Gym / Fitness</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="4">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Kids Activities</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="4">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Kids Activities</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="5">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Cooking Classes</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="5">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Cooking Classes</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="6">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Hiking Trails Nearby</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="6">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Hiking Trails Nearby</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="7">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Night Entertainment</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="7">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Night Entertainment</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="8">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Guided Tours (city or nature)</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="8">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Guided Tours (city or nature)</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="9">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Yoga / Wellness Sessions</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="9">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Yoga / Wellness Sessions</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="10">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Water Sports (Jet ski, kayak…)</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="10">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Water Sports (Jet ski, kayak…)</span>
+                  </label>
 
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="11">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Spa / Massage Treatments</span>
-                </label>
-                
-                <label class="checkbox">
-                  <input type="checkbox" name="features[]" value="12">
-                  <i class='bx bx-check-square'></i>
-                  <span class="label-text">Special Events (weddings, concerts…)</span>
-                </label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="11">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Spa / Massage Treatments</span>
+                  </label>
+                  
+                  <label class="checkbox">
+                    <input type="checkbox" name="features[]" value="12">
+                    <i class='bx bx-check-square'></i>
+                    <span class="label-text">Special Events (weddings, concerts…)</span>
+                  </label>
+                </div>
               </div>
             </div>
-            </div>
-            
-            
           </div>
           <button type="submit" class="btn btn-primary"><i class='bx bx-check-square'></i> Submit</button>
-          
         </form>
+        <?php
+        $hotelId = isset($_GET['id']) ? intval($_GET['id']) : null;
+        if (!$hotelId) {
+          echo "<script>alert('Missing or invalid owner ID.');</script>";
+          exit;
+        }
+      
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $features = $_POST['features'] ?? [];
+            // Convert features array to a comma-separated string
+            $featuresString = implode(",", $features);
+            $sql = "SELECT hotel_owner FROM hotel_info WHERE id = $hotelId";
+            $result = $conn->query($sql);
+            if ($result && $result->num_rows > 0) {
+              $row = $result->fetch_assoc();
+              $ownerId = $row['hotel_owner'];
+            }
+
+            // Insert into the database (assuming you have a table for features)
+            $stmt = $conn->prepare("UPDATE hotel_info SET features = ? WHERE id = ?");
+            $stmt->bind_param("si",$featuresString, $hotelId);
+
+            if ($stmt->execute()) {
+              echo "<script>alert('Features added successfully!');window.location.href = '../../html/business/dashboard/Statistics.php?id=$ownerId&hotelId=$hotelId';</script>";
+          } else {
+                echo "<script>alert('Error adding features');</script>";
+            }
+            $stmt->close();
+        }
+        ?>
       </div>
   </main>
     

@@ -7,21 +7,8 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-// Query updated based on actual column names
-$sql = "SELECT 
-            booking.NumRoom,
-            booking.Fname,
-            booking.Lname,
-            room_info.room_type AS room_type,
-            booking.dateFrom,
-            booking.dateTo,
-            room_info.room_price AS payment_method,
-            room_info.matching_rooms AS room_status
-        FROM booking
-        LEFT JOIN room_info ON booking.NumRoom = room_info.id";
-
-$result = $conn->query($sql);
+$userId = $_GET['id'];
+$hotelId = $_GET['hotelId'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +25,10 @@ $result = $conn->query($sql);
     <div class="logo">BookingDZ</div>
     <nav>
       <ul>
-        <li><a href="../../user/home.php">Home</a></li>
-        <li><a href="../../user/service.php">Service</a></li>
-        <li><a href="../../user/about.php">About</a></li>
-        <li><a href="../../user/contact.php">Contact</a></li>
+        <li><a href="../../user/home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
+        <li><a href="../../user/service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
+        <li><a href="../../user/about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
+        <li><a href="../../user/contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
         <li><a href="#" class="active">Dashboard</a></li>
       </ul>
     </nav>
@@ -52,12 +39,22 @@ $result = $conn->query($sql);
       <div class="user-info" id="user-info">
         <img class="user-img" src="../../../pics/admin.jpg" alt="User">
         <div class="user-details">
-          <h3>My Profile</h3>
-          <p>boukrouna zakaria</p>
-          <p>phone number</p>
-          <p>email</p>
+          <?php
+                    $sql = "SELECT
+                        bissness_users.username,
+                        bissness_users.phoneNbr,
+                        bissness_users.email 
+                    FROM bissness_users WHERE id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                    }
+                ?>
         </div>
-        <a class="business" href="../business/owner-info.php">Switch to Business Account</a>
         <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
       </div>
     </div>
@@ -66,9 +63,11 @@ $result = $conn->query($sql);
   <main class="main">
     <div class="sidebar">
       <ul>
-        <li><a href="../../business/dashboard/Statistics.php?id=1"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+        <li><a href="../../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
+          <i class="fas fa-chart-pie"></i> Statistics</a></li>
         <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
-        <li><a href="../../business/dashboard/Messages&Feedback.php"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
+        <li><a href="../../business/dashboard/Messages&Feedback.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
+          <i class="fas fa-envelope"></i> Messages & Feedback</a></li>
       </ul>
     </div>
 
@@ -90,6 +89,21 @@ $result = $conn->query($sql);
           </thead>
           <tbody>
             <?php
+              // Query updated based on actual column names
+              $sql = "SELECT 
+              booking.NumRoom,
+              booking.Fname,
+              booking.Lname,
+              room_info.room_type AS room_type,
+              booking.dateFrom,
+              booking.dateTo,
+              booking.total_price,
+              room_info.matching_rooms AS room_status
+              FROM booking
+              LEFT JOIN room_info ON booking.NumRoom = room_info.id
+              WHERE booking.hotel_id = $hotelId";
+
+              $result = $conn->query($sql);
               if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr>
@@ -99,7 +113,7 @@ $result = $conn->query($sql);
                     <td>{$row['room_type']}</td>
                     <td>{$row['dateFrom']}</td>
                     <td>{$row['dateTo']}</td>
-                    <td>{$row['payment_method']}</td>
+                    <td>{$row['total_price']}</td>
                     <td>{$row['room_status']}</td>
                   </tr>";
                 }

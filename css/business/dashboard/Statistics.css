@@ -21,7 +21,7 @@ header {
     display:flex;
     position: fixed;
     z-index: 3;
-    width: 96%;
+    width: 96.1%;
     justify-content: space-between;
     align-items: center;
     background: #392761ff;
@@ -171,7 +171,7 @@ main {
     flex-direction: column;
     background-color:#392761ff;
     width: 22%;
-    padding-bottom: 100%;
+    padding-bottom: 30.9%;
     text-decoration: none;
 }
 
@@ -184,44 +184,40 @@ main {
     text-decoration: none;
     color: #FBFBFAff;
     font-weight: bold;
-    padding: 5px 15px;
+    padding: 5px 10px;
 }
 
 .sidebar ul li {
-    margin: 25px 10px;
+    margin: 20px 10px;
 }
 
 /* content */
 
 
 .content {
-    width: 80%;
+    width: 85.7%;
 }
 
 .content-header{
     display:flex;
     justify-content: space-around;
-    padding: 50px 70px;
+    padding: 20px 30px;
     background-color: #6a5acd;
     background: rgb(255, 255, 255);
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(194, 195, 226, 0.379);
-    margin: 10px 20px 10px 20px;
+    margin: 30px 20px 10px 20px;
 }
 
-.rating,.order,.Active-Rooms,.Revenue  {
+.rating,.order,.Revenue,.Active-Rooms  {
     display: block;
-    width: 25%;
+    width: 30%;
     padding: 10px 5px;
     margin: 15px 10px;
     background: #C2C3E2ff;
     border-radius: 10px;
 
 } 
-
-.rating{
-    width: 70%;
-}
 
 main h2 {
     text-align: center;
