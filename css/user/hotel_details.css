@@ -462,3 +462,36 @@ input:hover, input:focus {
             width: 20%;
             margin: 50px 41%;
         }
+
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 5px;
+            }
+        
+            .stars input[type="radio"] {
+                display: none;
+            }
+        
+            .stars label {
+                font-size: 28px;
+                color: #ccc;
+                cursor: pointer;
+            }
+        
+            .stars input[type="radio"]:checked ~ label,
+            .stars label:hover,
+            .stars label:hover ~ label {
+                color: gold;
+            }
+        
+            .display-stars i {
+                color: gold;
+                font-size: 24px;
+            }
+        
+            form {
+                margin-top: 20px;
+            }
+        

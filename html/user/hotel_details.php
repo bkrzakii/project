@@ -13,7 +13,7 @@ if ($result && $result->num_rows > 0) {
 } else {
     $verificationImage = null;
 }
-?>
+$rating = 0; // Default rating value
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -91,6 +91,7 @@ if ($result && $result->num_rows > 0) {
                 hotel_info.hotel_address,
                 hotel_info.hotel_description,
                 hotel_info.hotel_rate,
+                hotel_info.ratings,
                 hotel_info.features,
                 hotel_info.rooms,
                 hotel_image.image_path
@@ -112,17 +113,22 @@ if ($result && $result->num_rows > 0) {
             <span class="hotel_info"><a href="<?php echo htmlspecialchars($value['hotel_email']);?>"><?php echo htmlspecialchars($value['hotel_email']);?></a></span><br>
             <h4 style="display: inline;">Phone Number: &nbsp;</h4>
             <span class="hotel_info"><?php echo htmlspecialchars($value['hotel_phoneNbr']); ?></span><br>
+            <div class="display-stars">
+                <?php
+            $average = ($value['ratings'] > 0) ? ($value['hotel_rate'] / $value['ratings']) : 0; ?>
             <h4 style="display: inline;">Guest Reviews :&nbsp;&nbsp;</h4>
-            <?php 
-            for ($i = 1; $i <= 5; $i++) {
-                if ($i <= $value['hotel_rate']) {
-                    echo '<i class="fa-solid fa-star" style="color: gold; font-size: 20px;"></i>';
+            <?php for ($i = 1; $i <= 5; $i++) {
+                if ($i <= floor($average)) {
+                    echo '<i class="fa-solid fa-star"></i>';
+                } elseif ($i - $average < 1) {
+                    echo '<i class="fa-solid fa-star-half-stroke"></i>';
                 } else {
-                    echo '<i class="fa-regular fa-star" style="color: gold; font-size: 20px;"></i>';
+                    echo '<i class="fa-regular fa-star"></i>';
                 }
             }
-        endif?>
-        <span class="hotel_info">&nbsp;(<?php echo htmlspecialchars($value['hotel_rate'])?>/5)</span>
+            endif?>
+            <span class="hotel_info">&nbsp;(<?php echo htmlspecialchars(number_format($average, 1))?>/5)</span>
+            </div>
 
         <h2>Hotel Featues</h2>
 
@@ -258,11 +264,21 @@ if ($result && $result->num_rows > 0) {
                     <option value="2">CB</option>
                     <option value="3">REDOTPAY</option>
                 </select>
+            </div>
+            <div class="stars">
+            <?php for ($i = 5; $i >= 1; $i--): ?>
+                <div class="stars">
+                    <?php for ($i = 5; $i >= 1; $i--): ?>
+                    <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" <?= ($rating == $i) ? 'checked' : '' ?>>
+                    <label for="star<?= $i ?>"><i class="fa-solid fa-star"></i></label>
+                    <?php endfor; ?>
                 </div>
-            <button type="submit" class="btn btn-primary">Book Now</button>
+            <?php endfor; ?>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary">Book Now</button>
         </form>
         <?php
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected'])) {
                 $hotel_id = $_GET['hotelId'];
                 $Fname = $_POST['Fname'];
                 $Lname = $_POST['Lname'];
@@ -270,7 +286,8 @@ if ($result && $result->num_rows > 0) {
                 $dateFrom = $_POST['dateFrom'];
                 $dateTo = $_POST['dateTo'];
                 $NumRoom = $_POST['selected'];
-
+                $rating = (int)$_POST['rating'];
+                
                 $date1 = new DateTime($dateFrom);
                 $date2 = new DateTime($dateTo);
                 $interval = $date1->diff($date2);
@@ -301,11 +318,21 @@ if ($result && $result->num_rows > 0) {
 
                 if ($stmt->execute()) {
                     echo "<script>alert('Booking successful!');</script>";
-                    exit();
                 } else {
                     echo "Error: " . $stmt->error;
                 }
-
+                if ($rating > 0 && $rating <= 5) {
+                    $sql = "SELECT hotel_rate, ratings FROM hotel_info WHERE id = $hotel_id";
+                    $result = $conn->query($sql);
+                    $hotelData = $result->fetch_assoc();
+                    // Calculate new rating and ratings count
+                    $new_rate = $hotelData['hotel_rate'] + $rating;
+                    $new_ratings = $hotelData['ratings'] + 1;
+                    
+                    $stmt= $conn->prepare("UPDATE hotel_info SET hotel_rate = ?, ratings = ? WHERE id = ?");
+                    $stmt->bind_param("sss", $new_rate, $new_ratings, $hotel_id);
+                }
+                exit();
                 $stmt->close();
             }
         ?>

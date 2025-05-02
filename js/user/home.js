@@ -1,18 +1,21 @@
 window.addEventListener("scroll", function() {
     let header = document.querySelector("header");
 
-    if (window.scrollY > 100) { 
+
+    if (window.scrollY > 50) { 
         header.style.position = "fixed"; /* Stick to the top */
         header.style.top = "0"; 
         header.style.boxShadow = "0px 2px 10px rgba(0, 0, 0, 0.1)";
         header.style.width = "none";
         header.style.animation = "movedown 1.9s ease-in-out forwards"; /* Smooth transition */
+        
     } else {
         header.style.position = "fixed"; /* Stay inside .background */
         header.style.top = "0px"; 
         header.style.boxShadow = "none";
         header.style.width = "none"; /* Ensure full width */
         header.style.animation = "movedown 1.9s ease-in-out forwards"; /* Smooth transition */
+
     }
 });
 function toggleDescription() {

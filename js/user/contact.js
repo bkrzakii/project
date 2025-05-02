@@ -1,7 +1,7 @@
 window.addEventListener("scroll", function() {
     let header = document.querySelector("header");
 
-    if (window.scrollY > 100) { 
+    if (window.scrollY > 50) { 
         header.style.position = "fixed"; /* Stick to the top */
         header.style.top = "0"; 
         header.style.boxShadow = "0px 2px 10px rgba(0, 0, 0, 0.1)";
