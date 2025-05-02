@@ -238,3 +238,13 @@ h3 {
     font-size: 18px;
     font-weight: bold;
 }
+
+    .display-stars i {
+        color: gold;
+        font-size: 24px;
+        margin-left: 8px;
+    }
+span {
+    color: #3E40AE;
+    font-weight: bold;
+}

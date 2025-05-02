@@ -92,18 +92,33 @@ $rating = 0; // Default rating value
                 hotel_info.hotel_description,
                 hotel_info.hotel_rate,
                 hotel_info.ratings,
-                hotel_info.features,
-                hotel_info.rooms,
-                hotel_image.image_path
+                hotel_info.features
+                
             FROM hotel_info 
-            JOIN hotel_image ON hotel_image.hotel_id = hotel_info.id
+            JOIN room_info ON room_info.hotel_id = hotel_info.id
+            JOIN room_images ON room_images.room_id = room_info.id
             WHERE hotel_info.id = $id";
             $result = $conn->query($sql);
+
+
+            $sql = "SELECT 
+                hotel_info.rooms,
+                room_info.hotel_id,
+                room_images.image_path
+                FROM hotel_info 
+            JOIN room_info ON room_info.hotel_id = hotel_info.id
+            JOIN room_images ON room_images.room_id = room_info.id
+            WHERE hotel_info.id = $id";
+            $image = $conn->query($sql);
 
         if($result && $result->num_rows >0):
             $value = $result->fetch_assoc();?>
             <h1><?php echo htmlspecialchars($value['hotel_name']); ?></h1>
-            <img class="hotel_img" src="../../pics/<?php echo htmlspecialchars($value['image_path'])?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
+            <div class="hotel_img_container">
+                <?php while($row = $image->fetch_assoc()): ?>
+                    <img class="hotel_img" src="<?php echo htmlspecialchars($row['image_path'])?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
+                <?php endwhile; ?>
+            </div>
             <h2>More Information</h2>
             <h4 style="display: inline;">description : &nbsp;</h4>
             <span class="hotel_info"><?php echo htmlspecialchars($value['hotel_description'])?> </span><br>
@@ -127,7 +142,7 @@ $rating = 0; // Default rating value
                 }
             }
             endif?>
-            <span class="hotel_info">&nbsp;(<?php echo htmlspecialchars(number_format($average, 1))?>/5)</span>
+            <span class="hotel_info">&nbsp;<?php echo htmlspecialchars(number_format($average, 1))?>/5&nbsp;(<?php echo htmlspecialchars($value['ratings'])?> ratings)</span>
             </div>
 
         <h2>Hotel Featues</h2>
@@ -265,16 +280,20 @@ $rating = 0; // Default rating value
                     <option value="3">REDOTPAY</option>
                 </select>
             </div>
-            <div class="stars">
-            <?php for ($i = 5; $i >= 1; $i--): ?>
+            <div class="input-box">
                 <div class="stars">
                     <?php for ($i = 5; $i >= 1; $i--): ?>
-                    <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" <?= ($rating == $i) ? 'checked' : '' ?>>
-                    <label for="star<?= $i ?>"><i class="fa-solid fa-star"></i></label>
+                        <div class="stars">
+                            <?php for ($i = 5; $i >= 1; $i--): ?>
+                                <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" <?= ($rating == $i) ? 'checked' : '' ?>>
+                                <label for="star<?= $i ?>"><i class="fa-solid fa-star"></i></label>
+                            <?php endfor; ?>
+                        </div>
+                        <p class="date_span">Rating:</p>
                     <?php endfor; ?>
                 </div>
-            <?php endfor; ?>
             </div>
+            
             <button type="submit" name="submit" class="btn btn-primary">Book Now</button>
         </form>
         <?php
@@ -329,8 +348,12 @@ $rating = 0; // Default rating value
                     $new_rate = $hotelData['hotel_rate'] + $rating;
                     $new_ratings = $hotelData['ratings'] + 1;
                     
-                    $stmt= $conn->prepare("UPDATE hotel_info SET hotel_rate = ?, ratings = ? WHERE id = ?");
-                    $stmt->bind_param("sss", $new_rate, $new_ratings, $hotel_id);
+                    $sql = "UPDATE hotel_info SET hotel_rate = $new_rate, ratings = $new_ratings WHERE id = $hotel_id";
+                    if ($conn->query($sql) === TRUE) {
+                        echo "<script>alert('Rating updated successfully!');</script>";
+                    } else {
+                        echo "Error updating rating: " . $conn->error;
+                    }
                 }
                 exit();
                 $stmt->close();

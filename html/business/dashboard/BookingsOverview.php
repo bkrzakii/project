@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
                     }
                 ?>
         </div>
-        <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
+        <a href="../../SignUp_LogIn_Form.php" class="logout">Logout</a>
       </div>
     </div>
   </header>

@@ -14,7 +14,6 @@ if ($result && $result->num_rows > 0) {
     $verificationImage = null;
 }
 ?>
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,21 +83,24 @@ if ($result && $result->num_rows > 0) {
                 hotel_info.hotel_name,
                 hotel_info.hotel_address,
                 hotel_info.hotel_description,
+                hotel_info.ratings,
+                hotel_info.hotel_rate,
                 hotel_image.image_path,
                 hotel_info.hotel_rate
             FROM hotel_info
             JOIN hotel_image ON hotel_image.hotel_id = hotel_info.id";
             $result = $conn->query($sql);
-
+        
         if ($result && $result->num_rows > 0) {
             foreach ($result as $value) :?>
             <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $value['id']; ?>&userId=<?php echo $userId; ?>';" style="cursor:pointer;">
-                <img class="hotel_img" src="../../pics/<?php echo htmlspecialchars($value['image_path']); ?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
+                <img class="hotel_img" src="<?php echo htmlspecialchars($value['image_path']); ?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
                 <div class="hotel_info">
                     <h3><?php echo htmlspecialchars($value['hotel_name']); ?></h3>
                     <p><?php echo htmlspecialchars($value['hotel_description']); ?></p>
                     <p>Location: <?php echo htmlspecialchars($value['hotel_address']); ?></p>
-                    <p>Rating: <?php echo htmlspecialchars($value['hotel_rate']); ?>/5</p>
+                    <?php $average = ($value['ratings'] > 0) ? ($value['hotel_rate'] / $value['ratings']) : 0; ?>
+                    <p>Rating: <?php echo htmlspecialchars(number_format($average, 1))?>/5</p>
                 </div>
             </div>
             <?php endforeach;

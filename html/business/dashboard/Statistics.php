@@ -51,7 +51,7 @@ $hotelId = $_GET['hotelId'] ?? null;
                     }
                 ?>
                 </div>
-                <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
+                <a href="../../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>
         </div>
     </header>
@@ -105,20 +105,26 @@ $hotelId = $_GET['hotelId'] ?? null;
                 </div>
                 <div class="rating">
                     <h3><i class="fa-regular fa-star"></i> Rating:</h3>
-                    <?php 
-                    $sql = "SELECT hotel_rate FROM hotel_info WHERE id = $hotelId";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
+                    <div class="display-stars">
+                        <?php 
+                        $sql = "SELECT hotel_rate, ratings FROM hotel_info WHERE id = $hotelId";
+                        $result = $conn->query($sql);
                         $value = $result->fetch_assoc();
-                        echo '<p>';
-                        for ($i = 1; $i <= 5; $i++) {
-                        if ($i <= $value['hotel_rate']) {
-                            echo '<i class="fa-solid fa-star" style="color: gold; font-size: 20px;"></i>';
-                        } else {
-                            echo '<i class="fa-regular fa-star" style="color: gold; font-size: 20px;"></i>';
+                        $average = ($value['ratings'] > 0) ? ($value['hotel_rate'] / $value['ratings']) : 0; ?>
+                        <?php for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= floor($average)) {
+                                echo '<i class="fa-solid fa-star"></i>';
+                            } elseif ($i - $average < 1) {
+                                echo '<i class="fa-solid fa-star-half-stroke"></i>';
+                            } else {
+                                echo '<i class="fa-regular fa-star"></i>';
+                            }
                         }
-                    }echo '&nbsp;&nbsp;&nbsp;'. htmlspecialchars($value['hotel_rate']) .'/5</p>';
-                    }?>
+                        ?>
+                        <span class="hotel_info">&nbsp;<?php echo htmlspecialchars(number_format($average, 1))?>/5</span>
+                    </div>
+                    
+                    <span>&nbsp;(<?php echo htmlspecialchars($value['ratings'])?> ratings)</span>
                 </div>
             </div>
             <div>
