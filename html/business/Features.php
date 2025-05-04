@@ -137,7 +137,7 @@ $hotelId = $_GET['hotelId'] ?? null;
             $stmt->bind_param("si",$featuresString, $hotelId);
 
             if ($stmt->execute()) {
-              echo "<script>alert('Features added successfully!');window.location.href = '../../html/business/dashboard/Statistics.php?id=$ownerId&hotelId=$hotelId';</script>";
+              echo "<script>window.location.href = '../../html/business/dashboard/Statistics.php?id=$ownerId&hotelId=$hotelId';</script>";
           } else {
                 echo "<script>alert('Error adding features');</script>";
             }

@@ -74,7 +74,7 @@ $userId = $_GET['id'] ?? null;
             if (isset($_FILES['Image'])) {
                 foreach ($_FILES['Image']['tmp_name'] as $key => $tmp_name) {
                     $fileName = basename($_FILES['Image']['name'][$key]);
-                    $targetDir = "../../pics/uploads/";
+                    $targetDir = "../../pics/uploads/hotel";
                     $targetFile = $targetDir . uniqid() . "_" . $fileName;
 
                     if (!file_exists($targetDir)) {
@@ -91,7 +91,7 @@ $userId = $_GET['id'] ?? null;
                     }
                 }
             }
-            echo "<script>alert('Hotel information submitted successfully');window.location.href = 'rooms-info.php?userId=$userId&hotelId=$hotelId';</script>";
+            echo "<script>window.location.href = 'rooms-info.php?userId=$userId&hotelId=$hotelId';</script>";
         }exit;
 
     } else {

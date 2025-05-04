@@ -87,10 +87,11 @@ if ($result && $result->num_rows > 0) {
                 hotel_info.hotel_rate,
                 hotel_image.image_path,
                 hotel_info.hotel_rate
-            FROM hotel_info
-            JOIN hotel_image ON hotel_image.hotel_id = hotel_info.id";
+            FROM hotel_info 
+            JOIN hotel_image ON hotel_image.hotel_id = hotel_info.id
+            GROUP BY id";
             $result = $conn->query($sql);
-        
+        //SELECT *, COUNT(id) as num FROM `hotel_image` GROUP BY hotel_id;
         if ($result && $result->num_rows > 0) {
             foreach ($result as $value) :?>
             <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $value['id']; ?>&userId=<?php echo $userId; ?>';" style="cursor:pointer;">

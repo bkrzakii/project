@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle file upload
     if (isset($_FILES['Image'])) {
         $fileName = basename($_FILES['Image']['name']);
-        $targetDir = "../../pics/uploads/";
+        $targetDir = "../../pics/uploads/verification";
         $targetFile = $targetDir . uniqid() . "_" . $fileName;
 
         // Create uploads directory if it doesn't exist
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $name, $email, $phone, $targetFile, $userId);
 
             if ($stmt->execute()) {
-                echo "<script>alert('Your information has been submitted successfully.'); window.location.href = 'hotel-info.php?id=$userId'</script>"; // Redirect to hotel-info.php with the new user ID
+                echo "<script>window.location.href = 'hotel-info.php?id=$userId'</script>"; // Redirect to hotel-info.php with the new user ID
             } else {
                 echo "Error: " . $stmt->error;
             }

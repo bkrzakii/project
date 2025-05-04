@@ -34,7 +34,7 @@ $rating = 0; // Default rating value
             <nav>
                 <ul>
                     <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
-                    <li id="2"><a href="#" class="active">Hotels</a></li>
+                    <li id="2"><a href="service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>" class="active">Hotels</a></li>
                     <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
                     <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
                     <?php if ($verificationImage != null): ?>
@@ -100,7 +100,6 @@ $rating = 0; // Default rating value
             WHERE hotel_info.id = $id";
             $result = $conn->query($sql);
 
-
             $sql = "SELECT 
                 hotel_info.rooms,
                 room_info.hotel_id,
@@ -110,7 +109,6 @@ $rating = 0; // Default rating value
             JOIN room_images ON room_images.room_id = room_info.id
             WHERE hotel_info.id = $id";
             $image = $conn->query($sql);
-
         if($result && $result->num_rows >0):
             $value = $result->fetch_assoc();?>
             <h1><?php echo htmlspecialchars($value['hotel_name']); ?></h1>
@@ -334,12 +332,7 @@ $rating = 0; // Default rating value
                 // Prepare and bind
                 $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo, total_price, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param("isssissss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo, $totalPrice, $email);
-
-                if ($stmt->execute()) {
-                    echo "<script>alert('Booking successful!');</script>";
-                } else {
-                    echo "Error: " . $stmt->error;
-                }
+                $stmt->execute();
                 if ($rating > 0 && $rating <= 5) {
                     $sql = "SELECT hotel_rate, ratings FROM hotel_info WHERE id = $hotel_id";
                     $result = $conn->query($sql);
@@ -349,9 +342,7 @@ $rating = 0; // Default rating value
                     $new_ratings = $hotelData['ratings'] + 1;
                     
                     $sql = "UPDATE hotel_info SET hotel_rate = $new_rate, ratings = $new_ratings WHERE id = $hotel_id";
-                    if ($conn->query($sql) === TRUE) {
-                        echo "<script>alert('Rating updated successfully!');</script>";
-                    } else {
+                    if ($conn->query($sql) === false) {
                         echo "Error updating rating: " . $conn->error;
                     }
                 }

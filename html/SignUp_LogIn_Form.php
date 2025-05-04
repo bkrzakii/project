@@ -96,10 +96,8 @@ if ($conn->connect_error) {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
-                    if ($stmt->execute()) {
-                        echo "<script>alert('Registration successful!');</script>";
-                        exit();
-                    } else {
+                    $stmt->execute();
+                    if (!($stmt->execute())) {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";
                     }
                     $conn->close();
