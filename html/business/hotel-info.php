@@ -74,7 +74,7 @@ $userId = $_GET['id'] ?? null;
             if (isset($_FILES['Image'])) {
                 foreach ($_FILES['Image']['tmp_name'] as $key => $tmp_name) {
                     $fileName = basename($_FILES['Image']['name'][$key]);
-                    $targetDir = "../../pics/uploads/hotel";
+                    $targetDir = "../../pics/uploads/hotel/";
                     $targetFile = $targetDir . uniqid() . "_" . $fileName;
 
                     if (!file_exists($targetDir)) {

@@ -20,11 +20,27 @@ window.addEventListener("scroll", function() {
 });
 function toggleDescription() {
     var desc = document.getElementById("user-info");
-    if (desc.style.display === "") {
+    var currentDisplay = window.getComputedStyle(desc).display;
+
+    if (currentDisplay === "none") {
         desc.style.display = "flex";
     } else {
-        desc.style.display = "";
-}}
+        desc.style.display = "none";
+    }
+}
+
+// Click outside to close
+document.addEventListener("click", function(event) {
+    var profile = document.querySelector(".profile");
+    var userInfo = document.getElementById("user-info");
+    var currentDisplay = window.getComputedStyle(userInfo).display;
+    var isClickInside = profile.contains(event.target);
+
+    if (!isClickInside && currentDisplay === "flex") {
+        userInfo.style.display = "none";
+    }
+});
+
 
 
 document.addEventListener("DOMContentLoaded", function () {

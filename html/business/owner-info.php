@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle file upload
     if (isset($_FILES['Image'])) {
         $fileName = basename($_FILES['Image']['name']);
-        $targetDir = "../../pics/uploads/verification";
+        $targetDir = "../../pics/uploads/verification/";
         $targetFile = $targetDir . uniqid() . "_" . $fileName;
 
         // Create uploads directory if it doesn't exist

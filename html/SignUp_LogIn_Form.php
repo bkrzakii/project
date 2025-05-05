@@ -64,6 +64,13 @@ if ($conn->connect_error) {
         </div>
 
 
+
+
+
+
+
+
+
         <div class="form-box register">
             <form method="POST">
                 <h1>Registration</h1>
@@ -96,9 +103,11 @@ if ($conn->connect_error) {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
-                    $stmt->execute();
-                    if (!($stmt->execute())) {
+                    
+                    if (!$stmt->execute()) {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";
+                    }else {
+                        echo "<script>alert('Registration successful!, Now LOGIN ');</script>";
                     }
                     $conn->close();
                 }
