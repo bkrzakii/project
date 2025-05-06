@@ -21,15 +21,20 @@ $userId = $_GET['id'] ?? null;
         <p class="underTitle">You have to feel the form below :</p>
         <form class="mb" method="POST" enctype="multipart/form-data">
             <div class="input-box">
-                <label  for="file-upload" id="image-input">
-                    <div class="image-upload">
-                        <i class="bx bx-image-add"></i>
-                        <p class="image">Upload hotel images</p>
-                    </div>
-                    <div id="preview-container" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                </label>
-                <input name="Image[]" type="file" id="file-upload" class="input-file" accept="image/*" multiple >
+                <div class="image-upload">
+                <i class="bx bx-image-add"></i>
+                <p class="image">Upload hotel images</p>
             </div>
+            <input name="Image[]" type="file" id="file-upload" class="input-file" accept="image/*" multiple>
+            <div style="display: flex; flex-wrap: wrap ;">
+                <div class="preview-container" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                <div class="upload-box" >
+                    <i class="bx bx-plus"></i>
+                </div>
+            </div>
+            </div>
+            
+
             <div class="input-box">
                 <input name="HotelName" type="text" class="input" placeholder="Hotel Name" required>
             </div>
@@ -94,8 +99,6 @@ $userId = $_GET['id'] ?? null;
             echo "<script>window.location.href = 'rooms-info.php?userId=$userId&hotelId=$hotelId';</script>";
         }exit;
 
-    } else {
-        echo "<script>alert('Error inserting hotel info');</>";
     }
     ?>
     <script src="../../js/business/hotel-info.js" defer></script>

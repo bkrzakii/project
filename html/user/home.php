@@ -85,16 +85,16 @@ if ($result && $result->num_rows > 0) {
                 <h3 class="h3-footer">Support Contact</h3>
                 <p class="footer-p">Email: <a href="mailto:boukrounazakaria01@gmail.com">boukrounazakaria01@gmail.com</a></p>
                 <p class="footer-p">Phone: +1 234 567 890</p>
-                <p class="footer-p">Address: 123 Treservi Street, City, Country</p>
+                <p class="footer-p">Address: 123 BookingDZ Street, City, Country</p>
             </div>
 
             <hr/>
             <div class="mt-5">
                 <h3 class="h3-footer">Follow Us</h3>
                 <div class="social-icons">
-                    <a href="#"><i class='bx bxl-instagram'></i></a>
-                    <a href="#"><i class='bx bxl-facebook'></i></a>
-                    <a href="#"><i class='bx bxl-whatsapp'></i></a>
+                    <a href="https://www.instagram.com/wchzakii/"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.facebook.com/boukrouna.zakaria2005/"><i class='bx bxl-facebook'></i></a>
+                    <a href="https://wa.me/213774336385?text=Salut%20!%20Je%20viens%20de%20voir%20ton%20site."><i class='bx bxl-whatsapp'></i></a>
                 </div>
             </div>
         </footer>

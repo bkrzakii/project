@@ -1,6 +1,5 @@
 # project
 
-
 Steps to Run PHP Project on Your PC
 
 ✅ Step 1: Install XAMPP
@@ -44,6 +43,23 @@ The project includes a file like `hotel_db.sql`:
    `http://localhost/phpmyadmin`
 2. Create a new database with name "hotel_db".
 3. Import the `hotel_db.sql` file into this new database.
+5. Add a User via Database Privileges:
+
+* In phpMyAdmin, click on the `hotel_db` database in the left sidebar.
+* Then click on the **"Privileges"** tab at the top.
+* Click on  **"Add user account"** .
+* Fill in the following details:
+  * **User name:** `zakii`
+  * **Host name:** `localhost`
+  * **Password:** `bkrbkrbkr` (repeat it below)
+* Scroll down to  **Database for user account** :
+  * Select **Grant all privileges on database "hotel_db"**
+* Leave the rest as default and click **Go** to create the user.
+
+✅ **You can now log in with:**
+
+* **Username:** `zakii`
+* **Password:** `bkrbkrbkr`
 
 ✅ Quick Notes
 

@@ -40,10 +40,15 @@ if ($result && $result->num_rows > 0) {
                     <?php endif; ?>
                 </ul>
             </nav>
-            <form action="#" class="search-bar" method="get">
+            <form class="search-bar" method="post">
                 <input type="text" placeholder="Search...">
                 <button type="submit" class="bi bi-search search"></button>
             </form>
+            <?php
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                echo "<script>alert('This feature will be included in upcoming updates.');</script>";
+            }
+            ?>
             <div class="profile">
                 <button class="profile-icon" onclick="toggleDescription()">
                     <i class='bx bxs-user-circle'></i>

@@ -31,7 +31,7 @@ if ($conn->connect_error) {
                     <a href="#">Forgot Password?</a>
                 </div>
                 <button type="submit" class="btn" name="submit1">Login</button>
-                <p>or login with social platforms</p>
+                <p>see our social platforms</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
                     <a href="#"><i class='bx bxl-facebook'></i></a>
@@ -43,17 +43,23 @@ if ($conn->connect_error) {
             if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                $stmt = $conn->prepare("SELECT pswd, id FROM bissness_users WHERE username = ?");
+                $stmt = $conn->prepare("SELECT pswd, id, verification_image FROM bissness_users WHERE username = ?");
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $stmt->store_result();
                 if ($stmt->num_rows == 1) {
-                    $stmt->bind_result($hashedPasswordFromDB, $id);
+                    $stmt->bind_result($hashedPasswordFromDB, $id, $verificationImage);
                     $stmt->fetch();
             
-                    if (password_verify($password, $hashedPasswordFromDB)) {
+                    if (password_verify($password, $hashedPasswordFromDB) && is_null($verificationImage)) {
                         header("Location: ../html/user/home.php?id=" . $id);
-                    } else {
+                    } else if(password_verify($password, $hashedPasswordFromDB) && !is_null($verificationImage)){
+                        $sql = "SELECT id AS hotelId FROM hotel_info WHERE hotel_owner = $id ";
+                        $result = $conn->query($sql);
+                        if ($result && $result->num_rows > 0) {
+                            $hotel = $result->fetch_assoc();
+                            header("Location: ../html/business/dashboard/statistics.php?id=" . $id . "&hotelId=". $hotel['hotelId']);}
+                    }else {
                         echo " <script>alert('Error: Password incorrect or Username not found');</script>";
                     }
                     $stmt->close();
@@ -87,7 +93,7 @@ if ($conn->connect_error) {
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" name="submit" class="btn" >Continue</button>
-                <p>or register with social platforms</p>
+                <p>see our social platforms</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
                     <a href="#"><i class='bx bxl-facebook'></i></a>
