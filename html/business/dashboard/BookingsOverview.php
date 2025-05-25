@@ -1,102 +1,121 @@
+<?php
+// Connection
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$conn = new mysqli("localhost", "root", "", "hotel_db");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query
+$sql = "SELECT 
+            booking.NumRoom,
+            booking.Fname,
+            booking.Lname,
+            room_info.type AS room_type,
+            booking.dateFrom,
+            booking.dateTo,
+            room_info.payment AS payment_method,
+            room_info.status AS room_status
+        FROM booking
+        LEFT JOIN room_info ON booking.NumRoom = room_info.id";
+
+$result = $conn->query($sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="../../../css/business/dashboard/BookingsOverview.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookings Overview</title>
+  <link rel="stylesheet" href="../../../css/business/dashboard/BookingsOverview.css"/>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
-        <header>
-        <div class="logo">LOGO</div>
-        <nav>
-            <ul>
-                <li id="1"><a href="../../user/home.html" >Home</a></li>
-                <li id="2"><a href="../../user/service.html">Service</a></li>
-                <li id="3"><a href="../../user/about.html">About</a></li>
-                <li id="4"><a href="../../user/contact.html">Contact</a></li>
-                <li id="Dashboard-link"><a href="#" class="active">Dashboard</a></li>
-            </ul>
-        </nav>
-        <div class="profile">
-            <button class="profile-icon" onclick="toggleDescription()">
-                <i class='bx bxs-user-circle'></i>
-            </button>
-            <div class="user-info" id="user-info">
-                <img class="user-img" src="/pics/admin.jpg" alt="">
-                <div class="user-details">
-                    <h3>my profile</h3>
-                    <p>boukrouna zakaria</p>
-                    <p>phone number</p>
-                    <p>email</p>
-                </div>
-                <a class="business" href="../business/owner-info.html">switch to business account</a>
-                <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
-            </div>
+  <header>
+    <div class="logo">LOGO</div>
+    <nav>
+      <ul>
+        
+        <li><a href="../../user/home.html"></a></li>li><a href="../../user/service.html">Service</a></li>
+        <li><a href="../../user/about.html">About</a></li>
+        <li><a href="../../user/contact.html">Contact</a></li>
+        <li><a href="#" class="active">Dashboard</a></li>
+      </ul>
+    </nav>
+    <div class="profile">
+      <button class="profile-icon" onclick="toggleDescription()">
+        <i class='bx bxs-user-circle'></i>
+      </button>
+      <div class="user-info" id="user-info">
+        <img class="user-img" src="/pics/admin.jpg" alt="">
+        <div class="user-details">
+          <h3>My Profile</h3>
+          <p>boukrouna zakaria</p>
+          <p>phone number</p>
+          <p>email</p>
         </div>
-        </header>
-        <main class="main">
-            <div class="sidebar">
-                <ul>
-                    <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i>  Statistics</a></li>
-                    <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i>  Room Management</a></li>
-                    <li><a href="../../business/dashboard/BookingsOverview.html"class="active"><i class="fas fa-calendar-check"></i>  Bookings Overview</a></li>
-                    <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i>  Messages & Feedback</a></li>
-                </ul>
-            </div>
-            <div class="content">
-                <h3><i class="fas fa-calendar-check"></i> Bookings Overview</h3>
-                <div class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th data-dt-column="0" aria-sort="ascending" aria-label="Roomnbr">
-                                    <span class="dt-column-title" role="button">RoomNum</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="1" aria-sort="ascending" aria-label="fName">
-                                    <span class="dt-column-title" role="button">F.Name</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="2" aria-sort="ascending" aria-label="lName">
-                                    <span class="dt-column-title" role="button">L.Name</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="3" aria-sort="ascending" aria-label="type">
-                                    <span class="dt-column-title" role="button">type</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="4" aria-sort="ascending" aria-label="dateFrom">
-                                    <span class="dt-column-title" role="button">dateIN</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="5" aria-sort="ascending" aria-label="dateTo">
-                                    <span class="dt-column-title" role="button">dateOUT</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="6" aria-sort="ascending" aria-label="payment">
-                                    <span class="dt-column-title" role="button">Payment</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="7" aria-sort="ascending" aria-label="status">
-                                    <span class="dt-column-title" role="button">Status</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tfoot></tfoot>
-                    </table>
-                </div>
-            </div>
-        </main>
-    <!-- Extra content to make the page scrollable -->
+        <a class="business" href="../business/owner-info.html">Switch to Business Account</a>
+        <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
+      </div>
+    </div>
+  </header>
 
+  <main class="main">
+    <div class="sidebar">
+      <ul>
+        <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+        <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i> Room Management</a></li>
+        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
+        <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
+      </ul>
+    </div>
 
-</div>
-<script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
+    <div class="content">
+      <h3><i class="fas fa-calendar-check"></i> Bookings Overview</h3>
+      <div class="table">
+        <table border="1" cellpadding="10">
+          <thead>
+            <tr>
+              <th>RoomNum</th>
+              <th>F.Name</th>
+              <th>L.Name</th>
+              <th>Type</th>
+              <th>Date IN</th>
+              <th>Date OUT</th>
+              <th>Payment</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              if ($result && $result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<tr>
+                    <td>{$row['NumRoom']}</td>
+                    <td>{$row['Fname']}</td>
+                    <td>{$row['Lname']}</td>
+                    <td>{$row['room_type']}</td>
+                    <td>{$row['dateFrom']}</td>
+                    <td>{$row['dateTo']}</td>
+                    <td>{$row['payment_method']}</td>
+                    <td>{$row['room_status']}</td>
+                  </tr>";
+                }
+              } else {
+                echo "<tr><td colspan='8'>No bookings found</td></tr>";
+              }
+              $conn->close();
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
 </body>
 </html>
