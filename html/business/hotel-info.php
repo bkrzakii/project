@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['id'] ?? null;
+$userId = $_GET['userId'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="en">

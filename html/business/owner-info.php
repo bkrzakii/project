@@ -20,12 +20,23 @@ $userId = $_GET['id'];
         <h2>Personal information</h2>
         <p>You have to feel the form below :</p>
         <!-- hotel-info.php -->
+        <?php
+            $sql = "SELECT * FROM users WHERE user_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $user = $row;
+            }
+        ?>
 <form class="mb" method="POST" enctype="multipart/form-data">
+    
     <div class="input-box">
-        <input type="text" class="input" placeholder="Your Name" name="Name" required>
+        <input type="text" class="input" value="<?= $user['username'] ?>" placeholder="Your Name" name="Name" required>
     </div>
     <div class="input-box">
-        <input type="email" class="input" placeholder="Your Email" name="Email" required>
+        <input type="email" class="input" value="<?= $user['email'] ?>" placeholder="Your Email" name="Email" required>
     </div>
     <div class="input-box">
         <input type="text" class="input" placeholder="Phone number" name="Phone" required pattern="[0-9]{10}">
@@ -61,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("sssss", $name, $email, $phone, $targetFile, $userId);
 
             if ($stmt->execute()) {
-                echo "<script>window.location.href = 'hotel-info.php?id=$userId'</script>"; // Redirect to hotel-info.php with the new user ID
+                echo "<script>window.location.href = 'hotel-info.php?userId=$userId'</script>"; // Redirect to hotel-info.php with the new user ID
             } else {
                 echo "Error: " . $stmt->error;
             }

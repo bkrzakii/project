@@ -5,7 +5,7 @@ if ($conn->connect_error) {
 }
 $userId = $_GET['id'];
 $hotelId = $_GET['hotelId'] ?? null;
-$sql = "SELECT verification_image FROM bissness_users WHERE id = $userId";
+$sql = "SELECT verification_image FROM users WHERE user_id = $userId";
 $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -48,10 +48,10 @@ if ($result && $result->num_rows > 0) {
                 <div class="user-details">
                 <?php
                     $sql = "SELECT
-                        bissness_users.username,
-                        bissness_users.phoneNbr,
-                        bissness_users.email 
-                    FROM bissness_users WHERE id = $userId";
+                        users.username,
+                        users.phoneNbr,
+                        users.email 
+                    FROM users WHERE user_id = $userId";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
                         $user = $result->fetch_assoc();

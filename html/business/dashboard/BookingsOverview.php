@@ -50,10 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
         <div class="user-details">
           <?php
                     $sql = "SELECT
-                        bissness_users.username,
-                        bissness_users.phoneNbr,
-                        bissness_users.email 
-                    FROM bissness_users WHERE id = $userId";
+                        users.username,
+                        users.phoneNbr,
+                        users.email 
+                    FROM users WHERE user_id = $userId";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
                         $user = $result->fetch_assoc();
@@ -99,24 +99,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
             <?php
               // Query updated based on actual column names
               $sql = "SELECT 
-              booking.id,
-              booking.NumRoom,
+              booking.booking_id,
+              booking.room_id,
               booking.Fname,
               booking.Lname,
-              room_info.room_type AS room_type,
+              rooms.room_type AS room_type,
               booking.dateFrom,
               booking.dateTo,
               booking.total_price,
               booking.booking_status
               FROM booking
-              LEFT JOIN room_info ON booking.NumRoom = room_info.id
-              WHERE booking.hotel_id = $hotelId";
+              LEFT JOIN rooms ON booking.room_id = rooms.room_id
+              WHERE hotel_id = $hotelId";
 
               $result = $conn->query($sql);
               if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr>
-                    <td>{$row['NumRoom']}</td>
+                    <td>{$row['room_id']}</td>
                     <td>{$row['Fname']}</td>
                     <td>{$row['Lname']}</td>
                     <td>{$row['room_type']}</td>

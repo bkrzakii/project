@@ -37,10 +37,10 @@ $hotelId = $_GET['hotelId'] ?? null;
                 <div class="user-details">
                 <?php
                     $sql = "SELECT
-                        bissness_users.username,
-                        bissness_users.phoneNbr,
-                        bissness_users.email 
-                    FROM bissness_users WHERE id = $userId";
+                        users.username,
+                        users.phoneNbr,
+                        users.email 
+                    FROM users WHERE user_id = $userId";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
                         $user = $result->fetch_assoc();
@@ -71,7 +71,9 @@ $hotelId = $_GET['hotelId'] ?? null;
             <div class="content-header">
                 <div class="order">
                     <?php
-                    $sql = "SELECT COUNT(*) as total FROM booking WHERE hotel_id = $hotelId";
+                    $sql = "SELECT COUNT(*) as total FROM booking 
+                    JOIN rooms ON booking.room_id = rooms.room_id
+                    WHERE hotel_id = $hotelId";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();?>
@@ -81,7 +83,7 @@ $hotelId = $_GET['hotelId'] ?? null;
                 </div>
                 <div class="Active-Rooms">
                     <?php
-                    $sql = "SELECT rooms_total as totalRooms FROM hotel_info WHERE id = $hotelId";
+                    $sql = "SELECT rooms_total as totalRooms FROM hotels WHERE hotel_id = $hotelId";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         $totalRooms = $result->fetch_assoc();
@@ -93,7 +95,9 @@ $hotelId = $_GET['hotelId'] ?? null;
                 <div class="Revenue">
                     <h3><i class="fa-solid fa-money-bill-trend-up"></i> Revenue:</h3>
                     <?php 
-                    $sql = "SELECT SUM(total_price) as total FROM booking WHERE hotel_id = $hotelId";
+                    $sql = "SELECT SUM(total_price) as total FROM booking 
+                    JOIN rooms ON booking.room_id = rooms.room_id
+                    WHERE hotel_id = $hotelId";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
@@ -107,7 +111,7 @@ $hotelId = $_GET['hotelId'] ?? null;
                     <h3><i class="fa-regular fa-star"></i> Rating:</h3>
                     <div class="display-stars">
                         <?php 
-                        $sql = "SELECT hotel_rate, ratings FROM hotel_info WHERE id = $hotelId";
+                        $sql = "SELECT hotel_rate, ratings FROM hotels WHERE hotel_id = $hotelId";
                         $result = $conn->query($sql);
                         $value = $result->fetch_assoc();
                         $average = ($value['ratings'] > 0) ? ($value['hotel_rate'] / $value['ratings']) : 0; ?>

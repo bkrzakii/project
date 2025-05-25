@@ -80,7 +80,6 @@ $rating = 0; // Default rating value
 
 <div class="container">
     <?php
-        $id = $_GET['hotelId'];
         if (!isset($_GET['hotelId'])) {
             die("No rooms IDs provided.");
         }
@@ -91,23 +90,20 @@ $rating = 0; // Default rating value
                 hotels.hotel_address,
                 hotels.hotel_description,
                 hotels.hotel_rate,
-                hotels.ratings,
-                hotels.features
+                hotels.ratings
                 
             FROM hotels 
-            JOIN rooms ON room.hotel_id = hotels.hotel_id
-            JOIN room_images ON room_images.room_id = room_info.id
-            WHERE hotels.hotel_id = $id";
+            JOIN rooms ON rooms.hotel_id = hotels.hotel_id
+            JOIN room_images ON room_images.room_id = rooms.room_id
+            WHERE hotels.hotel_id = $hotelId";
             $result = $conn->query($sql);
 
             $sql = "SELECT 
-                hotels.rooms,
-                room_info.hotel_id,
+                rooms.hotel_id,
                 room_images.image_path
-                FROM hotels 
-            JOIN rooms ON rooms.hotel_id = hotels.hotel_id
+                FROM rooms
             JOIN room_images ON room_images.room_id = rooms.room_id
-            WHERE hotels.hotel_id = $id";
+            WHERE rooms.hotel_id = $hotelId";
             $image = $conn->query($sql);
         if($result && $result->num_rows >0):
             $value = $result->fetch_assoc();?>
@@ -148,25 +144,23 @@ $rating = 0; // Default rating value
         <div class="featuresContainer">
             <div class="features-group">
                 <?php
-                $featureIDs = explode(',', $value['features']);
-                $featureIDs = array_filter($featureIDs, 'is_numeric');
-                $featureIDs = array_map('intval', $featureIDs);
-                if (!empty($featureIDs)) {
-                    $featurePlaceholders = implode(',', array_fill(0, count($featureIDs), '?'));
-                    $featureSql = "SELECT feature FROM features WHERE id IN ($featurePlaceholders)";
-                    $featureStmt = $conn->prepare($featureSql);
-                    $featureTypes = str_repeat('i', count($featureIDs));
-                    $featureStmt->bind_param($featureTypes, ...$featureIDs);
-                    $featureStmt->execute();
-                    $featureResult = $featureStmt->get_result();
-                    while ($featureRow = $featureResult->fetch_assoc()): ?>
+                    $featureSql = "SELECT features.feature 
+                                FROM features
+                                JOIN hotel_features ON hotel_features.feature_id = features.id
+                                WHERE hotel_features.hotel_id = ?";
+
+                    $Stmt = $conn->prepare($featureSql);
+                    $Stmt->bind_param("i", $hotelId);
+                    $Stmt->execute();
+                    $Result = $Stmt->get_result();
+                    if (!$Result) {echo "<p>No features listed</p>";}
+                    else{
+                    $featuresNames = [];
+                    while ($Row = $Result->fetch_assoc()): ?>
                         <label class='feature'>
-                        <span class='label-text'> <?php echo htmlspecialchars($featureRow['feature']) ?></span>
+                        <span class='label-text'> <?php echo htmlspecialchars($Row['feature']) ?></span>
                         </label>
-                    <?php endwhile;
-                } else {
-                    echo "<p>No features listed</p>";
-                }
+                    <?php endwhile;}
                 ?>
             </div>
         </div>
@@ -187,61 +181,51 @@ $rating = 0; // Default rating value
             <tbody>
         <form method="post">
                 <?php
-                // Fetch room details based on the hotel ID passed in the URL
-                $roomIDs = explode(',', $id);
-                $roomIDs = array_filter($roomIDs, 'is_numeric');
-                
-                if (empty($roomIDs)) {
-                    die("No valid rooms IDs provided.");
-                }
-                
-                $placeholders = implode(',', array_fill(0, count($roomIDs), '?'));
-                
                 $sql = "SELECT 
-                            room_info.id,
-                            room_info.room_type,
-                            room_info.room_capacity,
-                            room_info.room_price,
-                            room_info.amenities
-                        FROM room_info 
-                        WHERE room_info.hotel_id IN ($placeholders)";
-                
+                            rooms.room_id,
+                            rooms.room_type,
+                            rooms.room_capacity,
+                            rooms.room_price
+                        FROM rooms 
+                        WHERE rooms.hotel_id = ?";
                 $stmt = $conn->prepare($sql);
-                $types = str_repeat('i', count($roomIDs));
-                $stmt->bind_param($types, ...$roomIDs);
+                $stmt->bind_param("i", $hotelId);
                 $stmt->execute();
                 $result = $stmt->get_result();
-                
+
+                // Check if any rooms were found
                 if ($result && $result->num_rows > 0) {
-                    // Fetch and display room details
-                    while ($room = $result->fetch_assoc()) :?>
+                    while ($room = $result->fetch_assoc()) :
+                        $room_id = $room['room_id']; // Define the variable correctly
+                ?>
                         <tr>
-                        <th><p> <?php echo htmlspecialchars($room['room_type']) ?> </p></th>
-                        <th><p> <?php echo htmlspecialchars($room['room_capacity']) ?> </p></th>
-                        <th><p> <?php echo htmlspecialchars($room['room_price']) ?> DZ</p></th>
-                        <?php
-                        // Display amenities
-                        $amenityIDs = explode(',', $room['amenities']);
-                        $amenityIDs = array_filter($amenityIDs, 'is_numeric');
-                        $amenityIDs = array_map('intval', $amenityIDs);
-                        if (!empty($amenityIDs)) {
-                            $amenityPlaceholders = implode(',', array_fill(0, count($amenityIDs), '?'));
-                            $amenitySql = "SELECT amenity FROM amenities WHERE id IN ($amenityPlaceholders)";
+                            <th><p> <?php echo htmlspecialchars($room['room_type']) ?> </p></th>
+                            <th><p> <?php echo htmlspecialchars($room['room_capacity']) ?> </p></th>
+                            <th><p> <?php echo htmlspecialchars($room['room_price']) ?> DZ</p></th>
+                            <?php
+                            // Now fetch amenities for this room
+                            $amenitySql = "SELECT amenities.amenity 
+                                        FROM room_amenities
+                                        JOIN amenities ON room_amenities.amenity_id = amenities.id
+                                        WHERE room_amenities.room_id = ?";
                             $amenityStmt = $conn->prepare($amenitySql);
-                            $amenityTypes = str_repeat('i', count($amenityIDs));
-                            $amenityStmt->bind_param($amenityTypes, ...$amenityIDs);
+                            $amenityStmt->bind_param("i", $room_id);
                             $amenityStmt->execute();
                             $amenityResult = $amenityStmt->get_result();
+
                             $amenityNames = [];
                             while ($amenityRow = $amenityResult->fetch_assoc()) {
-                            $amenityNames[] = htmlspecialchars($amenityRow['amenity']);
+                                $amenityNames[] = htmlspecialchars($amenityRow['amenity']);
                             }
-                            echo "<th><p> " . implode(',&nbsp;&nbsp;&nbsp;', $amenityNames) . "</p></th>";
-                        } else {
-                        echo "<th><p>None listed</p></th>";
-                        }?>
+
+                            if (!empty($amenityNames)) {
+                                echo "<th><p>" . implode(',&nbsp;&nbsp;&nbsp;', $amenityNames) . "</p></th>";
+                            } else {
+                                echo "<th><p>None listed</p></th>";
+                            }
+                            ?>
                             <th><label class="checkbox">
-                            <input type="radio" name="selected" value="<?php echo htmlspecialchars($room['id'])?>" style="display: none">
+                            <input type="radio" name="selected" value="<?php echo htmlspecialchars($room['room_id'])?>" style="display: none">
                             <i class="fa-solid fa-circle-check"></i>
                             <i class="fa-regular fa-circle-check"></i>
                             </label></th>
@@ -296,13 +280,12 @@ $rating = 0; // Default rating value
         </form>
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected'])) {
-                $hotel_id = $_GET['hotelId'];
                 $Fname = $_POST['Fname'];
                 $Lname = $_POST['Lname'];
                 $NumPhone = $_POST['NumPhone'];
                 $dateFrom = $_POST['dateFrom'];
                 $dateTo = $_POST['dateTo'];
-                $NumRoom = $_POST['selected'];
+                $room_id = $_POST['selected'];
                 $rating = (int)$_POST['rating'];
                 
                 $date1 = new DateTime($dateFrom);
@@ -310,7 +293,7 @@ $rating = 0; // Default rating value
                 $interval = $date1->diff($date2);
                 $numDays = $interval->days; // Absolute number of days
 
-                $sql = "SELECT room_price FROM room_info WHERE id = $NumRoom";
+                $sql = "SELECT room_price FROM rooms WHERE room_id = $room_id";
                 $result = $conn->query($sql);
                 if ($result && $result->num_rows > 0) {
                     $room = $result->fetch_assoc();
@@ -320,28 +303,20 @@ $rating = 0; // Default rating value
                     echo "Error: Room not found.";
                     exit();
                 }
-                $sql = ("SELECT email FROM users WHERE user_id = $userId");
-                $result = $conn->query($sql);
-                if ($result && $result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    $email = $row['email'];
-                } else {
-                    echo "Error: User not found.";
-                    exit();
-                }
+                
                 // Prepare and bind
-                $stmt = $conn->prepare("INSERT INTO booking (hotel_id, Fname, Lname, NumPhone, NumRoom, dateFrom, dateTo, total_price, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("isssissss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo, $totalPrice, $email);
+                $stmt = $conn->prepare("INSERT INTO booking (user_id, room_id, Fname, Lname, NumPhone, dateFrom, dateTo, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("isssssss", $userId, $room_id, $Fname, $Lname, $NumPhone, $dateFrom, $dateTo, $totalPrice);
                 $stmt->execute();
                 if ($rating > 0 && $rating <= 5) {
-                    $sql = "SELECT hotel_rate, ratings FROM hotels WHERE hotel_id = $hotel_id";
+                    $sql = "SELECT hotel_rate, ratings FROM hotels WHERE hotel_id = $hotelId";
                     $result = $conn->query($sql);
                     $hotelData = $result->fetch_assoc();
                     // Calculate new rating and ratings count
                     $new_rate = $hotelData['hotel_rate'] + $rating;
                     $new_ratings = $hotelData['ratings'] + 1;
                     
-                    $sql = "UPDATE hotels SET hotel_rate = $new_rate, ratings = $new_ratings WHERE hotel_id = $hotel_id";
+                    $sql = "UPDATE hotels SET hotel_rate = $new_rate, ratings = $new_ratings WHERE hotel_id = $hotelId";
                     if ($conn->query($sql) === false) {
                         echo "Error updating rating: " . $conn->error;
                     }
