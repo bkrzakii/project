@@ -12,7 +12,7 @@ $hotelId = $_GET['hotelId'] ?? null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['booking_id'])) {
   $newStatus = $_POST['status'];
   $bookingId = (int) $_POST['booking_id'];
-  $stmt = $conn->prepare("UPDATE booking SET booking_status = ? WHERE id = ?");
+  $stmt = $conn->prepare("UPDATE booking SET booking_status = ? WHERE booking_id = ?");
   $stmt->bind_param("si", $newStatus, $bookingId);
   $stmt->execute();
   $stmt->close();
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
                     <td>
                       <i class="fa-solid fa-pen-to-square" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';"></i>
                       <form method='POST' style="display: none;">
-                      <input type='hidden' name='booking_id' value="<?php echo $row['id']; ?>">
+                      <input type='hidden' name='booking_id' value="<?php echo $row['booking_id']; ?>">
                         <select name='status'>
                           <option value='pending' >Pending</option>
                           <option value='accepted' >Accepted</option>

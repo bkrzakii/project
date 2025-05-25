@@ -94,12 +94,12 @@ if ($result && $result->num_rows > 0) {
                 hotels.hotel_rate
             FROM hotels 
             JOIN hotel_image ON hotel_image.hotel_id = hotels.hotel_id
-            GROUP BY id";
+            GROUP BY hotel_id";
             $result = $conn->query($sql);
         //SELECT *, COUNT(id) as num FROM `hotel_image` GROUP BY hotel_id;
         if ($result && $result->num_rows > 0) {
             foreach ($result as $value) :?>
-            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $value['hotel_id']; ?>&userId=<?php echo $userId; ?>';" style="cursor:pointer;">
+            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $hotelId ?>&userId=<?php echo $userId; ?>&hotel=<?php echo $value['hotel_id']; ?>';" style="cursor:pointer;">
                 <img class="hotel_img" src="<?php echo htmlspecialchars($value['image_path']); ?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
                 <div class="hotel_info">
                     <h3><?php echo htmlspecialchars($value['hotel_name']); ?></h3>

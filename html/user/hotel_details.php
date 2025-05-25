@@ -4,7 +4,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 $userId = $_GET['userId'] ?? null;
-$hotelId = $_GET['hotelId'] ?? null;
+$hotelId = $_GET['hotel'] ?? null;
+$hotel = $_GET['hotelId'] ?? null;
 $sql = "SELECT verification_image FROM users WHERE user_id = $userId";
 $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
@@ -33,12 +34,12 @@ $rating = 0; // Default rating value
             <div class="logo">BookingDZ</div>
             <nav>
                 <ul>
-                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
-                    <li id="2"><a href="service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>" class="active">Hotels</a></li>
-                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
-                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Home</a></li>
+                    <li id="2"><a href="service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>" class="active">Hotels</a></li>
+                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">About</a></li>
+                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Contact</a></li>
                     <?php if ($verificationImage != null): ?>
-                        <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Dashboard</a></li>
+                        <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Dashboard</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
