@@ -43,22 +43,22 @@ if ($conn->connect_error) {
             if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                $stmt = $conn->prepare("SELECT pswd, id, verification_image FROM bissness_users WHERE username = ?");
+                $stmt = $conn->prepare("SELECT pswd, user_id, verification_image FROM users WHERE username = ?");
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $stmt->store_result();
                 if ($stmt->num_rows == 1) {
-                    $stmt->bind_result($hashedPasswordFromDB, $id, $verificationImage);
+                    $stmt->bind_result($hashedPasswordFromDB, $user_id, $verificationImage);
                     $stmt->fetch();
             
                     if (password_verify($password, $hashedPasswordFromDB) && is_null($verificationImage)) {
-                        header("Location: ../html/user/home.php?id=" . $id);
+                        header("Location: ../html/user/home.php?id=" . $user_id);
                     } else if(password_verify($password, $hashedPasswordFromDB) && !is_null($verificationImage)){
-                        $sql = "SELECT id AS hotelId FROM hotel_info WHERE hotel_owner = $id ";
+                        $sql = "SELECT hotel_id FROM hotels WHERE hotel_owner = $user_id ";
                         $result = $conn->query($sql);
                         if ($result && $result->num_rows > 0) {
                             $hotel = $result->fetch_assoc();
-                            header("Location: ../html/business/dashboard/statistics.php?id=" . $id . "&hotelId=". $hotel['hotelId']);}
+                            header("Location: ../html/business/dashboard/statistics.php?id=" . $user_id . "&hotelId=". $hotel_id);}
                     }else {
                         echo " <script>alert('Error: Password incorrect or Username not found');</script>";
                     }
@@ -107,7 +107,7 @@ if ($conn->connect_error) {
                     $email = $_POST['email'];
                     $password = $_POST['password'];
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO bissness_users (username, email, pswd) VALUES (?, ?, ?)");
+                    $stmt = $conn->prepare("INSERT INTO users (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
                     
                     if (!$stmt->execute()) {

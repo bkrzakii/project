@@ -5,7 +5,7 @@ if ($conn->connect_error) {
 }
 $userId = $_GET['userId'] ?? null;
 $hotelId = $_GET['hotelId'] ?? null;
-$sql = "SELECT verification_image FROM bissness_users WHERE id = $userId";
+$sql = "SELECT verification_image FROM users WHERE user_id = $userId";
 $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -55,10 +55,10 @@ $rating = 0; // Default rating value
                     <div class="user-details">
                     <?php
                     $sql = "SELECT
-                        bissness_users.username,
-                        bissness_users.phoneNbr,
-                        bissness_users.email 
-                    FROM bissness_users WHERE id = $userId";
+                        users.username,
+                        users.phoneNbr,
+                        users.email 
+                    FROM users WHERE user_id = $userId";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
                         $user = $result->fetch_assoc();
@@ -85,29 +85,29 @@ $rating = 0; // Default rating value
             die("No rooms IDs provided.");
         }
         $sql = "SELECT 
-                hotel_info.hotel_name,
-                hotel_info.hotel_email,
-                hotel_info.hotel_phoneNbr,
-                hotel_info.hotel_address,
-                hotel_info.hotel_description,
-                hotel_info.hotel_rate,
-                hotel_info.ratings,
-                hotel_info.features
+                hotels.hotel_name,
+                hotels.hotel_email,
+                hotels.hotel_phoneNbr,
+                hotels.hotel_address,
+                hotels.hotel_description,
+                hotels.hotel_rate,
+                hotels.ratings,
+                hotels.features
                 
-            FROM hotel_info 
-            JOIN room_info ON room_info.hotel_id = hotel_info.id
+            FROM hotels 
+            JOIN rooms ON room.hotel_id = hotels.hotel_id
             JOIN room_images ON room_images.room_id = room_info.id
-            WHERE hotel_info.id = $id";
+            WHERE hotels.hotel_id = $id";
             $result = $conn->query($sql);
 
             $sql = "SELECT 
-                hotel_info.rooms,
+                hotels.rooms,
                 room_info.hotel_id,
                 room_images.image_path
-                FROM hotel_info 
-            JOIN room_info ON room_info.hotel_id = hotel_info.id
-            JOIN room_images ON room_images.room_id = room_info.id
-            WHERE hotel_info.id = $id";
+                FROM hotels 
+            JOIN rooms ON rooms.hotel_id = hotels.hotel_id
+            JOIN room_images ON room_images.room_id = rooms.room_id
+            WHERE hotels.hotel_id = $id";
             $image = $conn->query($sql);
         if($result && $result->num_rows >0):
             $value = $result->fetch_assoc();?>
@@ -320,7 +320,7 @@ $rating = 0; // Default rating value
                     echo "Error: Room not found.";
                     exit();
                 }
-                $sql = ("SELECT email FROM bissness_users WHERE id = $userId");
+                $sql = ("SELECT email FROM users WHERE user_id = $userId");
                 $result = $conn->query($sql);
                 if ($result && $result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -334,14 +334,14 @@ $rating = 0; // Default rating value
                 $stmt->bind_param("isssissss", $hotel_id, $Fname, $Lname, $NumPhone, $NumRoom, $dateFrom, $dateTo, $totalPrice, $email);
                 $stmt->execute();
                 if ($rating > 0 && $rating <= 5) {
-                    $sql = "SELECT hotel_rate, ratings FROM hotel_info WHERE id = $hotel_id";
+                    $sql = "SELECT hotel_rate, ratings FROM hotels WHERE hotel_id = $hotel_id";
                     $result = $conn->query($sql);
                     $hotelData = $result->fetch_assoc();
                     // Calculate new rating and ratings count
                     $new_rate = $hotelData['hotel_rate'] + $rating;
                     $new_ratings = $hotelData['ratings'] + 1;
                     
-                    $sql = "UPDATE hotel_info SET hotel_rate = $new_rate, ratings = $new_ratings WHERE id = $hotel_id";
+                    $sql = "UPDATE hotels SET hotel_rate = $new_rate, ratings = $new_ratings WHERE hotel_id = $hotel_id";
                     if ($conn->query($sql) === false) {
                         echo "Error updating rating: " . $conn->error;
                     }

@@ -5,7 +5,7 @@ if ($conn->connect_error) {
 }
 $userId = $_GET['id'];
 $hotelId = $_GET['hotelId'] ?? null;
-$sql = "SELECT verification_image FROM bissness_users WHERE id = $userId";
+$sql = "SELECT verification_image FROM users WHERE user_id = $userId";
 $result = $conn->query($sql);
 if ($result && $result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -58,10 +58,10 @@ if ($result && $result->num_rows > 0) {
                     <div class="user-details">
                     <?php
                     $sql = "SELECT
-                        bissness_users.username,
-                        bissness_users.phoneNbr,
-                        bissness_users.email 
-                    FROM bissness_users WHERE id = $userId";
+                        users.username,
+                        users.phoneNbr,
+                        users.email 
+                    FROM users WHERE user_id = $userId";
                     $result = $conn->query($sql);
                     if ($result && $result->num_rows > 0) {
                         $user = $result->fetch_assoc();
@@ -84,22 +84,22 @@ if ($result && $result->num_rows > 0) {
     <div class="hotels_list">
     <?php
         $sql = "SELECT 
-                hotel_info.id,
-                hotel_info.hotel_name,
-                hotel_info.hotel_address,
-                hotel_info.hotel_description,
-                hotel_info.ratings,
-                hotel_info.hotel_rate,
+                hotels.hotel_id,
+                hotels.hotel_name,
+                hotels.hotel_address,
+                hotels.hotel_description,
+                hotels.ratings,
+                hotels.hotel_rate,
                 hotel_image.image_path,
-                hotel_info.hotel_rate
-            FROM hotel_info 
-            JOIN hotel_image ON hotel_image.hotel_id = hotel_info.id
+                hotels.hotel_rate
+            FROM hotels 
+            JOIN hotel_image ON hotel_image.hotel_id = hotels.hotel_id
             GROUP BY id";
             $result = $conn->query($sql);
         //SELECT *, COUNT(id) as num FROM `hotel_image` GROUP BY hotel_id;
         if ($result && $result->num_rows > 0) {
             foreach ($result as $value) :?>
-            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $value['id']; ?>&userId=<?php echo $userId; ?>';" style="cursor:pointer;">
+            <div class="hotel_card" onclick="window.location.href='../user/hotel_details.php?hotelId=<?php echo $value['hotel_id']; ?>&userId=<?php echo $userId; ?>';" style="cursor:pointer;">
                 <img class="hotel_img" src="<?php echo htmlspecialchars($value['image_path']); ?>" alt="<?php echo htmlspecialchars($value['hotel_name']); ?>">
                 <div class="hotel_info">
                     <h3><?php echo htmlspecialchars($value['hotel_name']); ?></h3>
