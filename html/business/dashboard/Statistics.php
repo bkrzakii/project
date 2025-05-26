@@ -134,6 +134,7 @@ $hotelId = $_GET['hotelId'] ?? null;
                         header("Location: ../../user/home.php?userId= $userId&hotelId=");
                         exit;
 
+                        
                     } catch (Exception $e) {
                         $conn->rollback(); // Rollback on error
                         echo "<p>Error deleting hotel</p>";
