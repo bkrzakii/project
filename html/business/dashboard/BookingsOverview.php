@@ -14,13 +14,13 @@ $sql = "SELECT
             booking.NumRoom,
             booking.Fname,
             booking.Lname,
-            room_info.type AS room_type,
+            rooms.type AS room_type,
             booking.dateFrom,
             booking.dateTo,
-            room_info.payment AS payment_method,
-            room_info.status AS room_status
+            rooms.payment AS payment_method,
+            rooms.status AS room_status
         FROM booking
-        LEFT JOIN room_info ON booking.NumRoom = room_info.id";
+        LEFT JOIN rooms ON booking.room_id = rooms.room_id";
 
 $result = $conn->query($sql);
 ?>

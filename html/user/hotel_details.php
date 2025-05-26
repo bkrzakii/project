@@ -94,6 +94,7 @@ $rating = 0; // Default rating value
                 hotels.ratings,
                 hotels.features
                 
+                
             FROM hotels 
             JOIN rooms ON room.hotel_id = hotels.hotel_id
             JOIN room_images ON room_images.room_id = room_info.id
