@@ -129,7 +129,7 @@ $hotelId = $_GET['hotelId'] ?? null;
                   $stmt->bind_param("ii", $hotelId, $feature_id);
                   $stmt->execute();
                 }
-                echo "<script>window.location.href = '../../html/business/dashboard/Statistics.php?userId=$ownerId&hotelId=$hotelId';</script>";
+                echo "<script>window.location.href = '../../html/business/dashboard/Statistics.php?userId=$userId&hotelId=$hotelId';</script>";
           } else {
                 echo "<script>alert('Error adding features');</script>";
             }

@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['id'];
+$userId = $_GET['userId'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (move_uploaded_file($_FILES['Image']['tmp_name'], $targetFile)) {
             // Insert into business_users table
-            $stmt = $conn->prepare("UPDATE bissness_users SET username = ?, email = ?, phoneNbr = ?, verification_image = ? WHERE id = ?");
+            $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, phoneNbr = ?, verification_image = ? WHERE user_id = ?");
             $stmt->bind_param("sssss", $name, $email, $phone, $targetFile, $userId);
 
             if ($stmt->execute()) {

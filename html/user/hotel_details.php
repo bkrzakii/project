@@ -34,12 +34,12 @@ $rating = 0; // Default rating value
             <div class="logo">BookingDZ</div>
             <nav>
                 <ul>
-                    <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Home</a></li>
-                    <li id="2"><a href="service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>" class="active">Hotels</a></li>
-                    <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">About</a></li>
-                    <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Contact</a></li>
+                    <li id="1"><a href="home.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Home</a></li>
+                    <li id="2"><a href="service.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>" class="active">Hotels</a></li>
+                    <li id="3"><a href="about.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">About</a></li>
+                    <li id="4"><a href="contact.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Contact</a></li>
                     <?php if ($verificationImage != null): ?>
-                        <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Dashboard</a></li>
+                        <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotel?>">Dashboard</a></li>
                     <?php endif; ?>
                 </ul>
             </nav>
@@ -71,7 +71,7 @@ $rating = 0; // Default rating value
                 ?>
                     </div>
                     <?php if ($verificationImage == null): ?>
-                        <a class="business" id="Business" href="../business/owner-info.php?id=<?php echo $userId; ?>">switch to business account</a>
+                        <a class="business" id="Business" href="../business/owner-info.php?userId=<?php echo $userId; ?>">switch to business account</a>
                     <?php endif; ?>
                     <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
                 </div>

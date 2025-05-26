@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['id'];
+$userId = $_GET['userId'];
 $hotelId = $_GET['hotelId'] ?? null;
 $sql = "SELECT verification_image FROM users WHERE user_id = $userId";
 $result = $conn->query($sql);
@@ -29,12 +29,12 @@ if ($result && $result->num_rows > 0) {
         <div class="logo">BookingDZ</div>
         <nav>
             <ul>
-                <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>" >Home</a></li>
-                <li id="2"><a href="service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
+                <li id="1"><a href="home.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>" >Home</a></li>
+                <li id="2"><a href="service.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
                 <li id="3"><a href="#"class="active">About</a></li>
-                <li id="4"><a href="contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+                <li id="4"><a href="contact.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
                 <?php if ($verificationImage != null): ?>
-                    <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Dashboard</a></li>
+                    <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Dashboard</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -63,7 +63,7 @@ if ($result && $result->num_rows > 0) {
                 ?>
                 </div>
                 <?php if ($verificationImage == null): ?>
-                    <a class="business" id="Business" href="../business/owner-info.php?id=<?php echo $userId; ?>">switch to business account</a>
+                    <a class="business" id="Business" href="../business/owner-info.php?userId=<?php echo $userId; ?>">switch to business account</a>
                 <?php endif; ?>
                     <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>

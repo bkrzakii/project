@@ -7,7 +7,7 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['id'];
+$userId = $_GET['userId'];
 $hotelId = $_GET['hotelId'] ?? null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['booking_id'])) {
   $newStatus = $_POST['status'];
@@ -34,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
     <div class="logo">BookingDZ</div>
     <nav>
       <ul>
-        <li><a href="../../user/home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
-        <li><a href="../../user/service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
-        <li><a href="../../user/about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
-        <li><a href="../../user/contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+        <li><a href="../../user/home.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
+        <li><a href="../../user/service.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
+        <li><a href="../../user/about.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
+        <li><a href="../../user/contact.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
         <li><a href="#" class="active">Dashboard</a></li>
       </ul>
     </nav>
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
   <main class="main">
     <div class="sidebar">
       <ul>
-        <li><a href="../../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
+        <li><a href="../../business/dashboard/Statistics.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
           <i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Statistics</a></li>
         <li><a href="#" class="active"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a></li>
       </ul>
