@@ -52,13 +52,13 @@ if ($conn->connect_error) {
                     $stmt->fetch();
             
                     if (password_verify($password, $hashedPasswordFromDB) && is_null($verificationImage)) {
-                        header("Location: ../html/user/home.php?id=" . $user_id);
+                        header("Location: ../html/user/home.php?userId=" . $user_id);
                     } else if(password_verify($password, $hashedPasswordFromDB) && !is_null($verificationImage)){
                         $sql = "SELECT hotel_id FROM hotels WHERE hotel_owner = $user_id ";
                         $result = $conn->query($sql);
                         if ($result && $result->num_rows > 0) {
                             $hotel = $result->fetch_assoc();
-                            header("Location: ../html/business/dashboard/statistics.php?id=" . $user_id . "&hotelId=". $hotel_id);}
+                            header("Location: ../html/business/dashboard/statistics.php?userId=" . $user_id . "&hotelId=". $hotel_id);}
                     }else {
                         echo " <script>alert('Error: Password incorrect or Username not found');</script>";
                     }

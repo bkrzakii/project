@@ -110,6 +110,8 @@ if ($result && $result->num_rows > 0) {
                 </div>
             </div>
             <?php endforeach;
+        }else{
+            echo "<p>No hotels available at the moment.</p>";
         }
     ?>
     </div>

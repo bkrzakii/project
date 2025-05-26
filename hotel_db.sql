@@ -66,7 +66,8 @@ CREATE TABLE `booking` (
   `dateTo` date DEFAULT NULL,
   `DateOfBooking` timestamp NOT NULL DEFAULT current_timestamp(),
   `total_price` int(20) NOT NULL,
-  `booking_status` enum('pending','accepted','refused') NOT NULL DEFAULT 'pending'
+  `booking_status` enum('pending','accepted','refused') 
+  NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -471,29 +472,17 @@ ALTER TABLE `booking`
   ADD CONSTRAINT `fk_booking_rooms` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`),
   ADD CONSTRAINT `fk_booking_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
---
--- Constraints for table `hotel_features`
---
 ALTER TABLE `hotel_features`
   ADD CONSTRAINT `hotel_features_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`hotel_id`),
   ADD CONSTRAINT `hotel_features_ibfk_2` FOREIGN KEY (`feature_id`) REFERENCES `features` (`id`);
 
---
--- Constraints for table `hotel_image`
---
 ALTER TABLE `hotel_image`
   ADD CONSTRAINT `hotel_image_ibfk_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotels` (`hotel_id`) ON DELETE CASCADE;
 
---
--- Constraints for table `room_amenities`
---
 ALTER TABLE `room_amenities`
   ADD CONSTRAINT `room_amenities_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`),
   ADD CONSTRAINT `room_amenities_ibfk_2` FOREIGN KEY (`amenity_id`) REFERENCES `amenities` (`id`);
 
---
--- Constraints for table `room_images`
---
 ALTER TABLE `room_images`
   ADD CONSTRAINT `room_images_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE;
 COMMIT;
