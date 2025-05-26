@@ -1,7 +1,7 @@
 window.addEventListener("scroll", function() {
     let header = document.querySelector("header");
 
-    if (window.scrollY > 100) { 
+    if (window.scrollY > 50) { 
         header.style.position = "fixed"; /* Stick to the top */
         header.style.top = "0"; 
         header.style.boxShadow = "0px 2px 10px rgba(0, 0, 0, 0.1)";
@@ -17,11 +17,27 @@ window.addEventListener("scroll", function() {
 });
 function toggleDescription() {
     var desc = document.getElementById("user-info");
-    if (desc.style.display === "") {
+    var currentDisplay = window.getComputedStyle(desc).display;
+
+    if (currentDisplay === "none") {
         desc.style.display = "flex";
     } else {
-        desc.style.display = "";
-}}
+        desc.style.display = "none";
+    }
+}
+
+// Click outside to close
+document.addEventListener("click", function(event) {
+    var profile = document.querySelector(".profile");
+    var userInfo = document.getElementById("user-info");
+    var currentDisplay = window.getComputedStyle(userInfo).display;
+    var isClickInside = profile.contains(event.target);
+
+    if (!isClickInside && currentDisplay === "flex") {
+        userInfo.style.display = "none";
+    }
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const isBusiness = localStorage.getItem("isBusiness");

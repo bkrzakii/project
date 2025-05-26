@@ -1,23 +1,31 @@
+<?php
+$conn = new mysqli("localhost", "root", "", "hotel_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$userId = $_GET['id'] ?? null;
+$hotelId = $_GET['hotelId'] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Statistics - BookingDZ</title>
     <link rel="stylesheet" href="../../../css/business/dashboard/Statistics.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
     <header>
-        <div class="logo">LOGO</div>
+        <div class="logo">BookingDZ</div>
         <nav>
             <ul>
-                <li id="1"><a href="../../user/home.php" >Home</a></li>
-                <li id="2"><a href="../../user/service.php">Service</a></li>
-                <li id="3"><a href="../../user/about.php">About</a></li>
-                <li id="4"><a href="../../user/contact.php">Contact</a></li>
-                <li id="Dashboard-link"><a href="#" class="active">Dashboard</a></li>
+                <li id="1"><a href="../../user/home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>" >Home</a></li>
+                <li id="2"><a href="../../user/service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
+                <li id="3"><a href="../../user/about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
+                <li id="4"><a href="../../user/contact.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+                <li id="Dashboard-link"><a href="#?id=<?php echo $userId; ?>" class="active">Dashboard</a></li>
             </ul>
         </nav>
         <div class="profile">
@@ -25,44 +33,98 @@
                 <i class='bx bxs-user-circle'></i>
             </button>
             <div class="user-info" id="user-info">
-                <img class="user-img" src="/pics/admin.jpg" alt="">
+                <img class="user-img" src="../../../pics/admin.jpg" alt="">
                 <div class="user-details">
-                    <h3>my profile</h3>
-                    <p>boukrouna zakaria</p>
-                    <p>phone number</p>
-                    <p>email</p>
+                <?php
+                    $sql = "SELECT
+                        bissness_users.username,
+                        bissness_users.phoneNbr,
+                        bissness_users.email 
+                    FROM bissness_users WHERE id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                    }
+                ?>
                 </div>
-                <a class="business" href="../business/owner-info.php">switch to business account</a>
-                <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
+                <a href="../../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>
         </div>
     </header>
     <main class="main">
         <div class="sidebar">
             <ul>
-                <li><a href="#"class="active"><i class="fas fa-chart-pie"></i>  Statistics</a></li>
-                <li><a href="../../business/dashboard/RoomManagement.php"><i class="fas fa-bed"></i>  Room Management</a></li>
-                <li><a href="../../business/dashboard/BookingsOverview.php"><i class="fas fa-calendar-check"></i>  Bookings Overview</a></li>
-                <li><a href="../../business/dashboard/Messages&Feedback.php"><i class="fas fa-envelope"></i>  Messages & Feedback</a></li>
+                <li><a href="#"class="active"><i class="fas fa-chart-pie">
+
+                </i>&nbsp;&nbsp;Statistics</a>
+            </li>
+                <li><a href="../../business/dashboard/BookingsOverview.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId;?>">
+                    <i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a>
+                </li>
             </ul>
         </div>
         <div class="content">
             <div class="content-header">
                 <div class="order">
-                    <h3><i class="fas fa-calendar-alt"></i> Booking:</h3>
-                    <p>500</p>
+                    <?php
+                    $sql = "SELECT COUNT(*) as total FROM booking WHERE hotel_id = $hotelId";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();?>
+                        <h3><i class="fas fa-calendar-alt"></i> Booking:</h3>
+                        <p><?php echo htmlspecialchars($row['total']);?></p>
+                    <?php } ?>
                 </div>
                 <div class="Active-Rooms">
-                    <h3><i class="fas fa-door-open"></i> Active Rooms:</h3>
-                    <p>40</p>
+                    <?php
+                    $sql = "SELECT rooms_total as totalRooms FROM hotel_info WHERE id = $hotelId";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $totalRooms = $result->fetch_assoc();
+                        $total = $totalRooms['totalRooms'] - $row['total'];?>
+                        <h3><i class="fas fa-door-open"></i> Active Rooms:</h3>
+                        <p><?php echo htmlspecialchars($total);?>/<?php echo htmlspecialchars($totalRooms['totalRooms']);?></p>
+                    <?php }?>
                 </div>
                 <div class="Revenue">
                     <h3><i class="fa-solid fa-money-bill-trend-up"></i> Revenue:</h3>
-                    <p>40000DZD</p>
+                    <?php 
+                    $sql = "SELECT SUM(total_price) as total FROM booking WHERE hotel_id = $hotelId";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        if($row['total']== 0){ echo'<p>0 DA</p>';}
+                        else{?>
+                        <p><?php echo htmlspecialchars($row['total']);?> DA</p>
+                    <?php }}?>
+                        
                 </div>
                 <div class="rating">
                     <h3><i class="fa-regular fa-star"></i> Rating:</h3>
-                    <p>8.5</p>
+                    <div class="display-stars">
+                        <?php 
+                        $sql = "SELECT hotel_rate, ratings FROM hotel_info WHERE id = $hotelId";
+                        $result = $conn->query($sql);
+                        $value = $result->fetch_assoc();
+                        $average = ($value['ratings'] > 0) ? ($value['hotel_rate'] / $value['ratings']) : 0; ?>
+                        <?php for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= floor($average)) {
+                                echo '<i class="fa-solid fa-star"></i>';
+                            } elseif ($i - $average < 1) {
+                                echo '<i class="fa-solid fa-star-half-stroke"></i>';
+                            } else {
+                                echo '<i class="fa-regular fa-star"></i>';
+                            }
+                        }
+                        ?>
+                        <span class="hotel_info">&nbsp;<?php echo htmlspecialchars(number_format($average, 1))?>/5</span>
+                    </div>
+                    
+                    <span>&nbsp;(<?php echo htmlspecialchars($value['ratings'])?> ratings)</span>
                 </div>
             </div>
             <div>

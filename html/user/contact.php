@@ -1,22 +1,40 @@
+<?php
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$userId = $_GET['id'];
+$hotelId = $_GET['hotelId'] ?? null;
+$sql = "SELECT verification_image FROM bissness_users WHERE id = $userId";
+$result = $conn->query($sql);
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $verificationImage = $row['verification_image'];
+} else {
+    $verificationImage = null;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Treservi</title>
+    <title>Contact Us - BookingDZ</title>
     <link rel="stylesheet" href="../../css/user/contact.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <header>
-        <div class="logo">LOGO</div>
+        <div class="logo">BookingDZ</div>
         <nav>
             <ul>
-                <li id="1"><a href="home.php" >Home</a></li>
-                <li id="2"><a href="service.php">Service</a></li>
-                <li id="3"><a href="about.php">About</a></li>
+                <li id="1"><a href="home.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>" >Home</a></li>
+                <li id="2"><a href="service.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
+                <li id="3"><a href="about.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
                 <li id="4"><a href="#" class="active">Contact</a></li>
-                <li id="Dashboard-link" style=" display: none;"><a href="../business/dashboard/Statistics.php">Dashboard</a></li>
+                <?php if ($verificationImage != null): ?>
+                    <li id="Dashboard-link"><a href="../business/dashboard/Statistics.php?id=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Dashboard</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
         <div class="profile">
@@ -24,14 +42,27 @@
                 <i class='bx bxs-user-circle'></i>
             </button>
             <div class="user-info" id="user-info">
-                <img class="user-img" src="/pics/admin.jpg" alt="">
+                <img class="user-img" src="../../pics/admin.jpg" alt="">
                 <div class="user-details">
-                    <h3>my profile</h3>
-                    <p>boukrouna zakaria</p>
-                    <p>phone number</p>
-                    <p>email</p>
+                <?php
+                    $sql = "SELECT
+                        bissness_users.username,
+                        bissness_users.phoneNbr,
+                        bissness_users.email 
+                    FROM bissness_users WHERE id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                    }
+                ?>
                 </div>
-                <a class="business" id="Business" href="#">switch to business account</a>
+                <?php if ($verificationImage == null): ?>
+                    <a class="business" id="Business" href="../business/owner-info.php?id=<?php echo $userId; ?>">switch to business account</a>
+                <?php endif; ?>
                 <a href="../SignUp_LogIn_Form.php" class="logout">Logout</a>
             </div>
         </div>
@@ -40,7 +71,7 @@
     <div class="container">
         <h2>Contact Us</h2>
         <p>If you have any questions or need assistance, feel free to contact us using the form below :</p>
-        <form class="mb" action="#" method="post">
+        <form class="mb" method="post">
             <div class="input-box">
                 <input type="text" class="input" placeholder="Your Name">
             </div>
@@ -58,18 +89,18 @@
         <hr/>
         <div class="mt-5">
             <h3>Support Contact</h3>
-            <p>Email: <a href="mailto:contact@treservi.com">contact@treservi.com</a></p>
-            <p>Phone: +1 234 567 890</p>
-            <p>Address: 123 Treservi Street, City, Country</p>
+            <p class="footer-p">Email: <a href="mailto:boukrounazakaria01@gmail.com">boukrounazakaria01@gmail.com</a></p>
+                <p class="footer-p">Phone: +1 234 567 890</p>
+                <p class="footer-p">Address: 123 BookingDZ Street, City, Country</p>
         </div>
         <hr/>
         <div class="mt-5">
             <h3>Follow Us</h3>
             <div class="social-icons">
-                <a href="#"><i class='bx bxl-instagram'></i></a>
-                <a href="#"><i class='bx bxl-facebook'></i></a>
-                <a href="#"><i class='bx bxl-whatsapp'></i></a>
-            </div>
+                    <a href="https://www.instagram.com/wchzakii/"><i class='bx bxl-instagram'></i></a>
+                    <a href="https://www.facebook.com/boukrouna.zakaria2005/"><i class='bx bxl-facebook'></i></a>
+                    <a href="https://wa.me/213774336385?text=Salut%20!%20Je%20viens%20de%20voir%20ton%20site."><i class='bx bxl-whatsapp'></i></a>
+                </div>
         </div>
         <hr/>
         <div class="mt-5">

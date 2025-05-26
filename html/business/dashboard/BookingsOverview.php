@@ -117,5 +117,7 @@ $result = $conn->query($sql);
   </main>
 
   <script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
+  <script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
 </body>
 </html>
+

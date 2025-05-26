@@ -95,8 +95,9 @@ label {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px dashed #ccc;
+    border: 2px dashed #2C2E8A;
     padding: 20px;
+    margin: 15px 10px 10px 10px;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -148,6 +149,12 @@ i {
     text-align: center;
 }
 
+.bx.bx-image-add::before{
+    color: #392761;
+    font-size: 120px;
+    margin: 10px 10px;
+}
+
 .btn {
     width: 20%;
     padding: 20px;
@@ -166,6 +173,17 @@ i {
 .btn:hover {
     background: #2C2E8A;
 }
+
+.upload-box{
+    display: none;
+      width: 120px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 24px;
+}
+
 
 /* 🔹 Universal Responsive Design */
 @media screen and (max-width: 1024px) {

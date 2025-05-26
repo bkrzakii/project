@@ -1,37 +1,24 @@
-let roomCount = 1; // start from 1
+let roomCount = 1;
 
-// Fonction add new room template
+// Fonction pour ajouter une nouvelle room
 function addRoom() {
+  const template = document.getElementById('room-template');
+  const clone = template.content.cloneNode(true);
+  const newRoom = clone.querySelector('.room-section');
+
   roomCount++;
 
-  const roomsContainer = document.getElementById('roomsContainer');
-  const firstRoom = document.querySelector('.room-section');
-
-  // Cloner le premier bloc de chambre
-  const newRoom = firstRoom.cloneNode(true);
-
-  // Mettre à jour le titre de la nouvelle chambre
+  // Mise à jour du titre de la nouvelle chambre
   newRoom.querySelector('.room-header h3').textContent = `Room Template ${roomCount}`;
 
-  // Mettre à jour tous les noms d'inputs avec le nouveau numéro de room
+  // Mise à jour des noms des inputs avec le nouveau numéro de la chambre
   const inputs = newRoom.querySelectorAll('[name]');
   inputs.forEach(input => {
     input.name = input.name.replace(/\[\d+\]/, `[${roomCount}]`);
-
-    // Vider les valeurs des inputs
-    if (input.type === 'checkbox' || input.type === 'file') {
-      input.checked = false;
-    } else {
-      input.value = '';
-    }
   });
 
-  // Réinitialiser les erreurs de fichier si présentes
-  const fileError = newRoom.querySelector('#file-error');
-  if (fileError) fileError.textContent = '';
-
   // Ajouter la nouvelle chambre au conteneur
-  roomsContainer.appendChild(newRoom);
+  document.getElementById('roomsContainer').appendChild(newRoom);
 }
 
 // Fonction pour supprimer une chambre
@@ -39,24 +26,24 @@ function removeRoom(button) {
   const roomsContainer = document.getElementById('roomsContainer');
   const allRooms = roomsContainer.querySelectorAll('.room-section');
 
-  // Empêcher de supprimer la dernière chambre
+  // Empêcher la suppression de la dernière chambre
   if (allRooms.length <= 1) {
     alert("At least one room must remain.");
     return;
   }
 
-  // Supprimer le bloc de chambre associé au bouton
+  // Supprimer le bloc de chambre
   const section = button.closest('.room-section');
   section.remove();
 
-  // Réindexer toutes les chambres restantes (Room 1, Room 2, ...)
+  // Réindexer les chambres restantes
   const updatedRooms = roomsContainer.querySelectorAll('.room-section');
   roomCount = 0;
   updatedRooms.forEach((room, index) => {
     roomCount = index + 1;
     room.querySelector('.room-header h3').textContent = `Room Template ${roomCount}`;
 
-    // Mettre à jour tous les noms de champs avec le bon index
+    // Mise à jour des noms des champs avec le bon index
     const inputs = room.querySelectorAll('[name]');
     inputs.forEach(input => {
       input.name = input.name.replace(/\[\d+\]/, `[${roomCount}]`);
@@ -65,46 +52,105 @@ function removeRoom(button) {
 }
 
 
-const input = document.getElementById('file-upload');
-const previewContainer = document.getElementById('preview-container');
-const uploadBox = document.getElementById('upload-box');
-const imageUploadDiv = document.querySelector('.image-upload');
-const MAX_IMAGES = 10;
-let uploadedImages = [];
+document.addEventListener('DOMContentLoaded', function () {
+  const MAX_IMAGES = 10;
 
-input.addEventListener('change', function () {
-    const newFiles = Array.from(this.files);
-
-    // snippet li bghiti ndkhl
-    if (this.files.length > 0) {
-    imageUploadDiv.style.display = 'none';
+  // ✅ Click on image-upload triggers input (first time)
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.image-upload')) {
+      const imageUpload = e.target.closest('.image-upload');
+      const roomSection = imageUpload.closest('.room-section');
+      const input = roomSection.querySelector('.file-upload');
+      input.click();
     }
 
-    if (uploadedImages.length + newFiles.length > MAX_IMAGES) {
-    alert(`You can upload up to ${MAX_IMAGES} images in total.`);
-    input.value = "";
-    return;
+    // ✅ Click on upload-box triggers input (to add more)
+    if (e.target.closest('.upload-box')) {
+      const uploadBox = e.target.closest('.upload-box');
+      const roomSection = uploadBox.closest('.room-section');
+      const input = roomSection.querySelector('.file-upload');
+      input.click();
     }
+  });
 
-    newFiles.forEach(file => {
-    if (!file.type.startsWith("image/")) return;
+  // ✅ Handle file upload and preview
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.classList.contains('file-upload')) {
+      const input = e.target;
+      const roomSection = input.closest('.room-section');
+      const previewContainer = roomSection.querySelector('.preview-container');
+      const uploadBox = roomSection.querySelector('.upload-box');
+      const imageUploadDiv = roomSection.querySelector('.image-upload');
 
-    uploadedImages.push(file);
+      if (!previewContainer) return;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const img = document.createElement("img");
-        img.src = e.target.result;
-        img.style.maxWidth = "120px";
-        img.style.borderRadius = "8px";
-        previewContainer.appendChild(img);
-    };
-    reader.readAsDataURL(file);
-    });
+      const existingImages = previewContainer.querySelectorAll('.preview-image').length;
+      const newFiles = Array.from(input.files);
 
-    input.value = ""; // reset input
+      if (existingImages + newFiles.length > MAX_IMAGES) {
+        alert(`You can upload up to ${MAX_IMAGES} images in total.`);
+        return;
+      }
 
-    if (uploadedImages.length >= MAX_IMAGES) {
-    uploadBox.style.display = 'none';
+      newFiles.forEach(file => {
+        if (!file.type.startsWith("image/")) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const wrapper = document.createElement('div');
+          wrapper.style.position = 'relative';
+          wrapper.style.display = 'inline-block';
+
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.classList.add('preview-image');
+          img.style.maxWidth = "120px";
+          img.style.borderRadius = "8px";
+          img.style.margin = "5px";
+
+          // ✅ Create delete button
+          const deleteBtn = document.createElement('span');
+          deleteBtn.textContent = '×';
+          deleteBtn.style.position = 'absolute';
+          deleteBtn.style.top = '0px';
+          deleteBtn.style.right = '5px';
+          deleteBtn.style.cursor = 'pointer';
+          deleteBtn.style.color = 'red';
+          deleteBtn.style.fontSize = '20px';
+
+          deleteBtn.addEventListener('click', function () {
+            wrapper.remove();
+
+            // ✅ If images less than max, keep uploadBox shown
+            const totalImages = previewContainer.querySelectorAll('.preview-image').length;
+            if (totalImages < MAX_IMAGES) {
+              uploadBox.style.display = 'flex';
+            }
+
+            // ✅ If no images, show imageUpload again and hide uploadBox
+            if (totalImages === 0) {
+              imageUploadDiv.style.display = 'flex';
+              uploadBox.style.display = 'none';
+            }
+          });
+
+          wrapper.appendChild(img);
+          wrapper.appendChild(deleteBtn);
+          previewContainer.appendChild(wrapper);
+
+          // ✅ After first upload: hide imageUpload div, show uploadBox
+          imageUploadDiv.style.display = 'none';
+          uploadBox.style.display = 'flex';
+
+          // ✅ Hide uploadBox if reach max images
+          const totalImages = previewContainer.querySelectorAll('.preview-image').length;
+          if (totalImages >= MAX_IMAGES) {
+            uploadBox.style.display = 'none';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     }
+  });
 });
+

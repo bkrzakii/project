@@ -258,10 +258,6 @@ h3 {
 }
 
 
-
-
-
-
 .image-upload {
     display: flex;
     flex-direction: row;
@@ -304,6 +300,17 @@ h3 {
     font-size: 50px;
     margin: 10px 10px;
 }
+
+.upload-box{
+    display: none;
+      width: 120px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 24px;
+}
+
 /* 🔹 Universal Responsive Design */
 @media screen and (max-width: 1024px) {
     * {

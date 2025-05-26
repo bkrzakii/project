@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "hotel_db");
+$conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -31,7 +31,7 @@ if ($conn->connect_error) {
                     <a href="#">Forgot Password?</a>
                 </div>
                 <button type="submit" class="btn" name="submit1">Login</button>
-                <p>or login with social platforms</p>
+                <p>see our social platforms</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
                     <a href="#"><i class='bx bxl-facebook'></i></a>
@@ -43,17 +43,23 @@ if ($conn->connect_error) {
             if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
-                $stmt = $conn->prepare("SELECT pswd FROM user WHERE username = ?");
+                $stmt = $conn->prepare("SELECT pswd, user_id, verification_image FROM users WHERE username = ?");
                 $stmt->bind_param("s", $username);
                 $stmt->execute();
                 $stmt->store_result();
                 if ($stmt->num_rows == 1) {
-                    $stmt->bind_result($hashedPasswordFromDB);
+                    $stmt->bind_result($hashedPasswordFromDB, $user_id, $verificationImage);
                     $stmt->fetch();
             
-                    if (password_verify($password, $hashedPasswordFromDB)) {
-                        header("Location: ../html/user/home.html");
-                    } else {
+                    if (password_verify($password, $hashedPasswordFromDB) && is_null($verificationImage)) {
+                        header("Location: ../html/user/home.php?id=" . $user_id);
+                    } else if(password_verify($password, $hashedPasswordFromDB) && !is_null($verificationImage)){
+                        $sql = "SELECT hotel_id FROM hotels WHERE hotel_owner = $user_id ";
+                        $result = $conn->query($sql);
+                        if ($result && $result->num_rows > 0) {
+                            $hotel = $result->fetch_assoc();
+                            header("Location: ../html/business/dashboard/statistics.php?id=" . $user_id . "&hotelId=". $hotel_id);}
+                    }else {
                         echo " <script>alert('Error: Password incorrect or Username not found');</script>";
                     }
                     $stmt->close();
@@ -62,6 +68,13 @@ if ($conn->connect_error) {
             }
             ?>
         </div>
+
+
+
+
+
+
+
 
 
         <div class="form-box register">
@@ -80,7 +93,7 @@ if ($conn->connect_error) {
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" name="submit" class="btn" >Continue</button>
-                <p>or register with social platforms</p>
+                <p>see our social platforms</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
                     <a href="#"><i class='bx bxl-facebook'></i></a>
@@ -94,13 +107,13 @@ if ($conn->connect_error) {
                     $email = $_POST['email'];
                     $password = $_POST['password'];
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare("INSERT INTO user (username, email, pswd) VALUES (?, ?, ?)");
+                    $stmt = $conn->prepare("INSERT INTO users (username, email, pswd) VALUES (?, ?, ?)");
                     $stmt->bind_param("sss", $username, $email, $hashedPassword);
-                    if ($stmt->execute()) {
-                        header("Location: ../html/user/home.html");
-                        exit();
-                    } else {
+                    
+                    if (!$stmt->execute()) {
                         echo "<script>alert('Error: " . $sql . "<br>" . $conn->error . "');</script>";
+                    }else {
+                        echo "<script>alert('Registration successful!, Now LOGIN ');</script>";
                     }
                     $conn->close();
                 }
