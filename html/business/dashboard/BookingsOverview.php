@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 
 // Query
 $sql = "SELECT 
-            booking.NumRoom,
+            booking.room_id,
             booking.Fname,
             booking.Lname,
             rooms.type AS room_type,
