@@ -4,40 +4,45 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $conn = new mysqli("localhost", "root", "", "hotel_db");
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['userId'];
-$hotelId = $_GET['hotelId'] ?? null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['booking_id'])) {
-  $newStatus = $_POST['status'];
-  $bookingId = (int) $_POST['booking_id'];
-  $stmt = $conn->prepare("UPDATE booking SET booking_status = ? WHERE booking_id = ?");
-  $stmt->bind_param("si", $newStatus, $bookingId);
-  $stmt->execute();
-  $stmt->close();
-}
 
+// Query
+$sql = "SELECT 
+            booking.room_id,
+            booking.Fname,
+            booking.Lname,
+            rooms.type AS room_type,
+            booking.dateFrom,
+            booking.dateTo,
+            rooms.payment AS payment_method,
+            rooms.status AS room_status
+        FROM booking
+        LEFT JOIN rooms ON booking.room_id = rooms.room_id";
+
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bookings Overview - BookingDZ</title>
+  <title>Bookings Overview</title>
   <link rel="stylesheet" href="../../../css/business/dashboard/BookingsOverview.css"/>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
   <header>
-    <div class="logo">BookingDZ</div>
+    <div class="logo">LOGO</div>
     <nav>
       <ul>
-        <li><a href="../../user/home.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
-        <li><a href="../../user/service.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
-        <li><a href="../../user/about.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
-        <li><a href="../../user/contact.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+        
+        <li><a href="../../user/home.html"></a></li>li><a href="../../user/service.html">Service</a></li>
+        <li><a href="../../user/about.html">About</a></li>
+        <li><a href="../../user/contact.html">Contact</a></li>
         <li><a href="#" class="active">Dashboard</a></li>
       </ul>
     </nav>
@@ -46,25 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
         <i class='bx bxs-user-circle'></i>
       </button>
       <div class="user-info" id="user-info">
-        <img class="user-img" src="../../../pics/admin.jpg" alt="User">
+        <img class="user-img" src="/pics/admin.jpg" alt="">
         <div class="user-details">
-          <?php
-                    $sql = "SELECT
-                        users.username,
-                        users.phoneNbr,
-                        users.email 
-                    FROM users WHERE user_id = $userId";
-                    $result = $conn->query($sql);
-                    if ($result && $result->num_rows > 0) {
-                        $user = $result->fetch_assoc();
-                        echo "<h3>my profile</h3>";
-                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
-                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
-                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
-                    }
-                ?>
+          <h3>My Profile</h3>
+          <p>boukrouna zakaria</p>
+          <p>phone number</p>
+          <p>email</p>
         </div>
-        <a href="../../SignUp_LogIn_Form.php" class="logout">Logout</a>
+        <a class="business" href="../business/owner-info.html">Switch to Business Account</a>
+        <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
       </div>
     </div>
   </header>
@@ -72,9 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
   <main class="main">
     <div class="sidebar">
       <ul>
-        <li><a href="../../business/dashboard/Statistics.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
-          <i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Statistics</a></li>
-        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a></li>
+        <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i> Statistics</a></li>
+        <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i> Room Management</a></li>
+        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
+        <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
       </ul>
     </div>
 
@@ -87,65 +83,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
               <th>RoomNum</th>
               <th>F.Name</th>
               <th>L.Name</th>
-              <th>Room_Type</th>
-              <th>Date_IN</th>
-              <th>Date_OUT</th>
-              <th>Price</th>
+              <th>Type</th>
+              <th>Date IN</th>
+              <th>Date OUT</th>
+              <th>Payment</th>
               <th>Status</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             <?php
-              // Query updated based on actual column names
-              $sql = "SELECT 
-              booking.booking_id,
-              booking.room_id,
-              booking.Fname,
-              booking.Lname,
-              rooms.room_type AS room_type,
-              booking.dateFrom,
-              booking.dateTo,
-              booking.total_price,
-              booking.booking_status
-              FROM booking
-              LEFT JOIN rooms ON booking.room_id = rooms.room_id
-              WHERE hotel_id = $hotelId";
-
-              $result = $conn->query($sql);
               if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr>
-                    <td>{$row['room_id']}</td>
+                    <td>{$row['NumRoom']}</td>
                     <td>{$row['Fname']}</td>
                     <td>{$row['Lname']}</td>
                     <td>{$row['room_type']}</td>
                     <td>{$row['dateFrom']}</td>
                     <td>{$row['dateTo']}</td>
-                    <td>{$row['total_price']}</td> 
-                    <td>";
-                    if ($row['booking_status'] == 'pending') {
-                      echo "<i class=\"fa-solid fa-arrows-rotate\"></i>&nbsp;&nbsp;{$row['booking_status']}";
-                    } elseif ($row['booking_status'] == 'accepted') {
-                      echo "<i class=\"fa-solid fa-circle-check\"></i>&nbsp;&nbsp;{$row['booking_status']}";
-                    } elseif ($row['booking_status'] == 'refused') {
-                      echo "<i class=\"fa-solid fa-circle-xmark\"></i>&nbsp;&nbsp;{$row['booking_status']}";
-                    }?>
-                    </td>
-                    <td>
-                      <i class="fa-solid fa-pen-to-square" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';"></i>
-                      <form method='POST' style="display: none;">
-                      <input type='hidden' name='booking_id' value="<?php echo $row['booking_id']; ?>">
-                        <select name='status'>
-                          <option value='pending' >Pending</option>
-                          <option value='accepted' >Accepted</option>
-                          <option value='refused'>Refused</option>
-                        </select>
-                        <button type='submit'><i class="fa-solid fa-check"></i></button>
-                      </form>
-                    </td>
-                  </tr>
-                <?php }
+                    <td>{$row['payment_method']}</td>
+                    <td>{$row['room_status']}</td>
+                  </tr>";
+                }
               } else {
                 echo "<tr><td colspan='8'>No bookings found</td></tr>";
               }
@@ -158,5 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
   </main>
 
   <script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
+  <script src="../../../js/business/dashboard/BookingsOverview.js" defer></script>
 </body>
 </html>
+

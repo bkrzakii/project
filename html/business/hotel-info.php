@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['userId'] ?? null;
+$userId = $_GET['id'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,8 +70,8 @@ $userId = $_GET['userId'] ?? null;
         $rate = '0'; // Default rate
 
         // 1. Insert hotel_info (once)
-        $stmt = $conn->prepare("INSERT INTO hotels (hotel_name, hotel_email, hotel_phoneNbr, hotel_address, hotel_description, hotel_owner, hotel_rate) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssss", $hotelName, $email, $phone, $address, $description, $userId, $rate);
+        $stmt = $conn->prepare("INSERT INTO hotel_info (hotel_name, hotel_email, hotel_phoneNbr, hotel_address, hotel_description, hotel_owner, hotel_rate) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $hotelName, $email, $phone, $address, $description, $ownerId, $rate);
         if ($stmt->execute()) {
             $hotelId = $conn->insert_id;
 
