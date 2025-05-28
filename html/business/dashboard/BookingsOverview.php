@@ -8,8 +8,6 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-<<<<<<< HEAD
-=======
 $userId = $_GET['userId'];
 $hotelId = $_GET['hotelId'] ?? null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['booking_id'])) {
@@ -20,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_
   $stmt->execute();
   $stmt->close();
 }
->>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
 
 // Query
 $sql = "SELECT 
@@ -52,17 +49,10 @@ $result = $conn->query($sql);
     <div class="logo">LOGO</div>
     <nav>
       <ul>
-<<<<<<< HEAD
-        
-        <li><a href="../../user/home.html"></a></li>li><a href="../../user/service.html">Service</a></li>
-        <li><a href="../../user/about.html">About</a></li>
-        <li><a href="../../user/contact.html">Contact</a></li>
-=======
         <li><a href="../../user/home.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
         <li><a href="../../user/service.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
         <li><a href="../../user/about.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
         <li><a href="../../user/contact.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
->>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
         <li><a href="#" class="active">Dashboard</a></li>
       </ul>
     </nav>
@@ -73,12 +63,6 @@ $result = $conn->query($sql);
       <div class="user-info" id="user-info">
         <img class="user-img" src="/pics/admin.jpg" alt="">
         <div class="user-details">
-<<<<<<< HEAD
-          <h3>My Profile</h3>
-          <p>boukrouna zakaria</p>
-          <p>phone number</p>
-          <p>email</p>
-=======
           <?php
                     $sql = "SELECT
                         users.username,
@@ -94,7 +78,6 @@ $result = $conn->query($sql);
                         echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
                     }
                 ?>
->>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
         </div>
         <a class="business" href="../business/owner-info.html">Switch to Business Account</a>
         <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
@@ -105,16 +88,9 @@ $result = $conn->query($sql);
   <main class="main">
     <div class="sidebar">
       <ul>
-<<<<<<< HEAD
-        <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i> Statistics</a></li>
-        <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i> Room Management</a></li>
-        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
-        <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
-=======
         <li><a href="../../business/dashboard/Statistics.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
           <i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Statistics</a></li>
         <li><a href="#" class="active"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a></li>
->>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
       </ul>
     </div>
 
@@ -136,8 +112,6 @@ $result = $conn->query($sql);
           </thead>
           <tbody>
             <?php
-<<<<<<< HEAD
-=======
               // Query updated based on actual column names
               $sql = "SELECT 
               booking.booking_id,
@@ -154,7 +128,6 @@ $result = $conn->query($sql);
               WHERE hotel_id = $hotelId";
 
               $result = $conn->query($sql);
->>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
               if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr>
@@ -164,12 +137,6 @@ $result = $conn->query($sql);
                     <td>{$row['room_type']}</td>
                     <td>{$row['dateFrom']}</td>
                     <td>{$row['dateTo']}</td>
-<<<<<<< HEAD
-                    <td>{$row['payment_method']}</td>
-                    <td>{$row['room_status']}</td>
-                  </tr>";
-                }
-=======
                     <td>{$row['total_price']}</td> 
                     <td>";
                     if ($row['booking_status'] == 'pending') {
@@ -194,7 +161,6 @@ $result = $conn->query($sql);
                     </td>
                   </tr>
                 <?php }
->>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
               } else {
                 echo "<tr><td colspan='8'>No bookings found</td></tr>";
               }
