@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['id'] ?? null;
+$userId = $_GET['userId'] ?? null;
 $hotelId = $_GET['hotelId'] ?? null;
 ?>
 <!DOCTYPE html>
@@ -268,22 +268,19 @@ $hotelId = $_GET['hotelId'] ?? null;
           $rooms = $_POST['rooms'] ?? [];
           $totalRooms = $_POST['Rooms'] ?? 0;
 
-          // Process each room
           foreach ($rooms as $index => $room) {
-            $type = $conn->real_escape_string($room['type']);
-            $occupancy = $conn->real_escape_string($room['occupancy']);
-            $amenities = isset($room['amenities']) ? implode(",", $room['amenities']) : '';
-            $price = $conn->real_escape_string($room['price']);
-            $maxRooms = $conn->real_escape_string($room['Max']);
-        
-            // Insert room data
-            $stmt = $conn->prepare("INSERT INTO room_info (hotel_id, room_type, room_capacity, amenities, room_price, matching_rooms) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $hotelId, $type, $occupancy, $amenities, $price, $maxRooms);
-        
-            if ($stmt->execute()) {
-                $roomId = $conn->insert_id;
-        
-                // === Handle Image Upload ===
+              $type = $conn->real_escape_string($room['type']);
+              $occupancy = $conn->real_escape_string($room['occupancy']);
+              $price = $conn->real_escape_string($room['price']);
+              $maxRooms = $conn->real_escape_string($room['Max']);
+
+              $stmt = $conn->prepare("INSERT INTO rooms (hotel_id, room_type, room_capacity, room_price, matching_rooms) VALUES (?, ?, ?, ?, ?)");
+              $stmt->bind_param("sssss", $hotelId, $type, $occupancy, $price, $maxRooms);
+
+              if ($stmt->execute()) {
+                  $roomId = $conn->insert_id;
+
+                  // === Handle Image Upload ===
                 if (
                     isset($_FILES['rooms']['name'][$index]['image']) &&
                     is_array($_FILES['rooms']['name'][$index]['image'])
@@ -320,39 +317,40 @@ $hotelId = $_GET['hotelId'] ?? null;
                         }
                     }
                 }
-        
-                $stmt->close();
-            } else {
-                echo "<script>alert('Error adding room $index');</script>";
-            }
-        }
-        
-            $sql ="SELECT id FROM room_info WHERE hotel_id = $hotelId";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
-                $roomIds = array();
-                while ($row = $result->fetch_assoc()) {
-                    $roomIds[] = $row['id'];
-                }
-                $roomId = implode(",", $roomIds);
-            } else {
-                echo "<script>alert('No rooms found for this hotel.');</script>";
-                $roomId = ""; // prevent passing undefined variable
-            }
-            $stmtRooms = $conn->prepare("UPDATE hotel_info SET rooms_total = ?, rooms = ?  WHERE id = ?");
-            if ($stmtRooms === false) {
-                die("Prepare failed: " . htmlspecialchars($conn->error));
-            }
-            $stmtRooms->bind_param("ssi", $totalRooms, $roomId, $hotelId); // lowercase 'r'
-            $stmtRooms->execute();
-            if($stmtRooms->close()){
-              // Redirect to Features.php with the hotel ID
-              echo "<script>window.location.href = 'Features.php??userId=$userId&id=$hotelId';</script>";
-            }
-            exit();
-        }
-          ob_end_flush();
+
+                  // Handle amenities
+                  $amenities = $room['amenities'] ?? [];
+                  if (!empty($amenities)) {
+                      $stmtAmenity = $conn->prepare("INSERT INTO room_amenities (room_id, amenity_id) VALUES (?, ?)");
+                      foreach ($amenities as $amenity_id) {
+                          $stmtAmenity->bind_param("ii", $roomId, $amenity_id);
+                          $stmtAmenity->execute();
+                      }
+                      $stmtAmenity->close();
+                  }
+
+                  $stmt->close();
+              } else {
+                  echo "<script>alert('Error adding room $index');</script>";
+              }
+          }
+
+          // Update total rooms in hotel
+          $stmtRooms = $conn->prepare("UPDATE hotels SET rooms_total = ? WHERE hotel_id = ?");
+          if ($stmtRooms === false) {
+              die("Prepare failed: " . htmlspecialchars($conn->error));
+          }
+          $stmtRooms->bind_param("ii", $totalRooms, $hotelId);
+          $stmtRooms->execute();
+          $stmtRooms->close();
+
+          // Redirect after success
+          echo "<script>window.location.href = 'Features.php?userId=$userId&hotelId=$hotelId';</script>";
+          exit();
+      }
+      ob_end_flush();
       ?>
+
   </main>
 
 <script src="../../js/business/rooms-info.js" defer></script>

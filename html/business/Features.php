@@ -3,7 +3,7 @@ $conn = new mysqli("localhost", "zakii", "bkrbkrbkr", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$userId = $_GET['id'];
+$userId = $_GET['userId'];
 $hotelId = $_GET['hotelId'] ?? null;
 ?>
 <!DOCTYPE html>
@@ -115,8 +115,7 @@ $hotelId = $_GET['hotelId'] ?? null;
           <button type="submit" class="btn btn-primary"><i class='bx bx-check-square'></i> Submit</button>
         </form>
         <?php
-        $hotelId = isset($_GET['id']) ? intval($_GET['id']) : null;
-        if (!$hotelId) {
+        if (!$hotelId  || !$userId) {
           echo "<script>alert('Missing or invalid owner ID.');</script>";
           exit;
         }
@@ -124,20 +123,13 @@ $hotelId = $_GET['hotelId'] ?? null;
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $features = $_POST['features'] ?? [];
             // Convert features array to a comma-separated string
-            $featuresString = implode(",", $features);
-            $sql = "SELECT hotel_owner FROM hotel_info WHERE id = $hotelId";
-            $result = $conn->query($sql);
-            if ($result && $result->num_rows > 0) {
-              $row = $result->fetch_assoc();
-              $ownerId = $row['hotel_owner'];
-            }
-
-            // Insert into the database (assuming you have a table for features)
-            $stmt = $conn->prepare("UPDATE hotel_info SET features = ? WHERE id = ?");
-            $stmt->bind_param("si",$featuresString, $hotelId);
-
-            if ($stmt->execute()) {
-              echo "<script>window.location.href = '../../html/business/dashboard/Statistics.php?id=$ownerId&hotelId=$hotelId';</script>";
+            if (!empty($features)){
+            $stmt = $conn->prepare("INSERT INTO hotel_features (hotel_id, feature_id) VALUES (?, ?)");
+              foreach ($features as $feature_id) {
+                  $stmt->bind_param("ii", $hotelId, $feature_id);
+                  $stmt->execute();
+                }
+                echo "<script>window.location.href = '../../html/business/dashboard/Statistics.php?userId=$userId&hotelId=$hotelId';</script>";
           } else {
                 echo "<script>alert('Error adding features');</script>";
             }

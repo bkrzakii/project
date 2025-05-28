@@ -8,6 +8,19 @@ $conn = new mysqli("localhost", "root", "", "hotel_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+<<<<<<< HEAD
+=======
+$userId = $_GET['userId'];
+$hotelId = $_GET['hotelId'] ?? null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['booking_id'])) {
+  $newStatus = $_POST['status'];
+  $bookingId = (int) $_POST['booking_id'];
+  $stmt = $conn->prepare("UPDATE booking SET booking_status = ? WHERE booking_id = ?");
+  $stmt->bind_param("si", $newStatus, $bookingId);
+  $stmt->execute();
+  $stmt->close();
+}
+>>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
 
 // Query
 $sql = "SELECT 
@@ -39,10 +52,17 @@ $result = $conn->query($sql);
     <div class="logo">LOGO</div>
     <nav>
       <ul>
+<<<<<<< HEAD
         
         <li><a href="../../user/home.html"></a></li>li><a href="../../user/service.html">Service</a></li>
         <li><a href="../../user/about.html">About</a></li>
         <li><a href="../../user/contact.html">Contact</a></li>
+=======
+        <li><a href="../../user/home.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Home</a></li>
+        <li><a href="../../user/service.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Hotels</a></li>
+        <li><a href="../../user/about.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">About</a></li>
+        <li><a href="../../user/contact.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">Contact</a></li>
+>>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
         <li><a href="#" class="active">Dashboard</a></li>
       </ul>
     </nav>
@@ -53,10 +73,28 @@ $result = $conn->query($sql);
       <div class="user-info" id="user-info">
         <img class="user-img" src="/pics/admin.jpg" alt="">
         <div class="user-details">
+<<<<<<< HEAD
           <h3>My Profile</h3>
           <p>boukrouna zakaria</p>
           <p>phone number</p>
           <p>email</p>
+=======
+          <?php
+                    $sql = "SELECT
+                        users.username,
+                        users.phoneNbr,
+                        users.email 
+                    FROM users WHERE user_id = $userId";
+                    $result = $conn->query($sql);
+                    if ($result && $result->num_rows > 0) {
+                        $user = $result->fetch_assoc();
+                        echo "<h3>my profile</h3>";
+                        echo "<p>" . htmlspecialchars($user['username']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['email']) . "</p>";
+                        echo "<p>" . htmlspecialchars($user['phoneNbr']) . "</p>";
+                    }
+                ?>
+>>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
         </div>
         <a class="business" href="../business/owner-info.html">Switch to Business Account</a>
         <a href="../SignUp_LogIn_Form.html" class="logout">Logout</a>
@@ -67,10 +105,16 @@ $result = $conn->query($sql);
   <main class="main">
     <div class="sidebar">
       <ul>
+<<<<<<< HEAD
         <li><a href="../../business/dashboard/Statistics.html"><i class="fas fa-chart-pie"></i> Statistics</a></li>
         <li><a href="../../business/dashboard/RoomManagement.html"><i class="fas fa-bed"></i> Room Management</a></li>
         <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> Bookings Overview</a></li>
         <li><a href="../../business/dashboard/Messages&Feedback.html"><i class="fas fa-envelope"></i> Messages & Feedback</a></li>
+=======
+        <li><a href="../../business/dashboard/Statistics.php?userId=<?php echo $userId; ?>&hotelId=<?php echo $hotelId?>">
+          <i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Statistics</a></li>
+        <li><a href="#" class="active"><i class="fas fa-calendar-check"></i>&nbsp;&nbsp;Bookings Overview</a></li>
+>>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
       </ul>
     </div>
 
@@ -92,19 +136,65 @@ $result = $conn->query($sql);
           </thead>
           <tbody>
             <?php
+<<<<<<< HEAD
+=======
+              // Query updated based on actual column names
+              $sql = "SELECT 
+              booking.booking_id,
+              booking.room_id,
+              booking.Fname,
+              booking.Lname,
+              rooms.room_type AS room_type,
+              booking.dateFrom,
+              booking.dateTo,
+              booking.total_price,
+              booking.booking_status
+              FROM booking
+              LEFT JOIN rooms ON booking.room_id = rooms.room_id
+              WHERE hotel_id = $hotelId";
+
+              $result = $conn->query($sql);
+>>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
               if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr>
-                    <td>{$row['NumRoom']}</td>
+                    <td>{$row['room_id']}</td>
                     <td>{$row['Fname']}</td>
                     <td>{$row['Lname']}</td>
                     <td>{$row['room_type']}</td>
                     <td>{$row['dateFrom']}</td>
                     <td>{$row['dateTo']}</td>
+<<<<<<< HEAD
                     <td>{$row['payment_method']}</td>
                     <td>{$row['room_status']}</td>
                   </tr>";
                 }
+=======
+                    <td>{$row['total_price']}</td> 
+                    <td>";
+                    if ($row['booking_status'] == 'pending') {
+                      echo "<i class=\"fa-solid fa-arrows-rotate\"></i>&nbsp;&nbsp;{$row['booking_status']}";
+                    } elseif ($row['booking_status'] == 'accepted') {
+                      echo "<i class=\"fa-solid fa-circle-check\"></i>&nbsp;&nbsp;{$row['booking_status']}";
+                    } elseif ($row['booking_status'] == 'refused') {
+                      echo "<i class=\"fa-solid fa-circle-xmark\"></i>&nbsp;&nbsp;{$row['booking_status']}";
+                    }?>
+                    </td>
+                    <td>
+                      <i class="fa-solid fa-pen-to-square" onclick="this.nextElementSibling.style.display='block'; this.style.display='none';"></i>
+                      <form method='POST' style="display: none;">
+                      <input type='hidden' name='booking_id' value="<?php echo $row['booking_id']; ?>">
+                        <select name='status'>
+                          <option value='pending' >Pending</option>
+                          <option value='accepted' >Accepted</option>
+                          <option value='refused'>Refused</option>
+                        </select>
+                        <button type='submit'><i class="fa-solid fa-check"></i></button>
+                      </form>
+                    </td>
+                  </tr>
+                <?php }
+>>>>>>> bb567b7083ce8fd85ff5b01f945d2ed9bdefd477
               } else {
                 echo "<tr><td colspan='8'>No bookings found</td></tr>";
               }
